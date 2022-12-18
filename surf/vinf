@@ -12,16 +12,18 @@
 
 # Tell all
 echo "
-Vrk Repo:   $VRKUPDATEREPO
-CPU:        $CPUPKGVER
-Distro:     $LINUX_DESKTOP
+Vrk Repo:           $VRKUPDATEREPO
+Archtctr:           $ARCHITECTURE
+Distro:             $LINUX_DESKTOP
 
-vDeskop:    $VRK_DESKTOP_INSTALLED
-StudioLite: $VRK_STUDIOLITE_INSTALLED
-DesktopSet: $VRK_DESKTOP_SET
+Deskop Basics:      $VRK_DESKTOP_INSTALLED
+Studio Lite:        $VRK_STUDIOLITE_INSTALLED
+Studio Hevy:        $VRK_STUDIOHEVY_INSTALLED
+Developer Tools:    $VRK_DEVELOPER_INSTALLED
+Desktop Set:        $VRK_DESKTOP_SET
 
-User Boss?: $USER_BOSSYN
-Cloud:      $VRK_CLOUD_DIR
-Work:       $VRK_WORK_DIR
-Vrk Verno:  $USER_KVERNO"
+User Boss?:         $USER_BOSSYN
+Cloud:              $VRK_CLOUD_DIR
+Work:               $VRK_WORK_DIR
+Vrk Verno:          $USER_KVERNO"
 

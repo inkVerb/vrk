@@ -49,5 +49,8 @@ exit 22; fi
 # Vrk Developer
 /opt/vrk/boss/install-vrk-developer
 
+# Vrk StudioLite
+/opt/vrk/boss/install-vrk-studiolite
+
 # Message
 echo "Now you can run set-mi-desktop"

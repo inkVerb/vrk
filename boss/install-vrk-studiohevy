@@ -6,7 +6,7 @@
 ## Prerequesite: Vrk™ must be installed
 
 # How to use:
-## sudo install-vrk-studiolite
+## sudo install-vrk-studiohevy
 
 
 # Set user
@@ -29,14 +29,14 @@ if [ "$(id -u)" = "0" ]; then
  if [ -z "${SUDO_COMMAND}" ]; then
 echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
 like this:
-sudo install-vrk-studiolite
+sudo install-vrk-studiohevy
 "
 exit 22; fi; fi
 ## If sudo is NOT present
 if [ -z "${SUDO_COMMAND}" ]; then
 echo "Run this as a sudoer sudo, not merely as a sudoer.
 like this:
-sudo install-vrk-studiolite
+sudo install-vrk-studiohevy
 "
 exit 22; fi
 
@@ -70,76 +70,116 @@ exit 22; fi
 
 # Message
 echo "
-Installing Vrk StudioLite...
+Installing Vrk StudioHeavy...
 "
 sleep 1
 
-# Terminal Design Tools
-chkfile=/opt/vrk/.inst-stult-1
+# Heavy Graphic Design
+chkfile=/opt/vrk/.inst-stuhv-1
 if [ ! -f "$chkfile" ]; then
 echo "
 #######
-Terminal Design Tools
+Heavy Graphic Design
 #######
 "
 sleep 1
-/usr/bin/pacman -S --noconfirm imagemagick
-/usr/bin/pacman -S --noconfirm pandoc
-/usr/bin/pacman -S --noconfirm synfig
-/usr/bin/pacman -S --noconfirm ffmpeg
+/usr/bin/pacman -S --noconfirm darktable
+/usr/bin/pacman -S --noconfirm blender
+/usr/bin/pacman -S --noconfirm scribus
+/usr/bin/pacman -S --noconfirm synfigstudio
 touch $chkfile; fi
 
-## Graphic Design
-chkfile=/opt/vrk/.inst-stult-2
+# Heavy Video
+chkfile=/opt/vrk/.inst-stuhv-2
 if [ ! -f "$chkfile" ]; then
 echo "
 #######
-Graphic Design
+Heavy Video
 #######
 "
 sleep 1
-/usr/bin/pacman -S --noconfirm gimp
-/usr/bin/pacman -S --noconfirm inkscape
-# CMYK for inkscape
-/opt/vrk/boss/install-pdfcmyk
-/usr/bin/pacman -S --noconfirm mypaint
-/usr/bin/su ${SUDO_USER}-c 'yay -S --noconfirm gimp-plugin-registry'
+/usr/bin/pacman -S --noconfirm kdenlive
+/usr/bin/su ${SUDO_USER}-c 'yay -S --noconfirm subtitleedit'
+/usr/bin/su ${SUDO_USER}-c 'yay -S --noconfirm subtitlecomposer'
 touch $chkfile; fi
 
-# Video Making
-chkfile=/opt/vrk/.inst-stult-3
+# Heavy Audio
+chkfile=/opt/vrk/.inst-stuhv-3
 if [ ! -f "$chkfile" ]; then
 echo "
 #######
-Video Making
+Heavy Audio
 #######
 "
 sleep 1
-/usr/bin/pacman -S --noconfirm obs-studio
-/usr/bin/pacman -S --noconfirm shotcut
-/usr/bin/su ${SUDO_USER}-c 'yay -S --noconfirm key-mon'
+/usr/bin/pacman -S --noconfirm musescore
+/usr/bin/pacman -S --noconfirm gpodder
+/usr/bin/pacman -S --noconfirm lmms
+/usr/bin/pacman -S --noconfirm ardour
+/usr/bin/pacman -S --noconfirm mixxx
+/usr/bin/pacman -S --noconfirm muse
 touch $chkfile; fi
 
-# Audacity
-chkfile=/opt/vrk/.inst-stult-4
+# Disk Tools
+chkfile=/opt/vrk/.inst-stuhv-4
 if [ ! -f "$chkfile" ]; then
 echo "
 #######
-Audacity
+DVD Tools
 #######
 "
 sleep 1
-/usr/bin/pacman -S --noconfirm audacity
+/usr/bin/pacman -S --noconfirm brasero
+touch $chkfile; fi
+brasero
+
+# Wine
+chkfile=/opt/vrk/.inst-stuhv-5
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Wine
+#######
+"
+sleep 1
+/usr/bin/pacman -S --noconfirm wine
+/usr/bin/pacman -S --noconfirm winetricks
+touch $chkfile; fi
+
+# Playonlinux
+chkfile=/opt/vrk/.inst-stuhv-6
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Playonlinux
+#######
+"
+sleep 1
+su ${SUDO_USER} -c 'yay -S --noconfirm playonlinux'
+touch $chkfile; fi
+
+# RSS
+chkfile=/opt/vrk/.inst-stuhv-7
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Really Slick Screensavers
+#######
+"
+sleep 1
+/usr/bin/su ${SUDO_USER}-c 'yay -S --noconfirm rss-glx'
+killall xscreensaver
+/usr/bin/rss-glx_install.pl # installs more screensavers, including Helios
 touch $chkfile; fi
 
 # Remove every $chkfile
-rm /opt/vrk/.inst-stult-*
+rm /opt/vrk/.inst-stuhv-*
 
 # Set config
-echo "VRK_STUDIOLITE_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo
-touch /home/${SUDO_USER}/.vrk/configs/.studiolite
+echo "VRK_STUDIOHEVY_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo
+touch /home/${SUDO_USER}/.vrk/configs/.studiohevy
 ## Remove repo temp progress files
-rm -f /opt/vrk/.vrk-studiolite-*
+rm -f /opt/vrk/.vrk-studiohevy-*
 
 # Cleanup
 /usr/bin/pacman -Qdt --noconfirm

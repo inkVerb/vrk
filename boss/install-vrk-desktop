@@ -238,21 +238,8 @@ su ${SUDO_USER} -c 'yay -S --noconfirm spotify'
 pamac -S --noconfirm xd -desktop-portal-gtk
 touch $chkfile; fi
 
-# Wine
-chkfile=/opt/vrk/.inst-dsktp-9
-if [ ! -f "$chkfile" ]; then
-echo "
-#######
-Wine
-#######
-"
-sleep 1
-/usr/bin/pacman -S --noconfirm wine
-/usr/bin/pacman -S --noconfirm winetricks
-touch $chkfile; fi
-
 # Disk Tools
-chkfile=/opt/vrk/.inst-dsktp-10
+chkfile=/opt/vrk/.inst-dsktp-9
 if [ ! -f "$chkfile" ]; then
 echo "
 #######
@@ -260,7 +247,6 @@ Disk Tools
 #######
 "
 sleep 1
-/usr/bin/pacman -S --noconfirm brasero
 /usr/bin/pacman -S --noconfirm gparted
 touch $chkfile; fi
 brasero
