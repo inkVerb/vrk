@@ -250,8 +250,21 @@ sleep 1
 /usr/bin/pacman -S --noconfirm gparted
 touch $chkfile; fi
 
-# RSS
+# Earth & Star Charts
 chkfile=/opt/vrk/.inst-dsktp-10
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Earth & Star Charts
+#######
+"
+sleep 1
+/usr/bin/su ${SUDO_USER}-c 'yay -S --noconfirm stellarium'
+/usr/bin/su ${SUDO_USER}-c 'yay -S --noconfirm google-earth-pro'
+touch $chkfile; fi
+
+# RSS
+chkfile=/opt/vrk/.inst-dsktp-11
 if [ ! -f "$chkfile" ]; then
 echo "
 #######
