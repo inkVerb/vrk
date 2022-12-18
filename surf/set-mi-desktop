@@ -153,6 +153,15 @@ gsettings set org.gnome.desktop.session idle-delay "uint32 0"
 #gsettings set org.gnome.desktop.session idle-delay "uint32 900" # 15 minutes
 #gsettings set org.gnome.desktop.session idle-delay "uint32 600" # 5 minutes
 
+# Screensaver settings
+xscreensaver-settings
+killall xscreensaver-settings
+killall xscreensaver > /dev/null 2>&1
+sed -i "s/^unfade:.*/unfade:         False/" ~/.xscreensaver
+sed -i "s/^fade:.*/fade:         False/" ~/.xscreensaver
+sed -i "s/^mode:.*/mode:           one/" ~/.xscreensaver
+sed -i "s/^selected:.*/selected:       $(grep -wn helios ~/.xscreensaver | cut -d: -f1)/" ~/.xscreensaver
+
 # ArcMenu
 gnome-extensions enable arcmenu@arcmenu.com
 gsettings set org.gnome.shell.extensions.arcmenu menu-button-icon 'Distro_Icon'

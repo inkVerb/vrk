@@ -249,7 +249,20 @@ Disk Tools
 sleep 1
 /usr/bin/pacman -S --noconfirm gparted
 touch $chkfile; fi
-brasero
+
+# RSS
+chkfile=/opt/vrk/.inst-dsktp-10
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Really Slick Screensavers
+#######
+"
+sleep 1
+/usr/bin/su ${SUDO_USER}-c 'yay -S --noconfirm rss-glx'
+killall xscreensaver > /dev/null 2>&1
+/usr/bin/rss-glx_install.pl # installs more screensavers, including Helios
+touch $chkfile; fi
 
 # Remove every $chkfile
 rm /opt/vrk/.inst-dsktp-*

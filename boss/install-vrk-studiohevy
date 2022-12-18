@@ -158,20 +158,6 @@ sleep 1
 su ${SUDO_USER} -c 'yay -S --noconfirm playonlinux'
 touch $chkfile; fi
 
-# RSS
-chkfile=/opt/vrk/.inst-stuhv-7
-if [ ! -f "$chkfile" ]; then
-echo "
-#######
-Really Slick Screensavers
-#######
-"
-sleep 1
-/usr/bin/su ${SUDO_USER}-c 'yay -S --noconfirm rss-glx'
-killall xscreensaver
-/usr/bin/rss-glx_install.pl # installs more screensavers, including Helios
-touch $chkfile; fi
-
 # Remove every $chkfile
 rm /opt/vrk/.inst-stuhv-*
 
