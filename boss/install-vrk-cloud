@@ -16,15 +16,15 @@
 
 
 # Set user
-if [ -z $1 ]; then
+if [ -z "$1" ]; then
 VRK_USER=${SUDO_USER}
 else
-VRK_USER=$1
+VRK_USER="$1"
 fi
 
 # Set Cloud
-if [ -n $2 ]; then
-CLOUD_CHOICE=$2
+if [ -n "$2" ]; then
+CLOUD_CHOICE="$2"
 fi
 
 # Check to make sure this is run as sudo, but not run by root
@@ -132,12 +132,13 @@ Enter nothing to not choose your main cloud now.
 Cloud folder - Exact name of cloud folder, case-sensitive. Type, then press <Enter>: (Leave empty to skip cloud integration.)"
 read CLOUD_CHOICE
 
-## If not entered
-if [ -z ${CLOUD_CHOICE} ]; then
-echo "You didn't enter your cloud folder, skilling cloud integration."
-exit 22.
-else
-echo "Using \"${CLOUD_CHOICE}\" as the cloud folder..."
+  ## If not entered
+  if [ -z ${CLOUD_CHOICE} ]; then
+  echo "You didn't enter your cloud folder, skilling cloud integration."
+  exit 22
+  else
+  echo "Using \"${CLOUD_CHOICE}\" as the cloud folder..."
+  fi
 fi
 
 ## Check if the cloud folder exists
@@ -157,7 +158,7 @@ exit 0
 fi
 
 ## Check if cloud entered
-if [ -n ${CLOUD_CHOICE} ]; then
+if [ -n "${CLOUD_CHOICE}" ]; then
 sudo -u ${VRK_USER} sed -i "s/VRK_CLOUD_DIR=.*/VRK_CLOUD_DIR=\"${CLOUD_CHOICE}\"/g" /home/${VRK_USER}/.vrk/configs/stationinfo
 ## Remove any pre-existing links (they create an impossible cp and mv loop that breaks this installer)
 if [ -L /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}" ]; then
@@ -246,7 +247,7 @@ echo "Cloud not entered. Skipping cloud integration. To install later use: insta
 fi
 
 # Finish
-if [ -n ${CLOUD_CHOICE} ]; then
+if [ -n "${CLOUD_CHOICE}" ]; then
 echo "Alright, Sparky! Vrk station is now syncing with ${CLOUD_CHOICE}.
 
 ${VRK_WORK_DIR}, Documents & Templates folders on this Vrk Station (computer) will be backed up to the \"${CLOUD_CHOICE}/Vrk\" folder, whenever ${CLOUD_CHOICE} is installed if it isn't already.

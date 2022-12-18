@@ -72,13 +72,6 @@ Installing Vrk Desktop...
 "
 sleep 1
 
-# Distro version
-release_num=$(lsb_release -r -s)
-
-# Change the Distro variable if re-installing per-desktop
-if [ -n "$1" ]; then
-LINUX_DESKTOP="$1"; fi
-
 # Global
 
 # Update & Upgrade
