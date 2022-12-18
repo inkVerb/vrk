@@ -1,6 +1,6 @@
 ssh-new-all                  # takes all SSH credentials and adds them everywhere, even creating an SSH key if it doesn't already exist
 
-  ?ssh-craft-key             # creates an SSH key that can be uploaded to a server for no-password login; included in addsshall IF the key doesn't already exist
+  ?ssh-craft-key             # creates an SSH key that can be uploaded to a server for no-password login
   
   ssh-new-surfer             # creates the .malibu file that the following configs are based on, these .malibu files can be useful later for thees following scripts
 
