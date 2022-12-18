@@ -76,13 +76,13 @@ For a a user to have boss/ folder permissions:
 # Developer info
 
 ## File hierarchy
-- `~/.vrk`:
+- `~/.vrk/`:
 
-1. `boards` lists the Vrk scripts you can use, tools to manage your system. Most of these are global and you can run them from any terminal.
-2. `configs` has stuff you only want to touch if you don't mind messing up everything and really want to learn how Vrk works.
-3. `donjon` has stuff that Bosses need, generally don't mess. But, there are some hidden goodies in there if you aren't afraid of the dragons.
-4. `go` has your quick scripts that let you SSH your way into remote servers very quickly and control them from the command line.
-   *Add "Go Surfers" by following the instructions in the "Go Surfers" instructions.*
+1. `boards/` lists the Vrk scripts you can use, tools to manage your system. Most of these are global and you can run them from any terminal.
+2. `configs/` has stuff you only want to touch if you don't mind messing up everything and really want to learn how Vrk works.
+3. `donjon/` has stuff that Bosses need, generally don't mess. But, there are some hidden goodies in there if you aren't afraid of the dragons.
+4. `malibu/` has your remote server credentials used to surf into remote servers with SSH and FileZilla.
+   *Add "Surfers" by following the instructions in the "Surfers" instructions.*
 
 - `/opt/vrk` is where the actual files and other assets exist, such as may useable in `$PATH`
 
@@ -95,13 +95,13 @@ For a a user to have boss/ folder permissions:
 - `install-mi-basic`: Desktop settings, plus tools for artists
 - `install-mi-all`: All of the above
 
-## Other Vrk tools
-- Manage SSH profiles & FileZilla integration `surf/ssh-*`
-- OpenVPN based on SSH profile `surf/vpn-add`
-- GitHub streamlined for simple use `surf/vgit*`
-- Vrk installation info via `vinf`
-- Recursive directory `sed` replacements via `vsed`
-- `tar` & `xz` a directory via `vtar`
+## Vrk tools
+- **Surfers**:Manage SSH profiles & FileZilla integration `surf/ssh-*`
+- **OpenVPN**: based on SSH profile `surf/vpn-add`
+- **GitHub**: streamlined for simple use `surf/vgit*`
+- **sed**: Recursive directory `sed` replacements via `vsed`
+- **tar**: `tar` & `xz` a directory via `vtar`
+- **Info**: Vrk installation info via `vinf`
 
 ## Hierarchies
 - Some commands are included in other commands
