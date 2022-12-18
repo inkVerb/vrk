@@ -1,0 +1,91 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+set -e
+
+# This creates a new GitHub repo locally via http or SSH
+## Prerequesite: vgitinst
+
+# NOTE: If you use the username and repo from the command line rather than from the dialogue, it will use ssh keys if you have them installed.
+
+# How to use:
+## vgitrepo [username - optional] [repo - optional]
+
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/.vgitinstdone ]; then
+echo "Run vgitinst first."
+exit 22
+fi
+
+# Username
+if [ -z "$1" ]; then
+ echo "Enter the GitHub repo's username:
+"
+ read GITRUNAME
+
+## Check if entered
+ if [ -z "${GITRUNAME}" ]; then
+ echo "You must enter the GitHub repo's username. It must exist on GitHub already and locally, and you must be in that working directory...
+(An https repo looks like: https://github.com/USERNAME/REPO.git)
+(An SSH repo looks like: git@github.com:USERNAME/REPO.git)
+Enter the GitHub repo's username:
+"
+ read GITRUNAME
+ fi
+ if [ -z "${GITRUNAME}" ]; then
+ echo "You didn't enter a GitHub repo's username. No changes made. I quit."
+ exit 22
+ fi
+else
+GITRUNAME=$1
+fi
+
+# Repo name
+if [ -z "$2" ]; then
+ echo "Enter the GitHub repo:
+"
+ read GITREPONAME
+
+## Check if entered
+ if [ -z "${GITREPONAME}" ]; then
+ echo "You must enter the GitHub repo.
+Enter your GitHub repo:
+"
+ read GITREPONAME
+ fi
+ if [ -z "${GITREPONAME}" ]; then
+ echo "You didn't enter a GitHub repo. No changes made. I quit."
+ exit 22
+ fi
+else
+GITREPONAME=$2
+fi
+
+# Do it
+## If not done already
+if [ ! -e "README.md" ]; then
+echo "# ${GITREPONAME}
+Created on my Vrk Station" >> README.md
+fi
+if [ ! -e "LICENSE" ]; then
+cat ~/.vrk/donjon/vgit/LICENSE > LICENSE
+echo "A GPLv3 license has been added."
+fi
+git init
+git add README.md
+git add LICENSE
+git add .
+git commit -m "first commit"
+
+## Push it
+if [ -z "$2" ]; then
+git remote add origin https://github.com/${GITRUNAME}/${GITREPONAME}.git
+else
+git remote add origin git@github.com:${GITRUNAME}/${GITREPONAME}.git
+fi
+git push -u origin master
+
+# Finish
+echo "GitHub repo ${GITRUNAME}/${GITREPONAME} is set up.
+"
+

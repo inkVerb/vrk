@@ -1,0 +1,74 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+
+# This sets the desktop background to an image in vall/rooms/...
+## You must choose the Room and the Image like so: ROOM/IMAGE.png
+## This allows Xfce to specify which monitor in the case of multiple monitors.
+
+# How to use:
+## set-vall ROOM IMAGE.EXT [monitor number 0-3 or higher numbers - optional, only Xfce, if blank will do first four monitors 0-3]
+
+# Eg:
+## set-vall mi Not-A-Mac.png 3
+
+
+VALLROOM=$1
+NEWIMAGE=$2
+XMNTR=$3
+
+## Check if Vall installed on this machine
+if [ ! -f /opt/vall/vallmachineinfo ]; then
+echo "Install Vall on this machine first. See README.md"
+exit 22; fi
+
+# Include the config
+. /opt/vall/vallmachineinfo
+
+# Check if it exists
+if [ ! -e "/usr/share/images/vall/${VALLROOM}/${NEWIMAGE}" ]; then
+echo "That does not exist! Check the vallroom and the picture."
+exit 0
+fi
+
+# Unity
+if [ "${VALL_LINUX_DESKTOP}" = "ubuntu" ]; then
+gsettings set org.gnome.desktop.background picture-uri file:///usr/share/images/vall/${VALLROOM}/${NEWIMAGE}
+fi
+
+# GNOME
+if [ "${VALL_LINUX_DESKTOP}" = "gnome" ]; then
+gsettings set org.gnome.desktop.background picture-uri file:///usr/share/images/vall/${VALLROOM}/${NEWIMAGE}
+fi
+
+# Budgie
+if [ "$VALL_LINUX_DESKTOP" = "budgie-desktop" ]; then
+gsettings set org.gnome.desktop.background picture-uri file:///usr/share/images/vall/${VALLROOM}/${NEWIMAGE}
+fi
+
+# Xfce/Mint-Xfce/UbuntuStudio
+if [ "${VALL_LINUX_DESKTOP}" = "xubuntu" ] || [ "${VALL_LINUX_DESKTOP}" = "xfce" ] || [ "${VALL_LINUX_DESKTOP}" = "ubuntustudio" ] ; then
+ if [ -z "$3" ]; then
+xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s /usr/share/xfce4/backdrops/${NEWIMAGE}
+xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor1/workspace0/last-image -s /usr/share/xfce4/backdrops/${NEWIMAGE}
+xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor2/workspace0/last-image -s /usr/share/xfce4/backdrops/${NEWIMAGE}
+xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor3/workspace0/last-image -s /usr/share/xfce4/backdrops/${NEWIMAGE}
+ else
+xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor${XMNTR}/workspace0/last-image -s /usr/share/xfce4/backdrops/${NEWIMAGE}
+ fi
+fi
+
+# MATE
+if [ "$VALL_LINUX_DESKTOP" = "mate" ]; then
+gsettings set org.mate.background picture-filename /usr/share/images/vall/${VALLROOM}/${NEWIMAGE}
+fi
+
+# Cinnamon
+if [ "$VALL_LINUX_DESKTOP" = "cinnamon" ]; then
+gsettings set org.cinnamon.desktop.background picture-uri file:///usr/share/images/vall/${VALLROOM}/${NEWIMAGE}
+fi
+
+# KDE
+#if [ "$VALL_LINUX_DESKTOP" = "/usr/share/xsessions/plasma" ]; then
+#fi
+
+

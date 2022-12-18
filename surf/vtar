@@ -1,0 +1,13 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+
+# This tars and xz compresses a directory into a .txz file of the same name
+
+# How to use:
+## vtar DIRECTORY
+
+
+tacxzDIR="$1"
+
+tar cv "${tacxzDIR}" | xz > "${tacxzDIR}".txz
+

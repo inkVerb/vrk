@@ -1,0 +1,28 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+set -e
+
+# This sets the proper permissions for your ~/.ssh keys if they do not work to help you log in.
+
+# How to use:
+## ssh-permissions
+
+
+KEYNAME=$1
+PASSPHRASE=$2
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See README.md"
+exit 22
+fi
+
+# Create & set permissions
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh/*
+touch ~/.ssh/config
+chmod 600 ~/.ssh/config
+
+# Finish
+echo "Done. Your keys in .ssh should now have the proper permissions, ready for git, ssh, FileZilla, or whatever ssh service you are using them for."
+

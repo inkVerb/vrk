@@ -1,0 +1,88 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+
+# This updates Vrk from GitHub
+## This can run over the git or locally, git is the default
+
+# NOTE: If updating locally, the vrk folder must be copied and exist at ~/vrk
+
+# How to use:
+## sudo updatevrk [update method]
+
+# Eg:
+## sudo updatevrk git (for web update via git)
+## sudo updatevrk local (for local copy in the ~/vrk folder)
+
+
+UTYPE=$1
+
+# Set empty variables
+if [ -z $1 ]; then
+UTYPE="git"
+fi
+
+# Set user
+VRK_USER=${SUDO_USER}
+
+# Check if installed
+if [ ! -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See README.md"
+exit 22
+fi
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo updatevrk
+"
+exit 22
+ fi
+fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo updatevrk
+"
+exit 22
+fi
+
+# Include the config
+. /opt/vrk/machineinfo
+
+# Prep the PWD
+if [ -d "vrk" ]; then
+rm -rf vrk; fi
+
+# Local or web update
+## GitHub
+if [ "${UTYPE}" = "git" ]; then
+cd /home/${SUDO_USER}
+git clone https://github.com/inkVerb/${VRKUPDATEREPO}
+ if [ "${VRKUPDATEREPO}" != "vrk" ]; then
+mv ${VRKUPDATEREPO} vrk
+ fi
+cd vrk/inst
+./upvrk
+### Just make sure it's gone
+cd /home/${SUDO_USER}
+rm -rf ${VRKUPDATEREPO}
+echo "Vrk is up-to-date."
+exit 0
+
+## Local copy
+elif [ "${UTYPE}" = "local" ]; then
+### Test the directory
+ if [ ! -d "/home/${SUDO_USER}/vrk" ]; then
+echo "vrk folder is not in the home directory. I quit."
+exit 22
+ fi
+cd /home/${SUDO_USER}/vrk/inst
+./upvrk
+echo "Vrk is up-to-date."
+exit 0
+fi

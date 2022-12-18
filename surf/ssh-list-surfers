@@ -1,0 +1,21 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+set -e
+
+# This lists all gosurfers
+
+# How to use:
+## ssh-list-surfers
+
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See README.md"
+exit 22
+fi
+
+# Do it
+cd ~/.vrk/go/
+echo "Available gosurfers:"
+ls -1 *.malibu | sed -e 's/\.malibu$//' | sed -e 's/go\.//'
+

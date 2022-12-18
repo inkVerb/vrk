@@ -1,0 +1,41 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+set -e
+
+# This deletes a simple ssh login script for a remote server
+
+# How to use:
+## ssh-killsurfer [surfer name]
+
+
+surfername=$1
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See README.md"
+exit 22
+fi
+
+# Check variables
+if [ -z $1 ]; then
+echo "You need to specify the surfer, like this:
+ssh-killsurfer johnserver
+"
+exit 22
+fi
+
+if [ ! -f "~/.vrk/malibu/${surfername}.malibu" ]; then
+echo "The surfer config filed does not exist! Nothing to do."
+exit 22
+fi
+
+/opt/vrk/surf/ssh-killssh ${surfername}
+
+# Remove all files
+rm ~/.vrk/malibu/${surfername}.malibu
+
+# Finish
+echo "
+The surfer \"${surfername}\" is now dead.
+"
+

@@ -1,0 +1,44 @@
+#!/bin/shmalibu
+#inkVerbSurfer! verb.ink
+
+# This uploads a local SSH key to a surfer's remote server for user no-password login
+
+# How to use:
+## ssh-upload-key [surfer] [SSH_keyname] [server-password] [custom-port (optional)]
+
+
+surfername=$1
+Keyname=$2
+Password=$3
+Newport=$4
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See README.md"
+exit 22
+fi
+
+# Check variables
+if [ -z $3 ]; then
+echo "You need to specify stuff, like this:
+ssh-upload-key [surfer] [SSH_keyname] [server-password] [custom-port (optional)]
+"
+exit 22
+fi
+
+# Assign 22 if [custom-port] option is left empty
+if [ -z $4 ]; then
+Newport=22
+fi
+
+# Include the config
+. ~/.vrk/malibu/${surfername}.malibu
+
+# Do it all in one command
+cat ~/.ssh/${Keyname}.pub | ssh -p ${malibuPORT} ${malibuUSER}@${malibuIP} "mkdir -p ~/.ssh && mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys && systemctl reload ssh"
+expect "Password:"
+send "${Password}\r"
+
+# Finish
+echo "Keys uploaded cap'n. No-password connection ready."
+

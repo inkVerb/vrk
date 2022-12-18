@@ -1,0 +1,27 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+
+# This shows information and status of the current Vrk version and user
+
+# How to use:
+## vinf
+
+# Include configs
+. ~/.vrk/configs/stationinfo
+. /opt/vrk/machineinfo
+
+# Tell all
+echo "
+Vrk Repo:   $VRKUPDATEREPO
+CPU:        $CPUPKGVER
+Distro:     $LINUX_DESKTOP
+
+vDeskop:    $VRK_DESKTOP_INSTALLED
+StudioLite: $VRK_STUDIOLITE_INSTALLED
+DesktopSet: $VRK_DESKTOP_SET
+
+User Boss?: $USER_BOSSYN
+Cloud:      $VRK_CLOUD_DIR
+Work:       $VRK_WORK_DIR
+Vrk Verno:  $USER_KVERNO"
+

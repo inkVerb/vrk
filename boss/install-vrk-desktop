@@ -1,0 +1,281 @@
+#!/bin/sh
+#inkVerbBoss! verb.ink
+
+# This installs Vrk Desktop apps and wallpaper
+## Prerequesite: Vrk™ must be installed
+
+# How to use:
+## sudo install-vrk-desktop
+
+# Eg: (re-install for specific desktop)
+## sudo install-vrk-desktop $DESKTOP_SESSION
+
+
+# Set user
+VRK_USER=${SUDO_USER}
+
+# Check if Vrk installed on this machine
+if [ ! -f /opt/vrk/machineinfo ]; then
+echo "Install Vrk on this machine first. See README.md"
+exit 22; fi
+
+# Include the config
+. /opt/vrk/machineinfo
+
+# Check if installed
+if [ ! -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See README.md"
+exit 22; fi
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo install-vrk-desktop
+"
+exit 22; fi; fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo install-vrk-desktop
+"
+exit 22; fi
+
+# Check if Vrk Desktop installed
+if [ "${VRK_DESKTOP_INSTALLED}" = "YES" ]; then
+echo "Vrk desktop apps already installed."
+## Allow re-install per desktop
+ if [ -n "$1" ]; then
+ echo "If you would like to re-install it for a specific desktop, type \"yes\"..."
+ read QYN
+  if [ "$QYN" != "yes" ]; then
+  echo "I quit."
+  exit 0
+  fi
+ else
+ exit 0
+ fi
+fi
+
+# Check if Vrk Desktop installed (again)
+if [ -f /opt/vrk/.vrk-desktop-installed ]; then
+echo "Vrk Desktop already installed on this machine."
+exit 0; fi
+
+# Message
+echo "
+Installing Vrk Desktop...
+"
+sleep 1
+
+# Distro version
+release_num=$(lsb_release -r -s)
+
+# Change the Distro variable if re-installing per-desktop
+if [ -n "$1" ]; then
+LINUX_DESKTOP="$1"; fi
+
+# Global
+
+# Update & Upgrade
+# Message
+echo "
+#######
+Updates
+#######
+"
+/usr/bin/pacman -Sy archlinux-keyring --noconfirm
+/usr/bin/pacman -Syyu --noconfirm
+/usr/bin/pacman -Scc --noconfirm
+
+# Basics
+chkfile=/opt/vrk/.inst-dsktp-0
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+AUR Yay!
+#######
+"
+sleep 1
+## AUR manager
+/usr/bin/pacman -S --noconfirm base-devel git # Dependencies
+cd /home/${SUDO_USER} || exit 0
+/usr/bin/su ${SUDO_USER} -c '/usr/bin/git clone https://aur.archlinux.org/yay.git'
+cd yay || exit 0
+/usr/bin/su ${SUDO_USER} -c '/usr/bin/makepkg -si --noconfirm'
+cd .. || exit 0
+/usr/bin/rm -rf yay
+yay -Syyu --noconfirm
+yay -Scc --noconfirm
+## BASH prompt colors
+chsh -s /bin/bash
+cp /root/.bashrc /root/.bashrc-vrkbak
+sed -i "s:\\\W:\\\[\\\033[01;34m\\\]\\\w:g" /etc/skel/.bashrc
+sed -i "s:\\\W:\\\[\\\033[01;34m\\\]\\\w:g" /root/.bashrc
+touch $chkfile; fi
+
+# Fonts
+chkfile=/opt/vrk/.inst-dsktp-1
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Fonts
+#######
+"
+sleep 1
+/usr/bin/pacman -S --noconfirm tex-gyre-fonts ttf-ubuntu-font-family font-bh-ttf noto-fonts ttf-ibm-plex ttf-liberation ttf-dejavu ttf-junicode gnu-free-fonts ttf-droid ttf-linux-libertine font-bh-ttf gentium-plus-font ttf-cascadia-code ttf-anonymous-pro ttf-jetbrains-mono adobe-source-sans-pro-fonts
+/usr/bin/pacman -S --noconfirm adobe-source-han-sans-otc-fonts adobe-source-han-serif-otc-fonts
+su ${SUDO_USER} -c 'yay -S --noconfirm ttf-mgopen culmus'
+su ${SUDO_USER} -c 'yay -S --noconfirm ttf-ms-fonts ttf-vista-fonts'
+su ${SUDO_USER} -c 'yay -S --noconfirm ebgaramond-otf otf-bodoni ttf-courier-prime ttf-google-fonts-git otf-jost ttf-tahoma'
+touch $chkfile; fi
+
+# Browsers, Thunderbird
+chkfile=/opt/vrk/.inst-dsktp-2
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Browsers & Email
+#######
+"
+sleep 1
+/usr/bin/pacman -S --noconfirm chromium firefox thunderbird
+/usr/bin/pacman -S --noconfirm vivaldi vivaldi-ffmpeg-codecs
+su ${SUDO_USER} -c 'yay -S --noconfirm google-chrome'
+touch $chkfile; fi
+
+# Arch Wallpaper
+chkfile=/opt/vrk/.inst-dsktp-3
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Wallpaper
+#######
+"
+sleep 1
+/usr/bin/pacman -S --noconfirm archlinux-wallpaper
+touch $chkfile; fi
+
+# LibreOffice & OnlyOffice
+chkfile=/opt/vrk/.inst-dsktp-4
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Office
+#######
+"
+sleep 1
+/usr/bin/pacman -S --noconfirm libreoffice
+/usr/bin/pacman -S --noconfirm onlyoffice
+touch $chkfile; fi
+
+# Terminal & text tools
+chkfile=/opt/vrk/.inst-dsktp-5
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Terminal & Text
+#######
+"
+sleep 1
+/usr/bin/pacman -S --noconfirm htop gedit gnome-text-editor vim nano
+/usr/bin/pacman -S --noconfirm ntp pwgen zip unzip which curl wget
+/usr/bin/pacman -S --noconfirm make gcc
+/usr/bin/pacman -S --noconfirm autoconf net-tools inetutils man
+/usr/bin/pacman -S --noconfirm cronie
+su ${SUDO_USER} -c 'yay -S --noconfirm xfce4-terminal'
+su ${SUDO_USER} -c 'yay -S --noconfirm adduser'
+su ${SUDO_USER} -c 'yay -S --noconfirm gnome-shell-extension-installer'
+touch $chkfile; fi
+
+# Cloud
+chkfile=/opt/vrk/.inst-dsktp-6
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Cloud
+#######
+"
+sleep 1
+/usr/bin/pacman -S --noconfirm openvpn
+/usr/bin/pacman -S --noconfirm nextcloud-client
+su ${SUDO_USER} -c 'yay -S --noconfirm dropbox'
+touch $chkfile; fi
+
+# Comm & VOIP
+chkfile=/opt/vrk/.inst-dsktp-7
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+omm & VOIP
+#######
+"
+sleep 1
+su ${SUDO_USER} -c 'yay -S --noconfirm discord'
+su ${SUDO_USER} -c 'yay -S --noconfirm skype'
+su ${SUDO_USER} -c 'yay -S --noconfirm twinkle'
+su ${SUDO_USER} -c 'yay -S --noconfirm zoom'
+touch $chkfile; fi
+
+# Media
+chkfile=/opt/vrk/.inst-dsktp-8
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Media
+#######
+"
+sleep 1
+/usr/bin/pacman -S --noconfirm rhythmbox
+/usr/bin/pacman -S --noconfirm kid3
+/usr/bin/pacman -S --noconfirm vlc
+su ${SUDO_USER} -c 'yay -S --noconfirm spotify'
+## Fix Spotify bugs:
+pamac -S --noconfirm xd -desktop-portal-gtk
+touch $chkfile; fi
+
+# Wine
+chkfile=/opt/vrk/.inst-dsktp-9
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Wine
+#######
+"
+sleep 1
+/usr/bin/pacman -S --noconfirm wine
+/usr/bin/pacman -S --noconfirm winetricks
+touch $chkfile; fi
+
+# Disk Tools
+chkfile=/opt/vrk/.inst-dsktp-10
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Disk Tools
+#######
+"
+sleep 1
+/usr/bin/pacman -S --noconfirm brasero
+/usr/bin/pacman -S --noconfirm gparted
+touch $chkfile; fi
+brasero
+
+# Remove every $chkfile
+rm /opt/vrk/.inst-dsktp-*
+
+# Set configs
+echo "VRK_DESKTOP_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo
+touch /opt/vrk/.vrk-desktop-installed
+
+# Cleanup
+/usr/bin/pacman -Qdt --noconfirm
+/usr/bin/pacman -Scc --noconfirm
+/usr/bin/su ${SUDO_USER} -c '/usr/bin/yay -Scc --noconfirm'
+
+# Finish
+echo "Vrk Desktop is all set."

@@ -1,0 +1,67 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+set -e
+
+# This clones a GitHub repo locally via http or SSH
+
+# NOTE: If you use the username and repo from the command line rather than from the dialogue, it will use ssh keys if you have them installed.
+
+# How to use:
+## vgitclone [username - option] [repo - optional]
+
+
+# Username
+if [ -z "$1" ]; then
+ echo "Enter the GitHub repo's username:
+"
+ read GITRUNAME
+
+## Check if entered
+ if [ -z "${GITRUNAME}" ]; then
+ echo "You must enter the GitHub repo's username. It doesn't exist on GitHub already, but it can locally in ~/git/, or not...
+(An https repo looks like: https://github.com/YourProject/YourRepo.git)
+(An SSH repo looks like: git@github.com:YourProject/YourRepo.git)
+Enter the GitHub repo's username:
+"
+ read GITRUNAME
+ fi
+ if [ -z "${GITRUNAME}" ]; then
+ echo "You didn't enter a GitHub repo's username. No changes made. I quit."
+ exit 22
+ fi
+else
+GITRUNAME=$1
+fi
+
+# Repo name
+if [ -z "$2" ]; then
+ echo "Enter the GitHub repo:
+"
+ read GITREPONAME
+
+## Check if entered
+ if [ -z "${GITREPONAME}" ]; then
+ echo "You must enter the GitHub repo. It doesn't exist on GitHub already, but it can locally in ~/git/${GITRUNAME}/, or not. That's kinda' the idea...
+Enter your GitHub email address:
+"
+ read GITREPONAME
+ fi
+ if [ -z "${GITREPONAME}" ]; then
+ echo "You didn't enter a GitHub repo. No changes made. I quit."
+ exit 22
+ fi
+else
+GITREPONAME=$2
+fi
+
+# Clone it
+if [ -z "$2" ]; then
+git clone https://github.com/${GITRUNAME}/${GITREPONAME}.git
+else
+git clone git@github.com:${GITRUNAME}/${GITREPONAME}.git
+fi
+
+# Finish
+echo "GitHub repo ${GITRUNAME}/${GITREPONAME} has been cloned.
+"
+

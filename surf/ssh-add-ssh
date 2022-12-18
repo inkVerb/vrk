@@ -1,0 +1,60 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+
+# This creates a simple "surfer" SSH login script for a remote server
+
+# How to use:
+## ssh-add-ssh [surfer name]
+
+
+surfername=$1
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See README.md"
+exit 22
+fi
+
+# Check variables
+if [ -z $1 ]; then
+echo "You need to specify stuff, like this:
+ssh-add-ssh [surfer name]
+"
+exit 22
+fi
+
+# Check if the malibu file exists
+if [ ! -f ~/.vrk/malibu/${surfername}.malibu ]; then
+echo "That surfer doesn't exist yet! Add it with ssh-new-surfer
+"
+exit 22
+fi
+
+
+# Include the config
+. ~/.vrk/malibu/{surfername}.malibu
+
+# Create the config entry
+touch ~/.ssh/config
+chmod 600 ~/.ssh/config
+
+# See if already added
+if grep -q "Host ${surfername}" ~/.ssh/config; then
+echo "Already added. If you want to update it, remove it first with killssh"
+exit 22
+fi
+
+# Make the entry
+echo "Host ${surfername}
+  HostName ${malibuIP}
+  User ${malibuUSER}
+  Port ${malibuPORT}
+  IdentityFile ${malibuKEY}" >> ~/.ssh/config
+
+# Permissions
+/opt/vrk/surf/ssh-permissions
+
+# Finish
+echo "Kowabunga!
+Now \"ssh ${surfername}\" will log you into that remote server in the vast ocean!
+But, you must run sudo vrkfresh first!"

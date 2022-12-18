@@ -1,0 +1,38 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+set -e
+
+# This deletes a simple ssh entry from .ssh/config
+
+# How to use:
+## ssh-killssh [surfer name]
+
+
+surfername=$1
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See README.md"
+exit 22
+fi
+
+# Check variables
+if [ -z $1 ]; then
+echo "You need to specify the surfer, like this:
+ssh-killssh johnserver
+"
+exit 22
+fi
+
+if [ ! -f "~/.vrk/malibu/${surfername}.malibu" ]; then
+echo "The surfer config filed does not exist! Nothing to do."
+exit 22
+fi
+
+sed -e "/Host ${surfername}/,+5d" ~/.ssh/config
+
+# Finish
+echo "
+The \"${surfername}\" removed from ssh config.
+"
+

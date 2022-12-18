@@ -1,0 +1,223 @@
+#!/bin/sh
+#inkVerbBoss! verb.ink
+
+# This installs a "lite" version of Ubuntu Studio
+## This is automatically run by: install-vrk
+## Prerequesite: Vrk™ must be installed
+
+# How to use:
+## sudo install-vrk-studiolite
+
+
+# Set user
+VRK_USER=${SUDO_USER}
+
+# Check if Vrk installed on this machine
+if [ ! -f /opt/vrk/machineinfo ]; then
+echo "Install Vrk on this machine first. See README.md"
+exit 22; fi
+
+# Check if installed
+if [ ! -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See README.md"
+exit 22; fi
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo install-vrk-studiolite
+"
+exit 22; fi; fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo install-vrk-studiolite
+"
+exit 22; fi
+
+# Check if Vrk StudioLite installed
+if [ "${VRK_STUDIOLITE_INSTALLED}" = "YES" ]; then
+echo "Vrk StudioLite apps already installed."
+exit 0; fi
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo install-vrk-apps
+"
+exit 22; fi; fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo install-vrk-apps
+"
+exit 22; fi
+
+
+# Include the configs
+. /home/${SUDO_USER}/.vrk/configs/lang/stationuser-dirs_CURRENT
+. /opt/vrk/machineinfo
+
+# Message
+echo "
+Installing Vrk Studiolite...
+"
+sleep 1
+
+# Terminal Design Tools
+chkfile=/opt/vrk/.inst-stult-1
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Terminal Design Tools
+#######
+"
+sleep 1
+/usr/bin/pacman -S --noconfirm imagemagick
+/usr/bin/pacman -S --noconfirm pandoc
+/usr/bin/pacman -S --noconfirm synfig
+touch $chkfile; fi
+
+## Graphic Design
+chkfile=/opt/vrk/.inst-stult-2
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Graphic Design
+#######
+"
+sleep 1
+/usr/bin/pacman -S --noconfirm gimp
+/usr/bin/pacman -S --noconfirm inkscape
+# CMYK for inkscape
+/opt/vrk/boss/install-pdfcmyk
+/usr/bin/pacman -S --noconfirm mypaint
+/usr/bin/su ${SUDO_USER}-c 'yay -S --noconfirm gimp-plugin-registry'
+touch $chkfile; fi
+
+# Video Making
+chkfile=/opt/vrk/.inst-stult-3
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Video Making
+#######
+"
+sleep 1
+/usr/bin/pacman -S --noconfirm obs-studio
+/usr/bin/pacman -S --noconfirm shotcut
+/usr/bin/su ${SUDO_USER}-c 'yay -S --noconfirm key-mon'
+touch $chkfile; fi
+
+# Audacity
+chkfile=/opt/vrk/.inst-stult-4
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Audacity
+#######
+"
+sleep 1
+/usr/bin/pacman -S --noconfirm audacity
+touch $chkfile; fi
+
+# Playonlinux
+chkfile=/opt/vrk/.inst-stult-5
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Playonlinux
+#######
+"
+sleep 1
+su ${SUDO_USER} -c 'yay -S --noconfirm playonlinux'
+touch $chkfile; fi
+
+# RSS
+chkfile=/opt/vrk/.inst-stult-6
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Really Slick Screensavers
+#######
+"
+sleep 1
+/usr/bin/su ${SUDO_USER}-c 'yay -S --noconfirm rss-glx'
+killall xscreensaver
+/usr/bin/rss-glx_install.pl # installs more screensavers, including Helios
+touch $chkfile; fi
+
+# Heavy Graphic Design
+chkfile=/opt/vrk/.inst-stult-7
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Heavy Graphic Design
+#######
+"
+sleep 1
+/usr/bin/pacman -S --noconfirm darktable
+/usr/bin/pacman -S --noconfirm blender
+/usr/bin/pacman -S --noconfirm scribus
+/usr/bin/pacman -S --noconfirm synfigstudio
+touch $chkfile; fi
+
+# Heavy Video
+chkfile=/opt/vrk/.inst-stult-8
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Heavy Video
+#######
+"
+sleep 1
+/usr/bin/pacman -S --noconfirm kdenlive
+/usr/bin/su ${SUDO_USER}-c 'yay -S --noconfirm subtitleedit'
+/usr/bin/su ${SUDO_USER}-c 'yay -S --noconfirm subtitlecomposer'
+touch $chkfile; fi
+
+# Heavy Audio
+chkfile=/opt/vrk/.inst-stult-9
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Heavy Audio
+#######
+"
+sleep 1
+/usr/bin/pacman -S --noconfirm musescore
+/usr/bin/pacman -S --noconfirm gpodder
+/usr/bin/pacman -S --noconfirm lmms
+/usr/bin/pacman -S --noconfirm ardour
+/usr/bin/pacman -S --noconfirm mixxx
+/usr/bin/pacman -S --noconfirm muse
+touch $chkfile; fi
+
+# Remove every $chkfile
+rm /opt/vrk/.inst-stult-*
+
+# Set config
+echo "VRK_STUDIOLITE_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo
+touch /home/${SUDO_USER}/.vrk/configs/.studiolite
+## Remove repo temp progress files
+rm -f /opt/vrk/.vrk-studiolite-*
+
+# Cleanup
+/usr/bin/pacman -Qdt --noconfirm
+/usr/bin/pacman -Scc --noconfirm
+/usr/bin/su ${SUDO_USER} -c '/usr/bin/yay -Scc --noconfirm'
+
+# Finish
+echo "
+Vrk Studio Lite is all set.
+"

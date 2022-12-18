@@ -1,0 +1,197 @@
+#!/bin/sh
+#inkVerbBoss! verb.ink
+
+# This installs developer tools for Ubuntu
+## Prerequesite: Vrk™ must be installed
+
+# How to use:
+## sudo install-vrk-developer
+
+
+# Set user
+VRK_USER=${SUDO_USER}
+
+# Check if Vrk installed on this machine
+if [ ! -f /opt/vrk/machineinfo ]; then
+echo "Install Vrk on this machine first. See README.md"
+exit 22; fi
+
+# Check if installed
+if [ ! -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See README.md"
+exit 22; fi
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo install-vrk-developer
+"
+exit 22; fi; fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo install-vrk-developer
+"
+exit 22; fi
+
+# Check if Vrk Developer installed
+if [ "${VRK_DEVELOPER_INSTALLED}" = "YES" ]; then
+echo "Vrk Developer apps already installed."
+exit 0; fi
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo install-vrk-developer
+"
+exit 22; fi; fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo install-vrk-developer
+"
+exit 22; fi
+
+
+# Include the configs
+. /home/${SUDO_USER}/.vrk/configs/lang/stationuser-dirs_CURRENT
+. /opt/vrk/machineinfo
+
+
+# Message
+echo "
+Installing Vrk Developer...
+"
+sleep 1
+
+
+## Server Tools
+chkfile=/opt/vrk/.inst-dev-1
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Server Tools
+#######
+"
+sleep 1
+/usr/bin/pacman -S --noconfirm filezilla openssh 
+touch $chkfile; fi
+
+# Codium
+chkfile=/opt/vrk/.inst-dev-2
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Codium
+#######
+"
+sleep 1
+su ${SUDO_USER}-c 'yay -S --noconfirm vscodium-bin'
+touch $chkfile; fi
+
+# GitLab
+chkfile=/opt/vrk/.inst-dev-3
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+GitLab
+#######
+"
+sleep 1
+/usr/bin/pacman -S --noconfirm gitlab
+touch $chkfile; fi
+
+# Slack, Obsidian & Gitter
+chkfile=/opt/vrk/.inst-dev-4
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Slack, Obsidian & Gitter
+#######
+"
+sleep 1
+/usr/bin/pacman -S obsidian --noconfirm
+su ${SUDO_USER}-c 'yay -S --noconfirm slack-desktop'
+su ${SUDO_USER}-c 'yay -S --noconfirm gitter-bin'
+touch $chkfile; fi
+
+# Postman
+chkfile=/opt/vrk/.inst-dev-5
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Postman
+#######
+"
+sleep 1
+/usr/bin/pacman -S obsidian --noconfirm
+su ${SUDO_USER}-c 'yay -S --noconfirm postman-bin'
+touch $chkfile; fi
+
+# Figma
+chkfile=/opt/vrk/.inst-dev-6
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Figma
+#######
+"
+sleep 1
+/usr/bin/pacman -S obsidian --noconfirm
+su ${SUDO_USER}-c 'yay -S --noconfirm figma-linux-bin'
+touch $chkfile; fi
+
+# Swagger
+chkfile=/opt/vrk/.inst-dev-7
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Swagger
+#######
+"
+sleep 1
+/usr/bin/pacman -S obsidian --noconfirm
+su ${SUDO_USER}-c 'yay -S --noconfirm swagger-ui'
+touch $chkfile; fi
+
+# Draw.io
+chkfile=/opt/vrk/.inst-dev-8
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Draw.io
+#######
+"
+sleep 1
+/usr/bin/pacman -S obsidian --noconfirm
+su ${SUDO_USER}-c 'yay -S --noconfirm drawio-desktop-bin'
+touch $chkfile; fi
+
+# Remove every $chkfile
+rm /opt/vrk/.inst-dev-*
+
+# Set config
+echo "VRK_DEVELOPER_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo
+touch /home/${SUDO_USER}/.vrk/configs/.Developer
+## Remove repo temp progress files
+rm -f /opt/vrk/.vrk-developer-*
+
+# Cleanup
+/usr/bin/pacman -Qdt --noconfirm
+/usr/bin/pacman -Scc --noconfirm
+/usr/bin/su ${SUDO_USER}-c '/usr/bin/yay -Scc --noconfirm'
+
+# Finish
+echo "
+Vrk Developer is all set.
+"

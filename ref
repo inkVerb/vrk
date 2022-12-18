@@ -1,0 +1,7 @@
+Linuxmint Xfce $DESKTOP_SESSION=xfce
+
+Change curser
+gsettings set org.gnome.desktop.interface cursor-theme "$Curse_Theme"
+gsettings set org.gnome.desktop.interface cursor-size 24
+gsettings set org.gnome.desktop.interface cursor-size 48
+

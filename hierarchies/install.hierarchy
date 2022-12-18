@@ -1,0 +1,31 @@
+govrk    # Installs the basic framekwork
+  install-vrk    # Installs Vrk framework for a specified user, or the current sudoer running govrk by default
+
+# Once installed, choose your desktop:
+install-mi-basic
+  install-vrk-desktop
+  install-vrk-studiolite
+
+install-mi-dev
+  install-vrk-desktop
+  install-vrk-developer
+  
+install-mi-all
+  install-vrk-desktop
+  install-vrk-studiolite
+  install-vrk-developer
+
+# Optional:
+install-vrk-cloud    # Sync Documents, Work, and Templates in a cloud of your choice
+
+# Other notes:
+install-vrk
+  install-vrk-langdirs
+  install-vrk-dirs
+
+install-vrk-desktop
+  install-vrk-vallpaper
+
+install-vrk-studiolite
+  install-pdfcmyk
+  

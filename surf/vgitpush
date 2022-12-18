@@ -1,0 +1,24 @@
+#!/bin/bash
+# This pushes to the main branch from the current directory, if owned by the user.
+## Prerequesite: vgitinst
+
+# How to use:
+## vgitpush ["Commit message - optional"] ["Commit long description - optional"]
+
+
+if [ -n "$1" ]; then
+COMMSG=$1
+else
+COMMSG="Updates"
+fi
+
+EXTD_DESCRP=$2
+
+git init
+git add .
+if [ -n "$2" ]; then
+git commit -m "${COMMSG}" -m "${EXTD_DESCRP}" --allow-empty
+else
+git commit -m "${COMMSG}" --allow-empty
+fi
+git push -u origin main || git push

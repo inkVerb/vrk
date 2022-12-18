@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">
+<wallpapers>
+  <wallpaper>
+    <name>Finish.</name>
+    <filename>/usr/share/backgrounds/vrk/Finish.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>inkPage Light</name>
+    <filename>/usr/share/backgrounds/vrk/inkPage.png</filename>
+    <options>zoom</options>
+    <pcolor>#464544</pcolor>
+    <scolor>#464544</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>inkPage Blue</name>
+    <filename>/usr/share/backgrounds/vrk/inkPage-Mesh-Blue.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>inkPage Green</name>
+    <filename>/usr/share/backgrounds/vrk/inkPage-Mesh-Green.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>inkPage Orange</name>
+    <filename>/usr/share/backgrounds/vrk/inkPage-Mesh-Orange.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>inkPage Pink</name>
+    <filename>/usr/share/backgrounds/vrk/inkPage-Mesh-Pink.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>inkPage Purple</name>
+    <filename>/usr/share/backgrounds/vrk/inkPage-Mesh-Purple.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>inkPage White</name>
+    <filename>/usr/share/backgrounds/vrk/inkPage-Mesh-White.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>inkVerb Center Logo</name>
+    <filename>/usr/share/backgrounds/vrk/inkCenter.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>inkVerb Corner Logo</name>
+    <filename>/usr/share/backgrounds/vrk/inkCorner.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>Not a Mac.</name>
+    <filename>/usr/share/backgrounds/vrk/Not-A-Mac.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>Pen - Black</name>
+    <filename>/usr/share/backgrounds/vrk/Pen-Black.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>Pen - White</name>
+    <filename>/usr/share/backgrounds/vrk/Pen-White.png</filename>
+    <options>zoom</options>
+    <pcolor>#ffffff</pcolor>
+    <scolor>#ffffff</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>Get to Vrk. - Yellow</name>
+    <filename>/usr/share/backgrounds/vrk/Get-to-Vrk.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>Ink. - Green</name>
+    <filename>/usr/share/backgrounds/vrk/Whitetype-Ink-Green.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>Ink. - PenDot</name>
+    <filename>/usr/share/backgrounds/vrk/Whitetype-Ink-Green-PenDot.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>Fiber Herringbone</name>
+    <filename>/usr/share/backgrounds/vrk/Fiber-Herringbone.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>VIP Colors</name>
+    <filename>/usr/share/backgrounds/vrk/VIP-Colors.png</filename>
+    <options>zoom</options>
+    <pcolor>#232323</pcolor>
+    <scolor>#232323</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>VIP Grays</name>
+    <filename>/usr/share/backgrounds/vrk/VIP-Grays.png</filename>
+    <options>zoom</options>
+    <pcolor>#363636</pcolor>
+    <scolor>#363636</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>VIP Mesh</name>
+    <filename>/usr/share/backgrounds/vrk/VIP-Mesh.png</filename>
+    <options>zoom</options>
+    <pcolor>#1793d0</pcolor>
+    <scolor>#1793d0</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>vrk Mesh Disk</name>
+    <filename>/usr/share/backgrounds/vrk/vrk-Mesh-Disk.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>vrk Mesh Disk - Blue</name>
+    <filename>/usr/share/backgrounds/vrk/vrk-Mesh-Disk-Blue.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>vrk Mesh Disk - Green</name>
+    <filename>/usr/share/backgrounds/vrk/vrk-Mesh-Disk-Green.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>vrk Mesh Disk - Orange</name>
+    <filename>/usr/share/backgrounds/vrk/vrk-Mesh-Disk-Orange.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>vrk Mesh Disk - Red</name>
+    <filename>/usr/share/backgrounds/vrk/vrk-Mesh-Disk-Red.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>vrk Mesh Disk - Purple</name>
+    <filename>/usr/share/backgrounds/vrk/vrk-Mesh-Disk-Purple.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>vrk Mesh Disk - Gray</name>
+    <filename>/usr/share/backgrounds/vrk/vrk-Mesh-Disk-Gray.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+   <wallpaper>
+    <name>inkVerb - Mesh</name>
+    <filename>/usr/share/backgrounds/vrk/inkVerb-Mesh.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>inkVerb - Carbon</name>
+    <filename>/usr/share/backgrounds/vrk/inkVerb-Carbon.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+</wallpapers>

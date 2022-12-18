@@ -1,0 +1,323 @@
+#!/bin/sh
+#inkVerbMaker! verb.ink
+set -e
+
+# This installs Vrk™ on your local system
+## This needs some root permissions
+## This is not necessaary to run on a Verber/Inker server
+## Prerequesite: put vrk in the base of your home folder
+
+# How to use on your local computer:
+## sudo ./govrk $DESKTOP_SESSION
+
+
+# Verify $DESKTOP_SESSION is included
+if [ -z "$1" ]; then
+echo "Wrong. You must run it this way:
+
+sudo ./govrk \$DESKTOP_SESSION
+"
+exit 0; fi
+
+# Set user
+VRK_USER=${SUDO_USER}
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo ./govrk \$DESKTOP_SESSION
+"
+exit 0
+ fi
+fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo ./govrk \$DESKTOP_SESSION
+"
+exit 0
+fi
+
+# Check if present
+if [ ! -d "/home/${SUDO_USER}/vrk" ]; then
+echo "The vrk folder is not in the right place. I quit."
+exit 22
+fi
+
+
+# Check if already installed
+if [ -d "/opt/vrk" ]; then
+ if [ -d "/home/${VRK_USER}/.vrk" ]; then
+## Already installed
+echo "Vrk is already installed. Updating..."
+chmod 754 /home/${VRK_USER}/vrk/inst/upvrk
+/home/${VRK_USER}/vrk/inst/upvrk $1
+exit 0
+ else
+## vrk dir exists, not .vrk
+echo "Vrk is only partially installed. Removing it and starting over..."
+rm -rf /opt/vrk
+rm -rf /opt/vall
+ fi
+else
+## .vrk exists, not vrk
+ if [ -d "/home/${VRK_USER}/.vrk" ]; then
+echo "Vrk is damaged. Removing it, then trying to continue. If this fails, remove the .vrk folder and start again."
+chmod 754 /home/${VRK_USER}/vrk/boss/uninstall-vrk
+/home/${VRK_USER}/vrk/boss/uninstall-vrk
+ fi
+fi
+
+# Disclaimer
+echo "
+\"Disclaimer\"...
+Vrk™ and Vubuntu™ are described at mi.info, verb.ink, and github.com/inkVerb/vrk and are open and you can look at everything they do anytime. So, you've been told.
+Vrk™ automatically rearranges home folders, files, desktop settings, installs software, and does other things too boring or interesting to list here.
+Vrk™ sets the auto-lock screen to NOT ask for a password (separately from after you have already logged in.) You can still lock the screen manually, which will require your password, or change this option back. It's very important and safe to require your password to login and that you do NOT use a no-password login.
+You are NOT expected to use the \"TM\" after Vrk™ and Vubuntu™ as inkVerb does. (We just like it because it looks cool and makes everyone's lawyers complain less.)
+
+Normally, this is intended to be used on Ubuntu and possibly other Ubuntu-based distros, mainly Ubuntu, Xubuntu, and Ubuntu Studio, with minimal support for MATE, Budgie, Mint, KDE, and others, maybe.
+Ideally, this is intended to be used right after installing Ubuntu and no changes have been made to settings. (a 'clean' or 'fresh' install)
+Typically, used properly, everything is fine, though we never know for sure.
+
+But, if you have made \"normal\" changes to some settings, it should be okay, maybe.
+Vrk™ will override many of your settings or defaults with its own EVERYTIME it wants to. (Most people who use Vrk™ want this, which is why they use it.)
+
+1. Back up your important stuff first.
+2. Run this on as \"clean\" of an install of Ubuntu as possible and remember it could ruin everything or cause the Apocalypse. (Though, we probably aren't so lucky.)
+3. Vrk™ could make you into a very happy person and make the world such a better place that Jesus wants to return faster, just to see what's going on. But, we aren't sure.
+4. This comes with NO warranty or guarantee. Use at your own risk!
+5. This may install third-party software, but you are 100% responsible for agreeing to their terms; this is only a simpler service.
+6. No infringements on any copyright or intellectual property are intended. If it comes to the attention of the developer(s) of Vrk™ that this installer aids users in violating any intellectual property law, Vrk™ will be rewritten as promplty as possible so as to remove any such infringement assistance. But, this shall not be construed as responsibility, rather as cooperation. The user (you) assume responsibility to use all software legally and according to license to your best ability.
+
+I understand the above \"Disclaimer\" and am ready to proceed into the wild unknown dangerous-treacherous glee of having an inkVerb Vrk™ Station!
+
+Type \"yes\" to agree, accept, and continue...
+"
+read CONTINUEYES
+if [ "${CONTINUEYES}" != "yes" ]; then
+echo "Bye.
+"
+exit 0
+fi
+
+# Desktop
+SESSDISTRO="$1"
+
+# Set the directory to var/local, but a hidden link in the user's
+## Check if it is already in var/local from a previous install
+cp -rf /home/${VRK_USER}/vrk /opt/
+mv -f /opt/vrk/inst/vrkverno /opt/vrk/
+rm -rf /opt/vrk/upgrade
+
+# Executable check
+chmod 755 /opt/vrk/boss/*
+chmod 755 /opt/vrk/surf/*
+chmod 755 /opt/vrk/donjon/*
+chmod 754 /opt/vrk/donjon/vrktemplates/7_BASH
+chmod 755 /opt/vrk/droids/ALL/*
+
+# Global sudo commants
+ln -sfn /opt/vrk/boss/* /usr/bin/
+cd /usr/bin/
+## Remove broken links
+for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
+
+# Background image directories
+## If "backgrounds" doesn't exist (KDE, cough cough)
+if [ ! -d /usr/share/backgrounds ]; then
+mkdir /usr/share/backgrounds
+ if [ -d /usr/share/wallpapers ]; then
+ln -sfn /usr/share/backgrounds /usr/share/wallpapers/
+ fi
+fi
+if [ ! -d /usr/share/gnome-background-properties ]; then
+mkdir /usr/share/gnome-background-properties
+fi
+
+# Vim preferences
+echo 'nnoremap <C-c> "+y
+vnoremap <C-c> "+y
+nnoremap <C-p> "+p
+vnoremap <C-p> "+p
+syntax on' > ~/.vimrc
+
+
+# BASH prompt for root and new user template
+chsh -s /bin/bash # Set BASH for the terminal
+cp /etc/skel/.bashrc /etc/skel/.bashrc-vrkbak
+cp /root/.bashrc /root/.bashrc-vrkbak
+## Make the prompt setting like this: # PS1='\[\033[01;32m\][\u@\h\[\033[01;37m\] \[\033[01;34m\]\w\[\033[01;32m\]]\$\[\033[00m\] '
+sed -i "s:\\\W:\\\[\\\033[01;34m\\\]\\\w:g" /etc/skel/.bashrc
+sed -i "s:\\\W:\\\[\\\033[01;34m\\\]\\\w:g" /root/.bashrc
+
+# BASH for the system
+/usr/bin/cp /etc/bash.bashrc /etc/bash.bashrc-verb
+/usr/bin/cat <<'EOF' > /etc/bash.bashrc
+#
+# /etc/bash.bashrc
+#
+[[ $- != *i* ]] && return
+
+colors() {
+	local fgc bgc vals seq0
+
+	printf "Color escapes are %s\n" '\e[${value};...;${value}m'
+	printf "Values 30..37 are \e[33mforeground colors\e[m\n"
+	printf "Values 40..47 are \e[43mbackground colors\e[m\n"
+	printf "Value  1 gives a  \e[1mbold-faced look\e[m\n\n"
+
+	# foreground colors
+	for fgc in {30..37}; do
+		# background colors
+		for bgc in {40..47}; do
+			fgc=${fgc#37} # white
+			bgc=${bgc#40} # black
+
+			vals="${fgc:+$fgc;}${bgc}"
+			vals=${vals%%;}
+
+			seq0="${vals:+\e[${vals}m}"
+			printf "  %-9s" "${seq0:-(default)}"
+			printf " ${seq0}TEXT\e[m"
+			printf " \e[${vals:+${vals+$vals;}}1mBOLD\e[m"
+		done
+		echo; echo
+	done
+}
+
+[ -r /usr/share/bash-completion/bash_completion ] && . /usr/share/bash-completion/bash_completion
+
+# Change the window title of X terminals
+case ${TERM} in
+	xterm*|rxvt*|Eterm*|aterm|kterm|gnome*|interix|konsole*)
+		PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\007"'
+		;;
+	screen*)
+		PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\033\\"'
+		;;
+esac
+
+use_color=true
+
+# Set colorful PS1 only on colorful terminals.
+# dircolors --print-database uses its own built-in database
+# instead of using /etc/DIR_COLORS.  Try to use the external file
+# first to take advantage of user additions.  Use internal bash
+# globbing instead of external grep binary.
+safe_term=${TERM//[^[:alnum:]]/?}   # sanitize TERM
+match_lhs=""
+[[ -f ~/.dir_colors   ]] && match_lhs="${match_lhs}$(<~/.dir_colors)"
+[[ -f /etc/DIR_COLORS ]] && match_lhs="${match_lhs}$(</etc/DIR_COLORS)"
+[[ -z ${match_lhs}    ]] \
+	&& type -P dircolors >/dev/null \
+	&& match_lhs=$(dircolors --print-database)
+[[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] && use_color=true
+
+if ${use_color} ; then
+	# Enable colors for ls, etc.  Prefer ~/.dir_colors #64489
+	if type -P dircolors >/dev/null ; then
+		if [[ -f ~/.dir_colors ]] ; then
+			eval $(dircolors -b ~/.dir_colors)
+		elif [[ -f /etc/DIR_COLORS ]] ; then
+			eval $(dircolors -b /etc/DIR_COLORS)
+		fi
+	fi
+
+	if [[ ${EUID} == 0 ]] ; then
+		PS1='\[\033[01;31m\][\h\[\033[01;36m\] \[\033[01;34m\]\w\[\033[01;31m\]]\$\[\033[00m\] '
+	else
+		PS1='\[\033[01;32m\][\u@\h\[\033[01;37m\] \[\033[01;34m\]\w\[\033[01;32m\]]\$\[\033[00m\] '
+	fi
+
+	alias ls='ls --color=auto'
+	alias grep='grep --colour=auto'
+	alias egrep='egrep --colour=auto'
+	alias fgrep='fgrep --colour=auto'
+else
+	if [[ ${EUID} == 0 ]] ; then
+		# show root@ when we don't have colors
+		PS1='\u@\h \[\033[01;34m\]\w \$ '
+	else
+		PS1='\u@\h \w \$ '
+	fi
+fi
+
+unset use_color safe_term match_lhs sh
+
+alias cp="cp -i"                          # confirm before overwriting something
+alias df='df -h'                          # human-readable sizes
+alias free='free -m'                      # show sizes in MB
+alias np='nano -w PKGBUILD'
+alias more=less
+
+xhost +local:root > /dev/null 2>&1
+
+complete -cf sudo
+
+# Bash won't get SIGWINCH if another process is in the foreground.
+# Enable checkwinsize so that bash will check the terminal size when
+# it regains control.  #65623
+# http://cnswww.cns.cwru.edu/~chet/bash/FAQ (E11)
+shopt -s checkwinsize
+
+shopt -s expand_aliases
+
+# export QT_SELECT=4
+
+# Enable history appending instead of overwriting.  #139609
+shopt -s histappend
+
+#
+# # ex - archive extractor
+# # usage: ex <file>
+ex ()
+{
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf $1   ;;
+      *.tar.gz)    tar xzf $1   ;;
+      *.tar.xz)    tar xzf $1   ;;
+      *.bz2)       bunzip2 $1   ;;
+      *.rar)       unrar x $1     ;;
+      *.gz)        gunzip $1    ;;
+      *.tar)       tar xf $1    ;;
+      *.tbz2)      tar xjf $1   ;;
+      *.tgz)       tar xzf $1   ;;
+      *.txz)       tar xzf $1   ;;
+      *.zip)       unzip $1     ;;
+      *.Z)         uncompress $1;;
+      *.7z)        7z x $1      ;;
+      *)           echo "'$1' cannot be extracted via ex()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
+EOF
+
+# Check CPU version
+PROCVNO=$(dpkg --print-architecture)
+
+# Machine Config
+echo "#!/bin/sh
+# inkVerb Machine-wide config file, verb.ink
+
+VRK_INST_BY=\"${VRK_USER}\"
+LINUX_DESKTOP=\"${SESSDISTRO}\"
+ARCHITECTURE=\"${PROCVNO}\"
+VRKUPDATEREPO=\"vrk\"
+" > /opt/vrk/machineinfo
+
+# Finish
+echo "Vrk is setup on this machine. Now installing it for this user...
+"
+/opt/vrk/boss/install-vrk ${VRK_USER}
+
+# Cleanup
+rm -rf /home/${SUDO_USER}/vrk

@@ -1,0 +1,209 @@
+#!/bin/sh
+#inkVerbMaker! verb.ink
+
+# This installs Vrk™ core directories and configs for a user
+## This needs some root permissions
+## Prerequesite: Vrk™ must be installed
+
+# How to use on your local computer:
+## sudo install-vrk [user]
+## sudo install-vrk [user] -b # to make user a boss
+
+# NOTE: If you run this for yourself without a [user] declaration, then your .vrk folder will have a "boss" folder link.
+
+
+# Set user
+if [ -z "$1" ]; then
+echo "You must designate a user to install Vrk for. I quit."
+exit 0
+else
+VRK_USER=$1
+fi
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo install-vrk USER
+"
+exit 0
+ fi
+fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo install-vrk USER
+"
+exit 0; fi
+
+# Check if Vrk installed on this machine
+if [ ! -f /opt/vrk/machineinfo ]; then
+echo "Install Vrk first. See README.md"
+exit 22; fi
+
+# Check if user exists
+if [ ! -e /home/${VRK_USER} ]; then
+echo "User does not exist! Try again."
+exit 22; fi
+## User settings, has logged in and has necessary folders
+if [ ! -e /home/${VRK_USER}/.config/user-dirs.dirs ]; then
+echo "User has not logged in yet or lacks vital configs! Log in with the user one time, then try again."
+exit 22; fi
+
+# Check if Vrk Staion is installed for this user
+if [ -f "/home/${VRK_USER}/.vrk/configs/stationinfo" ]; then
+. /home/${VRK_USER}/.vrk/configs/stationinfo
+ if [ "${VRK_INSTALLED}" = "YES" ]; then
+echo "Vrk is already installed for this user.
+To uninstall and re-install, type:
+rm -rf /home/${VRK_USER}/.vrk
+
+If you would like to continue to refresh the Vrk Station folder configuration, or change your Work folder, type \"yes\" and <Enter>...
+"
+read CONTINUEYES
+  if [ "${CONTINUEYES}" != "yes" ]; then
+echo "Bye.
+"
+exit 0
+  else
+## Run a refresh script here
+echo "Alright, refreshing..."
+
+  fi
+ fi
+else
+first_install="true"
+fi
+
+# Include the config
+. /opt/vrk/machineinfo
+
+# Verify SSH Directory
+cd /home/${VRK_USER}
+if [ ! -d /home/${VRK_USER}/.ssh ]; then
+mkdir -p /home/${VRK_USER}/.ssh
+chown -R ${VRK_USER}:${VRK_USER} /home/${VRK_USER}/.ssh
+fi
+
+# Create the links to the user directory
+## For any user
+if [ ! -e /home/${VRK_USER}/.vrk ]; then
+mkdir -p /home/${VRK_USER}/.vrk
+fi
+if [ ! -e /home/${VRK_USER}/.vrk/boards ]; then
+mkdir -p /home/${VRK_USER}/.vrk/boards
+fi
+cp /opt/vrk/surf/* /home/${VRK_USER}/.vrk/boards/
+if [ -L /home/${VRK_USER}/.vrk/donjon ]; then
+rm -f /home/${VRK_USER}/.vrk/donjon
+fi
+ln -sfn /opt/vrk/donjon /home/${VRK_USER}/.vrk/
+cp /opt/vrk/surf/* /home/${VRK_USER}/.vrk/boards/
+if [ ! -e /home/${VRK_USER}/.vrk/malibu ]; then
+mkdir -p /home/${VRK_USER}/.vrk/malibu
+fi
+### Copy configs
+if [ ! -d /home/${VRK_USER}/.vrk/configs ]; then
+cp -r /opt/vrk/donjon/configs-inst /home/${VRK_USER}/.vrk/configs
+fi
+chown -R ${VRK_USER}:${VRK_USER} /home/${VRK_USER}/.vrk
+## For a sudoer
+if [ -z $1 ] || [ -n "$2" ] && [ "$2" = -b ]; then
+ln -sfn /opt/vrk/boss/* /home/${VRK_USER}/.vrk/boards/
+fi
+
+# Ensure the malibu directory
+mkdir -p /opt/vrk/malibu/${VRK_USER}
+
+# Ensure the droids directory
+mkdir -p /opt/vrk/droids/${VRK_USER}
+
+# Set the global user bin for surfers
+## Sometimes it doesn't exist
+touch /home/${VRK_USER}/.bashrc
+## Add the path config
+if ! grep -Fq "#VrkPath" /home/${VRK_USER}/.bashrc; then
+echo "
+#VrkPath
+export PATH=\$PATH:/opt/vrk/surf:/opt/vrk/droids/ALL:/opt/vrk/droids/${VRK_USER}:/opt/vrk/go/${VRK_USER}" >> /home/${VRK_USER}/.bashrc
+fi
+
+# Set config
+sudo -u ${VRK_USER} sed -i "s/VRK_INSTALLED=.*/VRK_INSTALLED=\"YES\"/g" /home/${VRK_USER}/.vrk/configs/stationinfo
+. /opt/vrk/vrkverno
+sudo -u ${VRK_USER} sed -i "s/USER_KVERNO=.*/USER_KVERNO=${KVERNO}/g" /home/${VRK_USER}/.vrk/configs/stationinfo
+
+if [ -z $1 ] || [ -n "$2" ] && [ "$2" = -b ]; then
+sudo -u ${VRK_USER} sed -i "s/USER_BOSSYN=.*/USER_BOSSYN=\"CAN_BOSS\"/g" /home/${VRK_USER}/.vrk/configs/stationinfo
+else
+sudo -u ${VRK_USER} sed -i "s/USER_BOSSYN=.*/USER_BOSSYN=\"NOT_BOSS\"/g" /home/${VRK_USER}/.vrk/configs/stationinfo
+fi
+
+# Other Jobs
+## Locale (if after Lang Dirs change, it creates a dialogue at the next login. DO THIS FIRST!)
+/opt/vrk/boss/vrklocale
+
+## Mouse cursor theme for Xfce
+if [ "${LINUX_DESKTOP}" = "xfce" ] ; then
+ if [ -d "/usr/share/icons/DMZ-Black/cursor.theme" ]; then
+ln -fs /usr/share/icons/DMZ-Black/cursor.theme /etc/alternatives/x-cursor-theme
+ fi
+fi
+
+# Text editor themes for Gedit
+mkdir -p /usr/share/gtksourceview-4/styles/
+cp -f /opt/vrk/donjon/gedit/*.xml /usr/share/gtksourceview-4/styles/
+
+# Vrk avatar icon
+echo "Vrk avatar icons..."
+touch /var/lib/AccountsService/users/${VRK_USER}
+if ! grep -Fq "\[User\]" /var/lib/AccountsService/users/${VRK_USER}; then
+echo "[User]" >> /var/lib/AccountsService/users/${VRK_USER}
+fi
+## For most desktops
+if [ -d "/usr/share/pixmaps/faces/" ]; then
+cp -f /opt/vrk/donjon/icons/inkVerb-avatar.png /usr/share/pixmaps/faces/
+cp -f /opt/vrk/donjon/icons/inkVerb-avatar-Arch.png /usr/share/pixmaps/faces/
+sed -i "s/Icon=.*//g" /var/lib/AccountsService/users/${VRK_USER}
+sed -i "s/\[User\]/\[User\]\nIcon=\/usr\/share\/pixmaps\/faces\/inkVerb-avatar\.png/" /var/lib/AccountsService/users/${VRK_USER}
+else
+## For Xfce
+### Backup in case
+ if [ -f "/var/lib/AccountsService/icons/${VRK_USER}" ]; then
+ mv /var/lib/AccountsService/icons/${VRK_USER} /var/lib/AccountsService/icons/${VRK_USER}-vbak
+ rm -f /var/lib/AccountsService/icons/${VRK_USER}
+ echo "
+Your avatar has been backed up to /var/lib/AccountsService/icons/${VRK_USER}-vbak. To restore it, enter:
+sudo mv /var/lib/AccountsService/icons/${VRK_USER}-vbak /var/lib/AccountsService/icons/${VRK_USER}
+"
+ fi
+### Set it
+cp -f /opt/vrk/donjon/icons/inkVerb-avatar-Xfce.png /var/lib/AccountsService/icons/${VRK_USER}
+sed -i "s/Icon=.*//g" /var/lib/AccountsService/users/${VRK_USER}
+sed -i "s/[User]/[User]\nIcon=\/var\/lib\/AccountsService\/icons\/${VRK_USER}/" /var/lib/AccountsService/users/${VRK_USER}
+fi
+
+## Vrk dirs (Work)
+/opt/vrk/boss/install-vrk-dirs ${VRK_USER}
+
+## English home/ dirs
+/opt/vrk/boss/install-vrk-langdirs ${VRK_USER}
+
+# Get the config
+. /home/${VRK_USER}/.vrk/configs/stationinfo
+
+# Finish
+echo "Alright, Sparky! Vrk station is now setup for ${VRK_USER}.
+"
+if [ "${VRK_WORK_DIR}" != "NOT_YET" ]; then
+echo "Your work folder is \"${VRK_WORK_DIR}\"."
+fi
+
+# Reboot
+if [ -n "first_install" ] && [ "first_install" = "true" ]; then
+echo "Make sure the vrk directory is gone, then reboot."
+fi

@@ -1,0 +1,29 @@
+#!/bin/sh
+#inkVerbDragon! verb.ink
+
+# This installs the Vrk™ templates, usually only done once ever or to make an update or reset
+## This can be run by any normal user who has Vrk™ installed.
+
+# How to use:
+## do-vrktemplates
+
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+echo "Do not run as root or sudo."
+exit 22
+fi
+
+# Check if Vrk installed to user
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See README.md"
+exit 22
+fi
+
+# Make sure variables are included
+. ~/.config/user-dirs.dirs
+
+# Copy the files
+cp -r ~/.vrk/donjon/vrktemplates/* ${XDG_TEMPLATES_DIR}/
+

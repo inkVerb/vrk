@@ -1,0 +1,51 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+
+# This creates a simple "surfer" SSH login script for a remote server
+
+# How to use:
+## ssh-new-surfer [surfer name] [remote user] [remote IP] [ssh_key name] [port - optional]
+
+
+surfername=$1
+User=$2
+Ip=$3
+Key=$4
+Port=$5
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See README.md"
+exit 22
+fi
+
+# Check variables
+if [ -z $4 ]; then
+echo "You need to specify stuff, like this:
+ssh-new-surfer [surfer name] [remote user] [remote IP] [ssh_key name] [port - optional]
+"
+exit 22
+fi
+
+# Assign 22 if [port] option is left empty
+if [ -z "${Port}" ]; then
+Port=22
+fi
+
+# Create a config
+echo "#!/bin/sh
+# This is a Vrk config file with the credentials of a surfer
+malibuUSER=\"${User}\"
+malibuIP=\"${Ip}\"
+malibuPORT=\"${Port}\"
+malibuKEY=\"${Key}\"
+" > ~/.vrk/malibu/${surfername}.malibu
+
+# Finish
+if [ -f "~/.vrk/malibu/${surfername}.malibu" ]; then
+echo "${surfername} added"
+else
+echo "Failed to add .malibu file, something is wrong"
+exit 
+fi
+
