@@ -94,21 +94,27 @@ AUR Yay!
 #######
 "
 sleep 1
-## AUR manager
-/usr/bin/pacman -S --noconfirm base-devel git # Dependencies
-cd /home/${SUDO_USER} || exit 0
-/usr/bin/su ${SUDO_USER} -c '/usr/bin/git clone https://aur.archlinux.org/yay.git'
-cd yay || exit 0
-/usr/bin/su ${SUDO_USER} -c '/usr/bin/makepkg -si --noconfirm'
-cd .. || exit 0
-/usr/bin/rm -rf yay
-yay -Syyu --noconfirm
-yay -Scc --noconfirm
 ## BASH prompt colors
 chsh -s /bin/bash
 cp /root/.bashrc /root/.bashrc-vrkbak
 sed -i "s:\\\W:\\\[\\\033[01;34m\\\]\\\w:g" /etc/skel/.bashrc
 sed -i "s:\\\W:\\\[\\\033[01;34m\\\]\\\w:g" /root/.bashrc
+## Dependencies
+/usr/bin/pacman -S --noconfirm base-devel git which
+## AUR manager
+### Only if not installed
+if which yay > /dev/null 2>&1; then
+  echo "yay already installed, moving on..."
+else
+  cd /home/${SUDO_USER} || exit 0
+  /usr/bin/su ${SUDO_USER} -c '/usr/bin/git clone https://aur.archlinux.org/yay.git'
+  cd yay || exit 0
+  /usr/bin/su ${SUDO_USER} -c '/usr/bin/makepkg -si --noconfirm'
+  cd .. || exit 0
+  /usr/bin/rm -rf yay
+fi
+yay -Syyu --noconfirm
+yay -Scc --noconfirm
 touch $chkfile; fi
 
 # Fonts
@@ -176,7 +182,7 @@ Terminal & Text
 "
 sleep 1
 /usr/bin/pacman -S --noconfirm htop gedit gnome-text-editor vim nano
-/usr/bin/pacman -S --noconfirm ntp pwgen zip unzip which curl wget
+/usr/bin/pacman -S --noconfirm ntp pwgen zip unzip curl wget
 /usr/bin/pacman -S --noconfirm make gcc
 /usr/bin/pacman -S --noconfirm autoconf net-tools inetutils man
 /usr/bin/pacman -S --noconfirm cronie
