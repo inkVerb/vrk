@@ -302,7 +302,7 @@ ex ()
 EOF
 
 # Check CPU version
-PROCVNO=$(dpkg --print-architecture)
+PROCVNO=$(cat /proc/cpuinfo | grep "model name" | sed "s/model name   : //" | head -n 1)
 
 # Machine Config
 echo "#!/bin/sh

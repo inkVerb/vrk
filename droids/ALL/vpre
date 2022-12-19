@@ -15,8 +15,8 @@ Dir=$1
 
 # Define the commands here
 bin=(sed mv cp rm grep echo cat chown chmod mkdir hostname ln tar bzip2 gzip systemctl kill sleep)
-usrbin=(awk print pwgen opendkim-genkey hostnamectl mysql mysqldump apt-get add-get-repository killall dpkg rename wget zip unzip touch curl xz dconf gsettings gconftool-2)
-usrsbin=(ufw adduser useradd deluser userdel groupdel delgroup a2enmod a2ensite apache2ctl)
+usrbin=(awk print pwgen opendkim-genkey hostnamectl mysql mysqldump killall rename wget zip unzip touch curl xz dconf gsettings gconftool-2)
+usrsbin=(ufw adduser useradd deluser userdel groupdel delgroup)
 
 # /bin/
 for Var in ${bin[@]}; do
