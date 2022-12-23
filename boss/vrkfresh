@@ -31,7 +31,7 @@ getent passwd | while IFS=: read -r name password uid gid gecos home shell; do
         fi
 
         # Update droids
-        if [ -d "/opt/vrk/droids/${vrk_USER}" ]; then
+        if [ -d "/opt/vrk/droids/${vrk_USER}" ] && ls /opt/vrk/droids/${vrk_USER}/* > /dev/null 2>&1; then
           chmod 755 /opt/vrk/droids/${vrk_USER}/*
         fi
 
@@ -69,32 +69,32 @@ getent passwd | while IFS=: read -r name password uid gid gecos home shell; do
         ## For any user
         mkdir -p /home/${vrk_USER}/.vrk/boards
         rm -rf  /home/${vrk_USER}/.vrk/boards/*
-        if [ -d "/home/${vrk_USER}/.vrk/boards/" ] && [ -d "/opt/vrk/droids/ALL/" ]; then
+        if [ -d "/home/${vrk_USER}/.vrk/boards/" ] && [ -d "/opt/vrk/droids/ALL/" ] && ls /opt/vrk/droids/ALL/* > /dev/null 2>&1; then
           cp -rf /opt/vrk/droids/ALL/* /home/${vrk_USER}/.vrk/boards/
         fi
-        if [ -d "/opt/vrk/droids/${vrk_USER}/" ] && [ -d "/home/${vrk_USER}/.vrk/boards/" ]; then
+        if [ -d "/opt/vrk/droids/${vrk_USER}/" ] && [ -d "/home/${vrk_USER}/.vrk/boards/" ] && ls /opt/vrk/droids/${vrk_USER}/* > /dev/null 2>&1; then
           cp -rf /opt/vrk/droids/${vrk_USER}/* /home/${vrk_USER}/.vrk/boards/
         fi
-        if [ -d "/opt/vrk/surf/" ] && [ -d "/home/${vrk_USER}/.vrk/boards/" ]; then
+        if [ -d "/opt/vrk/surf/" ] && [ -d "/home/${vrk_USER}/.vrk/boards/" ] && ls /opt/vrk/surf/* > /dev/null 2>&1; then
           cp /opt/vrk/surf/* /home/${vrk_USER}/.vrk/boards/
         fi
         rm -rf /home/${vrk_USER}/.vrk/donjon
         if [ -d "/opt/vrk/donjon" ] && [ -d "/home/${vrk_USER}/.vrk/" ]; then
           cp -rf /opt/vrk/donjon /home/${vrk_USER}/.vrk/
         fi
-        if [ -d "/opt/vrk/boss" ]; then
+        if [ -d "/opt/vrk/boss" ] && ls /opt/vrk/boss/* > /dev/null 2>&1; then
           chmod 755 /opt/vrk/boss/*
         fi
-        if [ -d "/opt/vrk/surf" ]; then
+        if [ -d "/opt/vrk/surf" ] && ls /opt/vrk/surf/* > /dev/null 2>&1; then
           chmod 755 /opt/vrk/surf/*
         fi
-        if [ -d "/opt/vrk/donjon" ]; then
+        if [ -d "/opt/vrk/donjon" ] && ls /opt/vrk/donjon/* > /dev/null 2>&1; then
           chmod 755 /opt/vrk/donjon/*
         fi
         if [ -e "/opt/vrk/donjon/vrktemplates/7_BASH" ]; then
           chmod 754 /opt/vrk/donjon/vrktemplates/7_BASH
         fi
-        if [ -d "/opt/vrk/droids/ALL" ]; then
+        if [ -d "/opt/vrk/droids/ALL" ] && ls /opt/vrk/droids/ALL/* > /dev/null 2>&1; then
           chmod 755 /opt/vrk/droids/ALL/*
         fi
         if [ -d "/home/${vrk_USER}/.vrk/" ]; then
@@ -104,11 +104,14 @@ getent passwd | while IFS=: read -r name password uid gid gecos home shell; do
         if [ "${USER_BOSSYN}" = "CAN_BOSS" ]; then
           rm -rf  /home/${vrk_USER}/.vrk/boss
         fi
-        if [ -d "/opt/vrk/boss" ] && [ -d "/home/${vrk_USER}/.vrk/boards/" ]; then
+        if [ -d "/opt/vrk/boss" ] && [ -d "/home/${vrk_USER}/.vrk/boards/" ] && ls /opt/vrk/boss/* > /dev/null 2>&1; then
           ln -sfn /opt/vrk/boss/* /home/${vrk_USER}/.vrk/boards/
         fi
         ## Own
-
+        if [ -d "/home/${vrk_USER}/.vrk" ]; then
+          chown -R ${vrk_USER}:${vrk_USER} /home/${vrk_USER}/.vrk
+        fi
+        
         # Finish per user
         echo "Vrk tools are up-to-date for ${vrk_USER}."
 
