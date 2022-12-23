@@ -250,4 +250,4 @@ fi
 rm -rf /home/${SUDO_USER}/${KUPGRADE_REPO}
 
 # Finish
-echo "Vrk Station and users are Vrking at v${KVERNO} framework from ${KUPGRADE_REPO}."
+echo "Vrk Station and users are operating at v${KVERNO} framework from ${KUPGRADE_REPO}."

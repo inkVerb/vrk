@@ -67,15 +67,13 @@ exit 22; fi
 . /home/${SUDO_USER}/.vrk/configs/lang/stationuser-dirs_CURRENT
 . /opt/vrk/machineinfo
 
-
 # Message
 echo "
 Installing Vrk Developer...
 "
 sleep 1
 
-
-## Server Tools
+# Server Tools
 chkfile=/opt/vrk/.inst-dev-1
 if [ ! -f "$chkfile" ]; then
 echo "
@@ -96,7 +94,7 @@ Codium
 #######
 "
 sleep 1
-su ${SUDO_USER}-c 'yay -S --noconfirm vscodium-bin'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm vscodium-bin'
 touch $chkfile; fi
 
 # GitLab
@@ -121,8 +119,8 @@ Slack, Obsidian & Gitter
 "
 sleep 1
 /usr/bin/pacman -S obsidian --noconfirm
-su ${SUDO_USER}-c 'yay -S --noconfirm slack-desktop'
-su ${SUDO_USER}-c 'yay -S --noconfirm gitter-bin'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm slack-desktop'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm gitter-bin'
 touch $chkfile; fi
 
 # Postman
@@ -135,7 +133,7 @@ Postman
 "
 sleep 1
 /usr/bin/pacman -S obsidian --noconfirm
-su ${SUDO_USER}-c 'yay -S --noconfirm postman-bin'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm postman-bin'
 touch $chkfile; fi
 
 # Figma
@@ -148,7 +146,7 @@ Figma
 "
 sleep 1
 /usr/bin/pacman -S obsidian --noconfirm
-su ${SUDO_USER}-c 'yay -S --noconfirm figma-linux-bin'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm figma-linux-bin'
 touch $chkfile; fi
 
 # Swagger
@@ -161,7 +159,7 @@ Swagger
 "
 sleep 1
 /usr/bin/pacman -S obsidian --noconfirm
-su ${SUDO_USER}-c 'yay -S --noconfirm swagger-ui'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm swagger-ui'
 touch $chkfile; fi
 
 # Draw.io
@@ -174,7 +172,7 @@ Draw.io
 "
 sleep 1
 /usr/bin/pacman -S obsidian --noconfirm
-su ${SUDO_USER}-c 'yay -S --noconfirm drawio-desktop-bin'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm drawio-desktop-bin'
 touch $chkfile; fi
 
 # Remove every $chkfile
@@ -189,7 +187,7 @@ rm -f /opt/vrk/.vrk-developer-*
 # Cleanup
 /usr/bin/pacman -Qdt --noconfirm
 /usr/bin/pacman -Scc --noconfirm
-/usr/bin/su ${SUDO_USER}-c '/usr/bin/yay -Scc --noconfirm'
+/usr/bin/su worker -c '/usr/bin/yay -Scc --noconfirm'
 
 # Finish
 echo "

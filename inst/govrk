@@ -76,26 +76,21 @@ fi
 # Disclaimer
 echo "
 \"Disclaimer\"...
-Vrk™ and Vubuntu™ are described at mi.info, verb.ink, and github.com/inkVerb/vrk and are open and you can look at everything they do anytime. So, you've been told.
-Vrk™ automatically rearranges home folders, files, desktop settings, installs software, and does other things too boring or interesting to list here.
-Vrk™ sets the auto-lock screen to NOT ask for a password (separately from after you have already logged in.) You can still lock the screen manually, which will require your password, or change this option back. It's very important and safe to require your password to login and that you do NOT use a no-password login.
-You are NOT expected to use the \"TM\" after Vrk™ and Vubuntu™ as inkVerb does. (We just like it because it looks cool and makes everyone's lawyers complain less.)
 
-Normally, this is intended to be used on Ubuntu and possibly other Ubuntu-based distros, mainly Ubuntu, Xubuntu, and Ubuntu Studio, with minimal support for MATE, Budgie, Mint, KDE, and others, maybe.
-Ideally, this is intended to be used right after installing Ubuntu and no changes have been made to settings. (a 'clean' or 'fresh' install)
-Typically, used properly, everything is fine, though we never know for sure.
+Normally, this is intended to be used with Manjaro or possibly Arch Desktop, best for GNOME, but with settings for Xfce. KDE is not supported.
+Ideally, this is intended to be used right after installing Manjaro and no changes have been made to settings (a 'clean' or 'fresh' install).
+If you have made \"normal\" changes to some settings, it should be okay, maybe. Typically, used properly, everything is fine, though we make no promises.
 
-But, if you have made \"normal\" changes to some settings, it should be okay, maybe.
 Vrk™ will override many of your settings or defaults with its own EVERYTIME it wants to. (Most people who use Vrk™ want this, which is why they use it.)
 
 1. Back up your important stuff first.
-2. Run this on as \"clean\" of an install of Ubuntu as possible and remember it could ruin everything or cause the Apocalypse. (Though, we probably aren't so lucky.)
+2. Run this on as \"clean\" of an install of Manjaro as possible, and remember it could ruin everything or cause the Apocalypse. (Though, we probably aren't so lucky.)
 3. Vrk™ could make you into a very happy person and make the world such a better place that Jesus wants to return faster, just to see what's going on. But, we aren't sure.
-4. This comes with NO warranty or guarantee. Use at your own risk!
+4. This comes with a GPLv3 license and has NO warranty or guarantee. Use at your own risk!
 5. This may install third-party software, but you are 100% responsible for agreeing to their terms; this is only a simpler service.
 6. No infringements on any copyright or intellectual property are intended. If it comes to the attention of the developer(s) of Vrk™ that this installer aids users in violating any intellectual property law, Vrk™ will be rewritten as promplty as possible so as to remove any such infringement assistance. But, this shall not be construed as responsibility, rather as cooperation. The user (you) assume responsibility to use all software legally and according to license to your best ability.
 
-I understand the above \"Disclaimer\" and am ready to proceed into the wild unknown dangerous-treacherous glee of having an inkVerb Vrk™ Station!
+I understand the above \"Disclaimer\" and am ready to proceed into the wild and treacherous glee of having an inkVerb Vrk™ Station!
 
 Type \"yes\" to agree, accept, and continue...
 "

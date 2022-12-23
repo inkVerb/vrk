@@ -89,7 +89,7 @@ sleep 1
 /usr/bin/pacman -S --noconfirm ffmpeg
 touch $chkfile; fi
 
-## Graphic Design
+# Graphic Design
 chkfile=/opt/vrk/.inst-stult-2
 if [ ! -f "$chkfile" ]; then
 echo "
@@ -100,10 +100,10 @@ Graphic Design
 sleep 1
 /usr/bin/pacman -S --noconfirm gimp
 /usr/bin/pacman -S --noconfirm inkscape
-# CMYK for inkscape
-/opt/vrk/boss/install-pdfcmyk
 /usr/bin/pacman -S --noconfirm mypaint
-/usr/bin/su ${SUDO_USER}-c 'yay -S --noconfirm gimp-plugin-registry'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm gimp-plugin-registry'
+## CMYK for inkscape
+/opt/vrk/boss/install-pdfcmyk
 touch $chkfile; fi
 
 # Video Making
@@ -117,7 +117,7 @@ Video Making
 sleep 1
 /usr/bin/pacman -S --noconfirm obs-studio
 /usr/bin/pacman -S --noconfirm shotcut
-/usr/bin/su ${SUDO_USER}-c 'yay -S --noconfirm key-mon'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm key-mon'
 touch $chkfile; fi
 
 # Audacity
@@ -132,6 +132,33 @@ sleep 1
 /usr/bin/pacman -S --noconfirm audacity
 touch $chkfile; fi
 
+# Earth & Star Charts
+chkfile=/opt/vrk/.inst-stult-5
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Earth & Star Charts
+#######
+"
+sleep 1
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm stellarium'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm google-earth-pro'
+touch $chkfile; fi
+
+# RSS
+chkfile=/opt/vrk/.inst-stult-6
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Really Slick Screensavers
+#######
+"
+sleep 1
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm rss-glx'
+killall xscreensaver > /dev/null 2>&1
+/usr/bin/rss-glx_install.pl # installs more screensavers, including Helios
+touch $chkfile; fi
+
 # Remove every $chkfile
 rm /opt/vrk/.inst-stult-*
 
@@ -144,7 +171,7 @@ rm -f /opt/vrk/.vrk-studiolite-*
 # Cleanup
 /usr/bin/pacman -Qdt --noconfirm
 /usr/bin/pacman -Scc --noconfirm
-/usr/bin/su ${SUDO_USER} -c '/usr/bin/yay -Scc --noconfirm'
+/usr/bin/su worker -c '/usr/bin/yay -Scc --sudoflags "-A" --noconfirm'
 
 # Finish
 echo "
