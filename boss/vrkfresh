@@ -78,7 +78,6 @@ getent passwd | while IFS=: read -r name password uid gid gecos home shell; do
         if [ -d "/opt/vrk/surf/" ] && [ -d "/home/${vrk_USER}/.vrk/boards/" ]; then
           cp /opt/vrk/surf/* /home/${vrk_USER}/.vrk/boards/
         fi
-
         rm -rf /home/${vrk_USER}/.vrk/donjon
         if [ -d "/opt/vrk/donjon" ] && [ -d "/home/${vrk_USER}/.vrk/" ]; then
           cp -rf /opt/vrk/donjon /home/${vrk_USER}/.vrk/
@@ -103,14 +102,13 @@ getent passwd | while IFS=: read -r name password uid gid gecos home shell; do
         fi
         ## For a sudoer
         if [ "${USER_BOSSYN}" = "CAN_BOSS" ]; then
-        rm -rf  /home/${vrk_USER}/.vrk/boss
+          rm -rf  /home/${vrk_USER}/.vrk/boss
+        fi
         if [ -d "/opt/vrk/boss" ] && [ -d "/home/${vrk_USER}/.vrk/boards/" ]; then
           ln -sfn /opt/vrk/boss/* /home/${vrk_USER}/.vrk/boards/
         fi
         ## Own
-        if [ -d "/home/${vrk_USER}/.vrk" ]; then
-          chown -R ${vrk_USER}:${vrk_USER} /home/${vrk_USER}/.vrk
-        fi
+
         # Finish per user
         echo "Vrk tools are up-to-date for ${vrk_USER}."
 
