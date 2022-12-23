@@ -19,17 +19,21 @@ getent passwd | while IFS=: read -r name password uid gid gecos home shell; do
         vrk_USER="$name"
 
         # Refresh go VPNs
-        for vrk_malibu_PATH in /home/${vrk_USER}/.vrk/malibu/vpn.*; do
-          vrk_malibu=$(echo ${vrk_malibu_PATH} | sed "s:/home/${vrk_USER}/.vrk/malibu/::")
-          if grep -Fq "#inkVerbGosurfer" ${vrk_malibu_PATH}; then
-            mkdir -p /opt/vrk/malibu/${vrk_USER}
-            cp ${vrk_malibu_PATH} /opt/vrk/malibu/${vrk_USER}/
-            chmod 755 /opt/vrk/malibu/${vrk_USER}/${vrk_malibu}
-          fi
-        done
+        if ls /home/${vrk_USER}/.vrk/malibu/vpn.* > /dev/null 2>&1; then
+          for vrk_malibu_PATH in /home/${vrk_USER}/.vrk/malibu/vpn.*; do
+            vrk_malibu=$(echo ${vrk_malibu_PATH} | sed "s:/home/${vrk_USER}/.vrk/malibu/::")
+            if grep -Fq "#inkVerbGosurfer" ${vrk_malibu_PATH}; then
+              mkdir -p /opt/vrk/malibu/${vrk_USER}
+              cp ${vrk_malibu_PATH} /opt/vrk/malibu/${vrk_USER}/
+              chmod 755 /opt/vrk/malibu/${vrk_USER}/${vrk_malibu}
+            fi
+          done
+        fi
 
         # Update droids
-        chmod 755 /opt/vrk/droids/${vrk_USER}/*
+        if [ -d "/opt/vrk/droids/${vrk_USER}" ]; then
+          chmod 755 /opt/vrk/droids/${vrk_USER}/*
+        fi
 
         # Check if installed
         if [ ! -f /home/${vrk_USER}/.vrk/configs/stationinfo ]; then
@@ -65,25 +69,48 @@ getent passwd | while IFS=: read -r name password uid gid gecos home shell; do
         ## For any user
         mkdir -p /home/${vrk_USER}/.vrk/boards
         rm -rf  /home/${vrk_USER}/.vrk/boards/*
-        cp -rf /opt/vrk/droids/ALL/* /home/${vrk_USER}/.vrk/boards/
-        cp -rf /opt/vrk/droids/${vrk_USER}/* /home/${vrk_USER}/.vrk/boards/
-        cp /opt/vrk/surf/* /home/${vrk_USER}/.vrk/boards/
+        if [ -d "/home/${vrk_USER}/.vrk/boards/" ] && [ -d "/opt/vrk/droids/ALL/" ]; then
+          cp -rf /opt/vrk/droids/ALL/* /home/${vrk_USER}/.vrk/boards/
+        fi
+        if [ -d "/opt/vrk/droids/${vrk_USER}/" ] && [ -d "/home/${vrk_USER}/.vrk/boards/" ]; then
+          cp -rf /opt/vrk/droids/${vrk_USER}/* /home/${vrk_USER}/.vrk/boards/
+        fi
+        if [ -d "/opt/vrk/surf/" ] && [ -d "/home/${vrk_USER}/.vrk/boards/" ]; then
+          cp /opt/vrk/surf/* /home/${vrk_USER}/.vrk/boards/
+        fi
+
         rm -rf /home/${vrk_USER}/.vrk/donjon
-        cp -rf /opt/vrk/donjon /home/${vrk_USER}/.vrk/
-        chmod 755 /opt/vrk/boss/*
-        chmod 755 /opt/vrk/surf/*
-        chmod 755 /opt/vrk/donjon/*
-        chmod 754 /opt/vrk/donjon/vrktemplates/7_BASH
-        chmod 755 /opt/vrk/droids/ALL/*
-        mkdir -p /home/${vrk_USER}/.vrk/go
+        if [ -d "/opt/vrk/donjon" ] && [ -d "/home/${vrk_USER}/.vrk/" ]; then
+          cp -rf /opt/vrk/donjon /home/${vrk_USER}/.vrk/
+        fi
+        if [ -d "/opt/vrk/boss" ]; then
+          chmod 755 /opt/vrk/boss/*
+        fi
+        if [ -d "/opt/vrk/surf" ]; then
+          chmod 755 /opt/vrk/surf/*
+        fi
+        if [ -d "/opt/vrk/donjon" ]; then
+          chmod 755 /opt/vrk/donjon/*
+        fi
+        if [ -e "/opt/vrk/donjon/vrktemplates/7_BASH" ]; then
+          chmod 754 /opt/vrk/donjon/vrktemplates/7_BASH
+        fi
+        if [ -d "/opt/vrk/droids/ALL" ]; then
+          chmod 755 /opt/vrk/droids/ALL/*
+        fi
+        if [ -d "/home/${vrk_USER}/.vrk/" ]; then
+          mkdir -p /home/${vrk_USER}/.vrk/malibu
+        fi
         ## For a sudoer
         if [ "${USER_BOSSYN}" = "CAN_BOSS" ]; then
         rm -rf  /home/${vrk_USER}/.vrk/boss
-        ln -sfn /opt/vrk/boss/* /home/${vrk_USER}/.vrk/boards/
+        if [ -d "/opt/vrk/boss" ] && [ -d "/home/${vrk_USER}/.vrk/boards/" ]; then
+          ln -sfn /opt/vrk/boss/* /home/${vrk_USER}/.vrk/boards/
         fi
         ## Own
-        chown -R ${vrk_USER}:${vrk_USER} /home/${vrk_USER}/.vrk
-
+        if [ -d "/home/${vrk_USER}/.vrk" ]; then
+          chown -R ${vrk_USER}:${vrk_USER} /home/${vrk_USER}/.vrk
+        fi
         # Finish per user
         echo "Vrk tools are up-to-date for ${vrk_USER}."
 

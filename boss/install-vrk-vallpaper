@@ -60,14 +60,15 @@ exit 22; fi
 # Install/Update Vallpaper base
 ## The actuall Valls exist here under lock and key.
 mkdir -p /opt/vall/rooms/${VALL_ROOM}/${VALL_ROOM}
+mkdir -p /usr/share/images/vall
 ## The images are duplicated here for hard system link use.
 mkdir -p install-vrk-dirs
 
 # Install/Reset the Vrk Vallpaper Room
 ## The /usr/share/images folder is used by Xfce and by set-vall and Vallpaper rooms and chrons
-rm -rf /opt/vall/rooms/${VALL_ROOM}
+rm -rf /opt/vall/rooms/${VALL_ROOM}/
 cp -r ${VALL_INST_DIR}/${VALL_ROOM} /opt/vall/rooms/
-rm -rf /usr/share/images/vall/${VALL_ROOM}
+rm -rf /usr/share/images/vall/${VALL_ROOM}/
 ln -sfn /opt/vall/rooms/${VALL_ROOM}/${VALL_ROOM} /usr/share/images/vall/
 ## Remove any broken symlinks
 cd /usr/share/images/vall/
@@ -86,7 +87,7 @@ fi
 ### If "backgrounds" doesn't exist
 mkdir -p /usr/share/backgrounds
 mkdir -p /usr/share/gnome-background-properties
-rm -rf /usr/share/backgrounds/${VALL_ROOM}
+rm -rf /usr/share/backgrounds/${VALL_ROOM}/
 ln -sfn /opt/vall/rooms/${VALL_ROOM}/${VALL_ROOM} /usr/share/backgrounds/
 #### Remove any broken symlinks
 cd /usr/share/backgrounds/
@@ -97,13 +98,13 @@ cd /usr/share/gnome-background-properties/
 for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
 
 ## Xfce
-if [ "${LINUX_DESKTOP}" = "xubuntu" ] || [ "${LINUX_DESKTOP}" = "xfce" ] ; then
-#### DEV NOTE: In Linuxmint Xfce, /usr/share/xfce4/backdrops is a symlink containing native backgrounds for both
-ln -sfn /opt/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.png /usr/share/xfce4/backdrops/
-ln -sfn /opt/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.jpg /usr/share/xfce4/backdrops/
-### Remove any broken symlinks
-cd /usr/share/xfce4/backdrops/
-for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
+if [ "${LINUX_DESKTOP}" = "xfce" ] ; then
+    #### DEV NOTE: In Linuxmint Xfce, /usr/share/xfce4/backdrops is a symlink containing native backgrounds for both
+    ln -sfn /opt/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.png /usr/share/xfce4/backdrops/
+    ln -sfn /opt/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.jpg /usr/share/xfce4/backdrops/
+    ### Remove any broken symlinks
+    cd /usr/share/xfce4/backdrops/
+    for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
 fi
 
 # Vall Config
