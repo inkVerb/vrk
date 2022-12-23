@@ -54,7 +54,7 @@ if [ -z $1 ]; then
 echo "
 !! IMPORTANT !!
 
-You are about to lose all your Vrk Vrk Station settings, including any gosurfers. Normal Ubuntu apps and desktop themes will NOT be uninstalled.
+You are about to lose all your Vrk Station settings. Normal Manjaro apps and desktop tools will NOT be uninstalled.
 
 When this finishes, you will be logged out and the computer will reboot. Close all apps and get ready...
 
@@ -133,12 +133,24 @@ fi
 rm -rf /home/${VRK_USER}/myLang
 cp /home/${VRK_USER}/.config/user-dirs.dirs.ink-bak /home/${VRK_USER}/.config/user-dirs.dirs
 
-# Icons
-rm -rf /var/lib/AccountsService/users/${VRK_USER}
+# Vallpaper
+/opt/vrk/boss/uninstall-vrk-vallpaper
 
-# Remove installation
-rm -rf /home/${VRK_USER}/.vrk
+# Per user
+cd /home/
+for each_user in *; do
+  if [ -d "/home/$each_user" ]; then
+	## Icons
+	rm -rf /var/lib/AccountsService/users/${each_user}
+
+	## Settings
+	rm -rf /home/${each_user}/.vrk
+
+  fi
+done
+
+# Vrk directory itself
+rm -rf /opt/vrk
 
 # Finish
 echo "Sayonara. Vrk Station uninstalled from ${VRK_USER}."
-
