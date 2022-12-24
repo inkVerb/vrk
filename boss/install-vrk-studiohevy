@@ -7,6 +7,7 @@
 
 # How to use:
 ## sudo install-vrk-studiohevy
+## sudo install-vrk-desktop -r # To re-install without a prompt
 
 
 # Set user
@@ -22,6 +23,12 @@ if [ ! -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
 echo "Install Vrk first. See README.md"
 exit 22; fi
 
+# Check for Vrk Desktop (which installs yay)
+. /opt/vrk/machineinfo
+if [ ! -e "/opt/vrk/.vrk-desktop-installed" ] || [ -z "$VRK_DESKTOP_INSTALLED" ] || [ "$VRK_DESKTOP_INSTALLED" != "YES" ]; then
+echo "must run install-vrk-desktop first"
+exit 22; fi
+
 # Check to make sure this is run as sudo, but not run by root
 ## If root or sudo
 if [ "$(id -u)" = "0" ]; then
@@ -39,11 +46,6 @@ like this:
 sudo install-vrk-studiohevy
 "
 exit 22; fi
-
-# Check if Vrk StudioLite installed
-if [ "${VRK_STUDIOLITE_INSTALLED}" = "YES" ]; then
-echo "Vrk StudioLite apps already installed."
-exit 0; fi
 
 # Check to make sure this is run as sudo, but not run by root
 ## If root or sudo
@@ -63,10 +65,20 @@ sudo install-vrk-apps
 "
 exit 22; fi
 
+# Check for Internet connection
+/usr/bin/ping -c 1 -q google.com > /dev/null 2>&1
+if [ "$?" != "0" ]; then
+echo "No Internet connection. Connect, then try again."; exit 0; fi
 
 # Include the configs
 . /home/${SUDO_USER}/.vrk/configs/lang/stationuser-dirs_CURRENT
-. /opt/vrk/machineinfo
+
+# Update
+/usr/bin/pacman -Sy archlinux-keyring --noconfirm
+/usr/bin/pacman -Syy --noconfirm
+/usr/bin/pacman -Scc --noconfirm
+/usr/bin/su worker -c '/usr/bin/yay -Syy --noconfirm'
+/usr/bin/su worker -c '/usr/bin/yay -Scc --noconfirm'
 
 # Message
 echo "
@@ -83,10 +95,10 @@ Heavy Graphic Design
 #######
 "
 sleep 1
-/usr/bin/pacman -S --noconfirm darktable
-/usr/bin/pacman -S --noconfirm blender
-/usr/bin/pacman -S --noconfirm scribus
-/usr/bin/pacman -S --noconfirm synfigstudio
+/usr/bin/pacman -S --noconfirm --needed darktable
+/usr/bin/pacman -S --noconfirm --needed blender
+/usr/bin/pacman -S --noconfirm --needed scribus
+/usr/bin/pacman -S --noconfirm --needed synfigstudio
 touch $chkfile; fi
 
 # Heavy Video
@@ -98,9 +110,9 @@ Heavy Video
 #######
 "
 sleep 1
-/usr/bin/pacman -S --noconfirm kdenlive
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm subtitleedit'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm subtitlecomposer'
+/usr/bin/pacman -S --noconfirm --needed kdenlive
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed subtitleedit'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed subtitlecomposer'
 touch $chkfile; fi
 
 # Heavy Audio
@@ -112,12 +124,12 @@ Heavy Audio
 #######
 "
 sleep 1
-/usr/bin/pacman -S --noconfirm musescore
-/usr/bin/pacman -S --noconfirm gpodder
-/usr/bin/pacman -S --noconfirm lmms
-/usr/bin/pacman -S --noconfirm ardour
-/usr/bin/pacman -S --noconfirm mixxx
-/usr/bin/pacman -S --noconfirm muse
+/usr/bin/pacman -S --noconfirm --needed musescore
+/usr/bin/pacman -S --noconfirm --needed gpodder
+/usr/bin/pacman -S --noconfirm --needed lmms
+/usr/bin/pacman -S --noconfirm --needed ardour
+/usr/bin/pacman -S --noconfirm --needed mixxx
+/usr/bin/pacman -S --noconfirm --needed muse
 touch $chkfile; fi
 
 # Disk Tools
@@ -129,7 +141,7 @@ DVD Tools
 #######
 "
 sleep 1
-/usr/bin/pacman -S --noconfirm brasero
+/usr/bin/pacman -S --noconfirm --needed brasero
 touch $chkfile; fi
 brasero
 
@@ -142,8 +154,8 @@ Wine
 #######
 "
 sleep 1
-/usr/bin/pacman -S --noconfirm wine
-/usr/bin/pacman -S --noconfirm winetricks
+/usr/bin/pacman -S --noconfirm --needed wine
+/usr/bin/pacman -S --noconfirm --needed winetricks
 touch $chkfile; fi
 
 # Playonlinux
@@ -155,14 +167,17 @@ Playonlinux
 #######
 "
 sleep 1
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm playonlinux'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed playonlinux'
 touch $chkfile; fi
 
 # Remove every $chkfile
 rm /opt/vrk/.inst-stuhv-*
 
 # Set config
-echo "VRK_STUDIOHEVY_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo
+if [ "${VRK_STUDIOHEVY_INSTALLED}" != "YES" ]; then
+sed -i "s/VRK_STUDIOHEVY_INSTALLED=.*/VRK_STUDIOHEVY_INSTALLED=\"YES\"/" /opt/vrk/machineinfo; fi
+if [ -z "${VRK_STUDIOHEVY_INSTALLED}" ]; then
+echo "VRK_STUDIOHEVY_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo; fi
 touch /home/${SUDO_USER}/.vrk/configs/.studiohevy
 ## Remove repo temp progress files
 rm -f /opt/vrk/.vrk-studiohevy-*

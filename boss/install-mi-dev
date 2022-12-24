@@ -7,6 +7,8 @@
 
 # How to use:
 ## sudo install-mi-dev
+## sudo install-mi-dev -r # To re-install without a prompt
+
 
 
 # Set user
@@ -39,9 +41,6 @@ like this:
 sudo install-mi-dev
 "
 exit 22; fi
-
-# Include the config
-. /opt/vrk/machineinfo
 
 # Vrk Desktop
 /opt/vrk/boss/install-vrk-desktop

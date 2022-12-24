@@ -20,60 +20,6 @@
     <artist>verb.ink</artist>
   </wallpaper>
   <wallpaper>
-    <name>inkPage Blue</name>
-    <filename>/usr/share/backgrounds/vrk/inkPage-Mesh-Blue.png</filename>
-    <options>zoom</options>
-    <pcolor>#ececec</pcolor>
-    <scolor>#ececec</scolor>
-    <shade_type>solid</shade_type>
-    <artist>verb.ink</artist>
-  </wallpaper>
-  <wallpaper>
-    <name>inkPage Green</name>
-    <filename>/usr/share/backgrounds/vrk/inkPage-Mesh-Green.png</filename>
-    <options>zoom</options>
-    <pcolor>#ececec</pcolor>
-    <scolor>#ececec</scolor>
-    <shade_type>solid</shade_type>
-    <artist>verb.ink</artist>
-  </wallpaper>
-  <wallpaper>
-    <name>inkPage Orange</name>
-    <filename>/usr/share/backgrounds/vrk/inkPage-Mesh-Orange.png</filename>
-    <options>zoom</options>
-    <pcolor>#ececec</pcolor>
-    <scolor>#ececec</scolor>
-    <shade_type>solid</shade_type>
-    <artist>verb.ink</artist>
-  </wallpaper>
-  <wallpaper>
-    <name>inkPage Pink</name>
-    <filename>/usr/share/backgrounds/vrk/inkPage-Mesh-Pink.png</filename>
-    <options>zoom</options>
-    <pcolor>#ececec</pcolor>
-    <scolor>#ececec</scolor>
-    <shade_type>solid</shade_type>
-    <artist>verb.ink</artist>
-  </wallpaper>
-  <wallpaper>
-    <name>inkPage Purple</name>
-    <filename>/usr/share/backgrounds/vrk/inkPage-Mesh-Purple.png</filename>
-    <options>zoom</options>
-    <pcolor>#ececec</pcolor>
-    <scolor>#ececec</scolor>
-    <shade_type>solid</shade_type>
-    <artist>verb.ink</artist>
-  </wallpaper>
-  <wallpaper>
-    <name>inkPage White</name>
-    <filename>/usr/share/backgrounds/vrk/inkPage-Mesh-White.png</filename>
-    <options>zoom</options>
-    <pcolor>#ececec</pcolor>
-    <scolor>#ececec</scolor>
-    <shade_type>solid</shade_type>
-    <artist>verb.ink</artist>
-  </wallpaper>
-  <wallpaper>
     <name>inkVerb Center Logo</name>
     <filename>/usr/share/backgrounds/vrk/inkCenter.png</filename>
     <options>zoom</options>
@@ -155,8 +101,8 @@
     <artist>verb.ink</artist>
   </wallpaper>
   <wallpaper>
-    <name>VIP Colors</name>
-    <filename>/usr/share/backgrounds/vrk/VIP-Colors.png</filename>
+    <name>Verb Circles - Color</name>
+    <filename>/usr/share/backgrounds/vrk/Verb-Circles-Color.png</filename>
     <options>zoom</options>
     <pcolor>#232323</pcolor>
     <scolor>#232323</scolor>
@@ -164,8 +110,8 @@
     <artist>verb.ink</artist>
   </wallpaper>
   <wallpaper>
-    <name>VIP Grays</name>
-    <filename>/usr/share/backgrounds/vrk/VIP-Grays.png</filename>
+    <name>Verb Circles - Gray</name>
+    <filename>/usr/share/backgrounds/vrk/Verb-Circles-Gray.png</filename>
     <options>zoom</options>
     <pcolor>#363636</pcolor>
     <scolor>#363636</scolor>
@@ -182,8 +128,8 @@
     <artist>verb.ink</artist>
   </wallpaper>
   <wallpaper>
-    <name>vrk Mesh Disk</name>
-    <filename>/usr/share/backgrounds/vrk/vrk-Mesh-Disk.png</filename>
+    <name>Verb Mesh Disk</name>
+    <filename>/usr/share/backgrounds/vrk/Verb-Mesh-Disk.png</filename>
     <options>zoom</options>
     <pcolor>#ececec</pcolor>
     <scolor>#ececec</scolor>
@@ -191,8 +137,8 @@
     <artist>verb.ink</artist>
   </wallpaper>
   <wallpaper>
-    <name>vrk Mesh Disk - Blue</name>
-    <filename>/usr/share/backgrounds/vrk/vrk-Mesh-Disk-Blue.png</filename>
+    <name>Verb Mesh Disk - Blue</name>
+    <filename>/usr/share/backgrounds/vrk/Verb-Mesh-Disk-Blue.png</filename>
     <options>zoom</options>
     <pcolor>#ececec</pcolor>
     <scolor>#ececec</scolor>
@@ -200,44 +146,8 @@
     <artist>verb.ink</artist>
   </wallpaper>
   <wallpaper>
-    <name>vrk Mesh Disk - Green</name>
-    <filename>/usr/share/backgrounds/vrk/vrk-Mesh-Disk-Green.png</filename>
-    <options>zoom</options>
-    <pcolor>#ececec</pcolor>
-    <scolor>#ececec</scolor>
-    <shade_type>solid</shade_type>
-    <artist>verb.ink</artist>
-  </wallpaper>
-  <wallpaper>
-    <name>vrk Mesh Disk - Orange</name>
-    <filename>/usr/share/backgrounds/vrk/vrk-Mesh-Disk-Orange.png</filename>
-    <options>zoom</options>
-    <pcolor>#ececec</pcolor>
-    <scolor>#ececec</scolor>
-    <shade_type>solid</shade_type>
-    <artist>verb.ink</artist>
-  </wallpaper>
-  <wallpaper>
-    <name>vrk Mesh Disk - Red</name>
-    <filename>/usr/share/backgrounds/vrk/vrk-Mesh-Disk-Red.png</filename>
-    <options>zoom</options>
-    <pcolor>#ececec</pcolor>
-    <scolor>#ececec</scolor>
-    <shade_type>solid</shade_type>
-    <artist>verb.ink</artist>
-  </wallpaper>
-  <wallpaper>
-    <name>vrk Mesh Disk - Purple</name>
-    <filename>/usr/share/backgrounds/vrk/vrk-Mesh-Disk-Purple.png</filename>
-    <options>zoom</options>
-    <pcolor>#ececec</pcolor>
-    <scolor>#ececec</scolor>
-    <shade_type>solid</shade_type>
-    <artist>verb.ink</artist>
-  </wallpaper>
-  <wallpaper>
-    <name>vrk Mesh Disk - Gray</name>
-    <filename>/usr/share/backgrounds/vrk/vrk-Mesh-Disk-Gray.png</filename>
+    <name>Verb Mesh Disk - Red</name>
+    <filename>/usr/share/backgrounds/vrk/Verb-Mesh-Disk-Red.png</filename>
     <options>zoom</options>
     <pcolor>#ececec</pcolor>
     <scolor>#ececec</scolor>
@@ -247,15 +157,6 @@
    <wallpaper>
     <name>inkVerb - Mesh</name>
     <filename>/usr/share/backgrounds/vrk/inkVerb-Mesh.png</filename>
-    <options>zoom</options>
-    <pcolor>#ececec</pcolor>
-    <scolor>#ececec</scolor>
-    <shade_type>solid</shade_type>
-    <artist>verb.ink</artist>
-  </wallpaper>
-  <wallpaper>
-    <name>inkVerb - Carbon</name>
-    <filename>/usr/share/backgrounds/vrk/inkVerb-Carbon.png</filename>
     <options>zoom</options>
     <pcolor>#ececec</pcolor>
     <scolor>#ececec</scolor>

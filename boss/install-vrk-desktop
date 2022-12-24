@@ -45,22 +45,6 @@ sudo install-vrk-desktop
 "
 exit 22; fi
 
-# Check if Vrk Desktop installed
-if [ "${VRK_DESKTOP_INSTALLED}" = "YES" ]; then
-echo "Vrk desktop apps already installed."
-## Allow re-install per desktop
- if [ -n "$1" ]; then
- echo "If you would like to re-install it for a specific desktop, type \"yes\"..."
- read QYN
-  if [ "$QYN" != "yes" ]; then
-  echo "I quit."
-  exit 0
-  fi
- else
- exit 0
- fi
-fi
-
 # Check if Vrk Desktop installed (again)
 if [ -f /opt/vrk/.vrk-desktop-installed ]; then
 echo "Vrk Desktop already installed on this machine."
@@ -71,6 +55,11 @@ echo "
 Installing Vrk Desktop...
 "
 sleep 1
+
+# Check for Internet connection
+/usr/bin/ping -c 1 -q google.com > /dev/null 2>&1
+if [ "$?" != "0" ]; then
+echo "No Internet connection. Connect, then try again."; exit 0; fi
 
 # Global
 
@@ -151,9 +140,9 @@ Fonts
 sleep 1
 /usr/bin/pacman -S --noconfirm tex-gyre-fonts ttf-ubuntu-font-family font-bh-ttf noto-fonts ttf-ibm-plex ttf-liberation ttf-dejavu ttf-junicode gnu-free-fonts ttf-droid ttf-linux-libertine font-bh-ttf gentium-plus-font ttf-cascadia-code ttf-anonymous-pro ttf-jetbrains-mono adobe-source-sans-pro-fonts
 /usr/bin/pacman -S --noconfirm adobe-source-han-sans-otc-fonts adobe-source-han-serif-otc-fonts
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm ttf-mgopen culmus'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm ttf-ms-fonts ttf-vista-fonts'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm ebgaramond-otf otf-bodoni ttf-courier-prime ttf-google-fonts-git otf-jost ttf-tahoma'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed ttf-mgopen culmus'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed ttf-ms-fonts ttf-vista-fonts'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed ebgaramond-otf otf-bodoni ttf-courier-prime ttf-google-fonts-git otf-jost ttf-tahoma'
 touch $chkfile; fi
 
 # Browsers, Thunderbird
@@ -167,7 +156,7 @@ Browsers & Email
 sleep 1
 /usr/bin/pacman -S --noconfirm chromium firefox thunderbird
 /usr/bin/pacman -S --noconfirm vivaldi vivaldi-ffmpeg-codecs
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm google-chrome'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed google-chrome'
 touch $chkfile; fi
 
 # Arch Wallpaper
@@ -209,9 +198,9 @@ sleep 1
 /usr/bin/pacman -S --noconfirm make gcc
 /usr/bin/pacman -S --noconfirm autoconf net-tools inetutils man
 /usr/bin/pacman -S --noconfirm cronie
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm xfce4-terminal'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm adduser'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm gnome-shell-extension-installer'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed xfce4-terminal'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed adduser'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed gnome-shell-extension-installer'
 touch $chkfile; fi
 
 # Cloud
@@ -225,7 +214,7 @@ Cloud
 sleep 1
 /usr/bin/pacman -S --noconfirm openvpn
 /usr/bin/pacman -S --noconfirm nextcloud-client
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm dropbox'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed dropbox'
 touch $chkfile; fi
 
 # Comm & VOIP
@@ -237,10 +226,10 @@ Comm & VOIP
 #######
 "
 sleep 1
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm discord'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm skype'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm twinkle'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm zoom'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed discord'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed skype'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed twinkle'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed zoom'
 touch $chkfile; fi
 
 # Media
@@ -255,7 +244,7 @@ sleep 1
 /usr/bin/pacman -S --noconfirm rhythmbox
 /usr/bin/pacman -S --noconfirm kid3
 /usr/bin/pacman -S --noconfirm vlc
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm spotify'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed spotify'
 ## Fix Spotify bugs:
 pamac -S --noconfirm xd -desktop-portal-gtk
 touch $chkfile; fi
@@ -276,7 +265,10 @@ touch $chkfile; fi
 rm /opt/vrk/.inst-dsktp-*
 
 # Set configs
-echo "VRK_DESKTOP_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo
+if [ "${VRK_DESKTOP_INSTALLED}" != "YES" ]; then
+sed -i "s/VRK_DESKTOP_INSTALLED=.*/VRK_DESKTOP_INSTALLED=\"YES\"/" /opt/vrk/machineinfo; fi
+if [ -z "${VRK_DESKTOP_INSTALLED}" ]; then
+echo "VRK_DESKTOP_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo; fi
 touch /opt/vrk/.vrk-desktop-installed
 
 # Cleanup

@@ -22,6 +22,12 @@ if [ ! -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
 echo "Install Vrk first. See README.md"
 exit 22; fi
 
+# Check for Vrk Desktop (which installs yay)
+. /opt/vrk/machineinfo
+if [ ! -e "/opt/vrk/.vrk-desktop-installed" ] || [ -z "$VRK_DESKTOP_INSTALLED" ] || [ "$VRK_DESKTOP_INSTALLED" != "YES" ]; then
+echo "must run install-vrk-desktop first"
+exit 22; fi
+
 # Check to make sure this is run as sudo, but not run by root
 ## If root or sudo
 if [ "$(id -u)" = "0" ]; then
@@ -39,11 +45,6 @@ like this:
 sudo install-vrk-studiolite
 "
 exit 22; fi
-
-# Check if Vrk StudioLite installed
-if [ "${VRK_STUDIOLITE_INSTALLED}" = "YES" ]; then
-echo "Vrk StudioLite apps already installed."
-exit 0; fi
 
 # Check to make sure this is run as sudo, but not run by root
 ## If root or sudo
@@ -63,10 +64,20 @@ sudo install-vrk-apps
 "
 exit 22; fi
 
+# Check for Internet connection
+/usr/bin/ping -c 1 -q google.com > /dev/null 2>&1
+if [ "$?" != "0" ]; then
+echo "No Internet connection. Connect, then try again."; exit 0; fi
 
 # Include the configs
 . /home/${SUDO_USER}/.vrk/configs/lang/stationuser-dirs_CURRENT
-. /opt/vrk/machineinfo
+
+# Update
+/usr/bin/pacman -Sy archlinux-keyring --noconfirm
+/usr/bin/pacman -Syy --noconfirm
+/usr/bin/pacman -Scc --noconfirm
+/usr/bin/su worker -c '/usr/bin/yay -Syy --noconfirm'
+/usr/bin/su worker -c '/usr/bin/yay -Scc --noconfirm'
 
 # Message
 echo "
@@ -83,10 +94,10 @@ Terminal Design Tools
 #######
 "
 sleep 1
-/usr/bin/pacman -S --noconfirm imagemagick
-/usr/bin/pacman -S --noconfirm pandoc
-/usr/bin/pacman -S --noconfirm synfig
-/usr/bin/pacman -S --noconfirm ffmpeg
+/usr/bin/pacman -S --noconfirm --needed imagemagick
+/usr/bin/pacman -S --noconfirm --needed pandoc
+/usr/bin/pacman -S --noconfirm --needed synfig
+/usr/bin/pacman -S --noconfirm --needed ffmpeg
 touch $chkfile; fi
 
 # Graphic Design
@@ -98,10 +109,10 @@ Graphic Design
 #######
 "
 sleep 1
-/usr/bin/pacman -S --noconfirm gimp
-/usr/bin/pacman -S --noconfirm inkscape
-/usr/bin/pacman -S --noconfirm mypaint
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm gimp-plugin-registry'
+/usr/bin/pacman -S --noconfirm --needed gimp
+/usr/bin/pacman -S --noconfirm --needed inkscape
+/usr/bin/pacman -S --noconfirm --needed mypaint
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed gimp-plugin-registry'
 ## CMYK for inkscape
 /opt/vrk/boss/install-pdfcmyk
 touch $chkfile; fi
@@ -115,9 +126,9 @@ Video Making
 #######
 "
 sleep 1
-/usr/bin/pacman -S --noconfirm obs-studio
-/usr/bin/pacman -S --noconfirm shotcut
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm key-mon'
+/usr/bin/pacman -S --noconfirm --needed obs-studio
+/usr/bin/pacman -S --noconfirm --needed shotcut
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed key-mon'
 touch $chkfile; fi
 
 # Audacity
@@ -129,7 +140,7 @@ Audacity
 #######
 "
 sleep 1
-/usr/bin/pacman -S --noconfirm audacity
+/usr/bin/pacman -S --noconfirm --needed audacity
 touch $chkfile; fi
 
 # Earth & Star Charts
@@ -141,8 +152,8 @@ Earth & Star Charts
 #######
 "
 sleep 1
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm stellarium'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm google-earth-pro'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed stellarium'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed google-earth-pro'
 touch $chkfile; fi
 
 # RSS
@@ -154,7 +165,7 @@ Really Slick Screensavers
 #######
 "
 sleep 1
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm rss-glx'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed rss-glx'
 killall xscreensaver > /dev/null 2>&1
 /usr/bin/rss-glx_install.pl # installs more screensavers, including Helios
 touch $chkfile; fi
@@ -163,7 +174,10 @@ touch $chkfile; fi
 rm /opt/vrk/.inst-stult-*
 
 # Set config
-echo "VRK_STUDIOLITE_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo
+if [ "${VRK_STUDIOLITE_INSTALLED}" != "YES" ]; then
+sed -i "s/VRK_STUDIOLITE_INSTALLED=.*/VRK_STUDIOLITE_INSTALLED=\"YES\"/" /opt/vrk/machineinfo; fi
+if [ -z "${VRK_STUDIOLITE_INSTALLED}" ]; then
+echo "VRK_STUDIOLITE_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo; fi
 touch /home/${SUDO_USER}/.vrk/configs/.studiolite
 ## Remove repo temp progress files
 rm -f /opt/vrk/.vrk-studiolite-*

@@ -40,9 +40,6 @@ sudo install-mi-basic
 "
 exit 22; fi
 
-# Include the config
-. /opt/vrk/machineinfo
-
 # Vrk Desktop
 /opt/vrk/boss/install-vrk-desktop
 

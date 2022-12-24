@@ -175,8 +175,13 @@ gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-maia-compact-dark'
 gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Adapta-Nokto-Maia'
 gsettings set org.gnome.shell.extensions.user-theme name 'Adwaita-maia-compact-dark'
 
-# OnlyOffice to Dark theme
+# OnlyOffice to dark theme
 sed -i "s/UITheme=theme-.*/UITheme=theme-dark/" ~/.config/onlyoffice/DesktopEditors.conf
+
+# Inkscape to dark theme
+/usr/bin/killall inkscape
+sed -i 's/gtkTheme=.*/gtkTheme="Adwaita-maia-dark"/' ~/.config/inkscape/preferences.xml
+grep -qF 'gtkTheme="Adwaita-maia-dark"' ~/.config/inkscape/preferences.xml || sed -i 's/gtkTheme=.*/gtkTheme="Adwaita-dark"/' ~/.config/inkscape/preferences.xml
 
 # Dash to Panel (replaces Dash to Dock)
 gnome-extensions disable dash-to-dock@micxgx.gmail.com

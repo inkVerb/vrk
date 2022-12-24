@@ -6,6 +6,7 @@
 
 # How to use:
 ## sudo install-vrk-developer
+## sudo install-vrk-desktop -r # To re-install without a prompt
 
 
 # Set user
@@ -19,6 +20,12 @@ exit 22; fi
 # Check if installed
 if [ ! -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
 echo "Install Vrk first. See README.md"
+exit 22; fi
+
+# Check for Vrk Desktop (which installs yay)
+. /opt/vrk/machineinfo
+if [ ! -e "/opt/vrk/.vrk-desktop-installed" ] || [ -z "$VRK_DESKTOP_INSTALLED" ] || [ "$VRK_DESKTOP_INSTALLED" != "YES" ]; then
+echo "must run install-vrk-desktop first"
 exit 22; fi
 
 # Check to make sure this is run as sudo, but not run by root
@@ -40,9 +47,16 @@ sudo install-vrk-developer
 exit 22; fi
 
 # Check if Vrk Developer installed
-if [ "${VRK_DEVELOPER_INSTALLED}" = "YES" ]; then
+if [ "${VRK_DEVELOPER_INSTALLED}" = "YES" ] && [ -z "$1" ] || [ "$1" != "-r" ]; then
 echo "Vrk Developer apps already installed."
-exit 0; fi
+  ## Allow re-install
+  echo "If you would like to re-install it, type \"yes\"..."
+  read QYN
+  if [ "$QYN" != "yes" ]; then
+    echo "I quit."
+    exit 0
+  fi
+fi
 
 # Check to make sure this is run as sudo, but not run by root
 ## If root or sudo
@@ -62,10 +76,20 @@ sudo install-vrk-developer
 "
 exit 22; fi
 
+# Check for Internet connection
+/usr/bin/ping -c 1 -q google.com > /dev/null 2>&1
+if [ "$?" != "0" ]; then
+echo "No Internet connection. Connect, then try again."; exit 0; fi
 
-# Include the configs
+# Include the progress config
 . /home/${SUDO_USER}/.vrk/configs/lang/stationuser-dirs_CURRENT
-. /opt/vrk/machineinfo
+
+# Update
+/usr/bin/pacman -Sy archlinux-keyring --noconfirm
+/usr/bin/pacman -Syy --noconfirm
+/usr/bin/pacman -Scc --noconfirm
+/usr/bin/su worker -c '/usr/bin/yay -Syy --noconfirm'
+/usr/bin/su worker -c '/usr/bin/yay -Scc --noconfirm'
 
 # Message
 echo "
@@ -82,7 +106,7 @@ Server Tools
 #######
 "
 sleep 1
-/usr/bin/pacman -S --noconfirm filezilla openssh 
+/usr/bin/pacman -S --noconfirm --needed filezilla openssh 
 touch $chkfile; fi
 
 # Codium
@@ -94,7 +118,7 @@ Codium
 #######
 "
 sleep 1
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm vscodium-bin'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed vscodium-bin'
 touch $chkfile; fi
 
 # GitLab
@@ -106,7 +130,7 @@ GitLab
 #######
 "
 sleep 1
-/usr/bin/pacman -S --noconfirm gitlab
+/usr/bin/pacman -S --noconfirm --needed gitlab
 touch $chkfile; fi
 
 # Slack, Obsidian & Gitter
@@ -118,9 +142,9 @@ Slack, Obsidian & Gitter
 #######
 "
 sleep 1
-/usr/bin/pacman -S obsidian --noconfirm
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm slack-desktop'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm gitter-bin'
+/usr/bin/pacman -S --noconfirm --needed obsidian
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed slack-desktop'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed gitter-bin'
 touch $chkfile; fi
 
 # Postman
@@ -132,8 +156,7 @@ Postman
 #######
 "
 sleep 1
-/usr/bin/pacman -S obsidian --noconfirm
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm postman-bin'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed postman-bin'
 touch $chkfile; fi
 
 # Figma
@@ -145,8 +168,7 @@ Figma
 #######
 "
 sleep 1
-/usr/bin/pacman -S obsidian --noconfirm
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm figma-linux-bin'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed figma-linux-bin'
 touch $chkfile; fi
 
 # Swagger
@@ -158,8 +180,7 @@ Swagger
 #######
 "
 sleep 1
-/usr/bin/pacman -S obsidian --noconfirm
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm swagger-ui'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed swagger-ui'
 touch $chkfile; fi
 
 # Draw.io
@@ -171,15 +192,17 @@ Draw.io
 #######
 "
 sleep 1
-/usr/bin/pacman -S obsidian --noconfirm
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm drawio-desktop-bin'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed drawio-desktop-bin'
 touch $chkfile; fi
 
 # Remove every $chkfile
 rm /opt/vrk/.inst-dev-*
 
 # Set config
-echo "VRK_DEVELOPER_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo
+if [ "${VRK_DEVELOPER_INSTALLED}" != "YES" ]; then
+sed -i "s/VRK_DEVELOPER_INSTALLED=.*/VRK_DEVELOPER_INSTALLED=\"YES\"/" /opt/vrk/machineinfo; fi
+if [ -z "${VRK_DEVELOPER_INSTALLED}" ]; then
+echo "VRK_DEVELOPER_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo; fi
 touch /home/${SUDO_USER}/.vrk/configs/.Developer
 ## Remove repo temp progress files
 rm -f /opt/vrk/.vrk-developer-*
