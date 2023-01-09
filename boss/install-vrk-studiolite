@@ -152,7 +152,8 @@ Earth & Star Charts
 #######
 "
 sleep 1
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed stellarium'
+##Dev stellarium retrieves dependencies directly while stellarium-bin bases everything on the AppImage from the vendor
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed stellarium-bin'
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed google-earth-pro'
 touch $chkfile; fi
 
