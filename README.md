@@ -97,6 +97,8 @@ For a a user to have boss/ folder permissions:
 
 ## Vrk tools
 - **Surfers**:Manage SSH profiles & FileZilla integration `surf/ssh-*`
+  - Easily add an SSH server to ssh command and FileZilla with this:
+    - `ssh-new-all [surfer name] [remote user] [remote IP] [ssh_key name] [port - optional]`
 - **OpenVPN**: based on SSH profile `surf/vpn-add`
 - **GitHub**: streamlined for simple use `surf/vgit*`
 - **sed**: Recursive directory `sed` replacements via `vsed`

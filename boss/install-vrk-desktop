@@ -100,7 +100,7 @@ if /usr/bin/su worker -c 'echo hello' > /dev/null 2>&1 && /usr/bin/ls /opt/vrk/w
 else
   ### Create worker user
   /usr/bin/groupadd worker
-  /usr/bin/useradd -g worker worker
+  /usr/bin/useradd -g worker -s /usr/bin/nologin worker
   /usr/bin/usermod -a -G wheel worker
   /usr/bin/mkdir -p /opt/vrk/worker
   /usr/bin/chown -R worker:worker /opt/vrk/worker
