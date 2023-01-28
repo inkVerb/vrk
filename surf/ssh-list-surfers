@@ -1,4 +1,4 @@
-#!/bin/sbah
+#!/bin/bash
 #inkVerbSurfer! verb.ink
 set -e
 
