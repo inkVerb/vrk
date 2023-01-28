@@ -24,7 +24,7 @@ exit 22
 fi
 
 # Check if the malibu file exists
-if [ ! -f ~/.vrk/malibu/${surfername}.malibu ]; then
+if [ ! -f "~/.vrk/malibu/${surfername}.malibu" ]; then
 echo "That surfer doesn't exist yet! Add it with ssh-new-surfer
 "
 exit 22

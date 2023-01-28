@@ -21,7 +21,7 @@ fi
 
 # Check variables
 if [ -z $4 ]; then
-echo "You need to specify stuff, like this:
+echo "Specify all settings:
 ssh-new-surfer [surfer name] [remote user] [remote IP] [ssh_key name] [port - optional]
 "
 exit 22
@@ -33,8 +33,7 @@ Port=22
 fi
 
 # Create a config
-echo "#!/bin/sh
-# This is a Vrk config file with the credentials of a surfer
+echo "# This is a Vrk config file with the credentials of a surfer
 malibuUSER=\"${User}\"
 malibuIP=\"${Ip}\"
 malibuPORT=\"${Port}\"

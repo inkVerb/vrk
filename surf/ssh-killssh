@@ -17,7 +17,7 @@ exit 22
 fi
 
 # Check variables
-if [ -z $1 ]; then
+if [ -z "$1" ]; then
 echo "You need to specify the surfer, like this:
 ssh-killssh johnserver
 "

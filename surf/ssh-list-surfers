@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sbah
 #inkVerbSurfer! verb.ink
 set -e
 
@@ -9,7 +9,7 @@ set -e
 
 
 # Check if installed
-if [ ! -f ~/.vrk/configs/stationinfo ]; then
+if [ ! -f "~/.vrk/configs/stationinfo" ]; then
 echo "Install Vrk first. See README.md"
 exit 22
 fi

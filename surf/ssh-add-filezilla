@@ -12,22 +12,22 @@
 malibuSURFER=$1
 
 # Check if installed
-if [ ! -f ~/.vrk/configs/stationinfo ]; then
+if [ ! -f "~/.vrk/configs/stationinfo" ]; then
 echo "Install Vrk first. See README.md"
 exit 22; fi
 
 # Check variables
-if [ -z $1 ]; then
+if [ -z "$1" ]; then
 echo "You need to specify stuff, like this:
 ssh-add-filezilla [surfer]
 "
 exit 22; fi
 
 # Include the config
-. ~/.vrk/malibu/${malibuSURFER}.malibu
+. "~/.vrk/malibu/${malibuSURFER}.malibu"
 
 # Copy the key to .ppk
-cp ~/.ssh/${malibuKEY} ~/.ssh/${malibuKEY}.ppk
+cp "~/.ssh/${malibuKEY}" "~/.ssh/${malibuKEY}.ppk"
 
 # Add the FileZilla profile
 sed -i "s/<Servers>/<Servers>\n\t\t<Server>\n\t\t\t<Host>${malibuIP}<\/Host>\n\t\t\t<Port>${malibuPORT}<\/Port>\n\t\t\t<Protocol>1<\/Protocol>\n\t\t\t<Type>0<\/Type>\n\t\t\t<User>${malibuUSER}<\/User>\n\t\t\t<Keyfile>\/home\/${USER}\/\.ssh\/${malibuKEY}\.ppk<\/Keyfile>\n\t\t\t<Lomalibuntype>5<\/Lomalibuntype>\n\t\t\t<TimezoneOffset>0<\/TimezoneOffset>\n\t\t\t<PasvMode>MODE_DEFAULT<\/PasvMode>\n\t\t\t<MaximumMultipleConnections>0<\/MaximumMultipleConnections>\n\t\t\t<EncodingType>Auto<\/EncodingType>\n\t\t\t<BypassProxy>0<\/BypassProxy>\n\t\t\t<Name>${malibuSURFER}<\/Name>\n\t\t\t<Comments>Created by inkVerb Vrk<\/Comments>\n\t\t\t<LocalDir>\/home\/$USER\/Downloads\/fzVrk\/<\/LocalDir>\n\t\t\t<RemoteDir>1 0 3 var 3 www 4 html<\/RemoteDir>\n\t\t\t<SyncBrowsing>0<\/SyncBrowsing>\n\t\t\t<DirectoryComparison>0<\/DirectoryComparison>${malibuSURFER}<\/Server>/g" ~/.config/filezilla/sitemanager.xml
