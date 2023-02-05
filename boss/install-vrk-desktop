@@ -100,7 +100,7 @@ if /usr/bin/su worker -c 'echo hello' > /dev/null 2>&1 && /usr/bin/ls /opt/vrk/w
 else
   ### Create worker user
   /usr/bin/groupadd worker
-  /usr/bin/useradd -g worker -s /usr/bin/nologin worker
+  /usr/bin/useradd -g worker worker
   /usr/bin/usermod -a -G wheel worker
   /usr/bin/mkdir -p /opt/vrk/worker
   /usr/bin/chown -R worker:worker /opt/vrk/worker
@@ -159,7 +159,7 @@ sleep 1
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed google-chrome'
 touch $chkfile; fi
 
-# Arch Wallpaper
+# Desktop Gestures
 chkfile=/opt/vrk/.inst-dsktp-3
 if [ ! -f "$chkfile" ]; then
 echo "
@@ -168,7 +168,8 @@ Wallpaper
 #######
 "
 sleep 1
-/usr/bin/pacman -S --noconfirm archlinux-wallpaper
+/usr/bin/pacman -S --noconfirm touchegg
+/usr/bin/systemctl enable touchegg.service
 touch $chkfile; fi
 
 # LibreOffice & OnlyOffice
@@ -227,7 +228,7 @@ Comm & VOIP
 "
 sleep 1
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed discord'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed skype'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed skypeforlinux-stable-bin'
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed twinkle'
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed zoom'
 touch $chkfile; fi

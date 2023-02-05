@@ -127,9 +127,16 @@ mkdir -p /opt/vrk/droids/${VRK_USER}
 touch /home/${VRK_USER}/.bashrc
 ## Add the path config
 if ! grep -Fq "#VrkPath" /home/${VRK_USER}/.bashrc; then
+### For a sudoer
+if [ -z $1 ] || [ -n "$2" ] && [ "$2" = -b ]; then
 echo "
 #VrkPath
-export PATH=\$PATH:/opt/vrk/surf:/opt/vrk/droids/ALL:/opt/vrk/droids/${VRK_USER}:/opt/vrk/go/${VRK_USER}" >> /home/${VRK_USER}/.bashrc
+export PATH=\$PATH:/opt/vrk/surf:/opt/vrk/boss:/opt/vrk/droids/ALL:/opt/vrk/droids/${VRK_USER}" >> /home/${VRK_USER}/.bashrc
+else
+echo "
+#VrkPath
+export PATH=\$PATH:/opt/vrk/surf:/opt/vrk/droids/ALL:/opt/vrk/droids/${VRK_USER}" >> /home/${VRK_USER}/.bashrc
+fi
 fi
 
 # Set config
@@ -157,6 +164,9 @@ fi
 # Text editor themes for Gedit
 mkdir -p /usr/share/gtksourceview-4/styles/
 cp -f /opt/vrk/donjon/gedit/*.xml /usr/share/gtksourceview-4/styles/
+
+# Turn off Wayland so OBS and other apps don't break
+sed -i 's/#WaylandEnable=false/WaylandEnable=false' /etc/gdm/custom.conf
 
 # Vrk avatar icon
 echo "Vrk avatar icons..."

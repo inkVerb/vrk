@@ -46,18 +46,6 @@ sudo install-vrk-developer
 "
 exit 22; fi
 
-# Check if Vrk Developer installed
-if [ "${VRK_DEVELOPER_INSTALLED}" = "YES" ] && [ -z "$1" ] || [ "$1" != "-r" ]; then
-echo "Vrk Developer apps already installed."
-  ## Allow re-install
-  echo "If you would like to re-install it, type \"yes\"..."
-  read QYN
-  if [ "$QYN" != "yes" ]; then
-    echo "I quit."
-    exit 0
-  fi
-fi
-
 # Check to make sure this is run as sudo, but not run by root
 ## If root or sudo
 if [ "$(id -u)" = "0" ]; then

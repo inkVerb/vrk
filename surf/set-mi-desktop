@@ -73,13 +73,6 @@ cp ~/.bashrc ~/.bashrc-vrkbak
 ## Make the prompt setting like this: # PS1='\[\033[01;32m\][\u@\h\[\033[01;37m\] \[\033[01;34m\]\w\[\033[01;32m\]]\$\[\033[00m\] '
 sed -i "s:\\\W:\\\[\\\033[01;34m\\\]\\\w:g" ~/.bashrc
 
-## Setup Vim for copy to clipboard
-echo 'nnoremap <C-c> "+y
-vnoremap <C-c> "+y
-nnoremap <C-p> "+p
-vnoremap <C-p> "+p
-syntax on' > ~/.vimrc
-
 ## Templates
 ~/.vrk/boards/do-vrktemplates
 
@@ -102,7 +95,8 @@ echo 'nnoremap <C-c> "+y
 vnoremap <C-c> "+y
 nnoremap <C-p> "+p
 vnoremap <C-p> "+p
-syntax on' > ~/.vimrc
+syntax on
+set number' > ~/.vimrc
 
 ## Pause to avoid trouble
 sleep 1
@@ -172,9 +166,9 @@ gsettings set org.gnome.shell.extensions.arcmenu enable-menu-hotkey false
 
 # Set theme & icons
 # Desktop theme for legacy applications
-gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-maia-compact-dark'
+gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
 gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Adapta-Nokto-Maia'
-gsettings set org.gnome.shell.extensions.user-theme name 'Adwaita-maia-compact-dark'
+gsettings set org.gnome.shell.extensions.user-theme name 'Adwaita-dark'
 
 # OnlyOffice to dark theme
 sed -i "s/UITheme=theme-.*/UITheme=theme-dark/" ~/.config/onlyoffice/DesktopEditors.conf

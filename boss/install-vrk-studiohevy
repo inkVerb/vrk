@@ -143,7 +143,6 @@ DVD Tools
 sleep 1
 /usr/bin/pacman -S --noconfirm --needed brasero
 touch $chkfile; fi
-brasero
 
 # Wine
 chkfile=/opt/vrk/.inst-stuhv-5
@@ -189,5 +188,5 @@ rm -f /opt/vrk/.vrk-studiohevy-*
 
 # Finish
 echo "
-Vrk Studio Lite is all set.
+Vrk Studio Hevy is all set.
 "
