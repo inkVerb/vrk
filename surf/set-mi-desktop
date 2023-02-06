@@ -230,6 +230,15 @@ gsettings set org.gnome.TextEditor wrap-text false
 gsettings set org.gnome.TextEditor restore-session false
 gsettings set org.gnome.TextEditor spellcheck false
 
+# Codium Themes & extensions (if installed)
+if codium -h > /dev/null && 2>&1; then
+    codium --install-extension emroussel.atomize-atom-one-dark-theme
+    codium --install-extension opensumi.opensumi-default-themes
+    codium --install-extension PenumbraTheme.penumbra
+    codium --install-extension timonwong.shellcheck
+    codium --install-extension ms-vscode.go
+fi
+
 # Default text editors
 cat <<EOF >> ~/.bashrc
 export EDITOR='vim'

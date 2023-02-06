@@ -114,11 +114,11 @@ chkfile=/opt/vrk/.inst-dev-3
 if [ ! -f "$chkfile" ]; then
 echo "
 #######
-GitLab
+Skipping GitLab, you can do that yourself
 #######
 "
 sleep 1
-/usr/bin/pacman -S --noconfirm --needed gitlab
+#/usr/bin/pacman -S --noconfirm --needed gitlab
 touch $chkfile; fi
 
 # Slack, Obsidian & Gitter
