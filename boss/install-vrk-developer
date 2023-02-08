@@ -109,34 +109,8 @@ sleep 1
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed vscodium-bin'
 touch $chkfile; fi
 
-# GitLab
-chkfile=/opt/vrk/.inst-dev-3
-if [ ! -f "$chkfile" ]; then
-echo "
-#######
-Skipping GitLab, you can do that yourself
-#######
-"
-sleep 1
-#/usr/bin/pacman -S --noconfirm --needed gitlab
-touch $chkfile; fi
-
-# Slack, Obsidian & Gitter
-chkfile=/opt/vrk/.inst-dev-4
-if [ ! -f "$chkfile" ]; then
-echo "
-#######
-Slack, Obsidian & Gitter
-#######
-"
-sleep 1
-/usr/bin/pacman -S --noconfirm --needed obsidian
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed slack-desktop'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed gitter-bin'
-touch $chkfile; fi
-
 # Postman
-chkfile=/opt/vrk/.inst-dev-5
+chkfile=/opt/vrk/.inst-dev-3
 if [ ! -f "$chkfile" ]; then
 echo "
 #######
@@ -147,41 +121,67 @@ sleep 1
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed postman-bin'
 touch $chkfile; fi
 
+# GitLab
+chkfile=/opt/vrk/.inst-dev-4
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Skipping GitLab, you can do that yourself
+#######
+"
+sleep 1
+#/usr/bin/pacman -S --noconfirm --needed gitlab
+touch $chkfile; fi
+
+# # Slack, Obsidian & Gitter
+# chkfile=/opt/vrk/.inst-dev-5
+# if [ ! -f "$chkfile" ]; then
+# echo "
+# #######
+# Slack, Obsidian & Gitter
+# #######
+# "
+# sleep 1
+# /usr/bin/pacman -S --noconfirm --needed obsidian
+# /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed slack-desktop'
+# /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed gitter-bin'
+# touch $chkfile; fi
+
+# # Figma
+# chkfile=/opt/vrk/.inst-dev-6
+# if [ ! -f "$chkfile" ]; then
+# echo "
+# #######
 # Figma
-chkfile=/opt/vrk/.inst-dev-6
-if [ ! -f "$chkfile" ]; then
-echo "
-#######
-Figma
-#######
-"
-sleep 1
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed figma-linux-bin'
-touch $chkfile; fi
+# #######
+# "
+# sleep 1
+# /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed figma-linux-bin'
+# touch $chkfile; fi
 
+# # Swagger
+# chkfile=/opt/vrk/.inst-dev-7
+# if [ ! -f "$chkfile" ]; then
+# echo "
+# #######
 # Swagger
-chkfile=/opt/vrk/.inst-dev-7
-if [ ! -f "$chkfile" ]; then
-echo "
-#######
-Swagger
-#######
-"
-sleep 1
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed swagger-ui'
-touch $chkfile; fi
+# #######
+# "
+# sleep 1
+# /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed swagger-ui'
+# touch $chkfile; fi
 
+# # Draw.io
+# chkfile=/opt/vrk/.inst-dev-8
+# if [ ! -f "$chkfile" ]; then
+# echo "
+# #######
 # Draw.io
-chkfile=/opt/vrk/.inst-dev-8
-if [ ! -f "$chkfile" ]; then
-echo "
-#######
-Draw.io
-#######
-"
-sleep 1
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed drawio-desktop-bin'
-touch $chkfile; fi
+# #######
+# "
+# sleep 1
+# /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed drawio-desktop-bin'
+# touch $chkfile; fi
 
 # Remove every $chkfile
 rm /opt/vrk/.inst-dev-*
