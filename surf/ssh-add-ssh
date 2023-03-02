@@ -24,7 +24,7 @@ exit 22
 fi
 
 # Check if the malibu file exists
-if [ ! -f "~/.vrk/malibu/${surfername}.malibu" ]; then
+if [ ! -f ~/.vrk/malibu/${surfername}.malibu ]; then
 echo "That surfer doesn't exist yet! Add it with ssh-new-surfer
 "
 exit 22
@@ -32,7 +32,7 @@ fi
 
 
 # Include the config
-. ~/.vrk/malibu/{surfername}.malibu
+. ~/.vrk/malibu/${surfername}.malibu
 
 # Create the config entry
 touch ~/.ssh/config
@@ -56,5 +56,4 @@ echo "Host ${surfername}
 
 # Finish
 echo "Kowabunga!
-Now \"ssh ${surfername}\" will log you into that remote server in the vast ocean!
-But, you must run sudo vrkfresh first!"
+Now \"ssh ${surfername}\" will log you into that remote server!"

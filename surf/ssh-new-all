@@ -12,13 +12,13 @@ User="$2"
 Keyname="$4"
 
 # Check if installed
-if [ ! -f "~/.vrk/configs/stationinfo" ]; then
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
 echo "Install Vrk first. See README.md"
 exit 22
 fi
 
 # Check for key
-if [ ! -f "~/.ssh/${Keyname}" ]; then
+if [ ! -f ~/.ssh/${Keyname} ]; then
 /opt/vrk/surf/ssh-craft-key ${Keyname}
 echo "Since it did not exist, ssh key ${Keyname} has been created.
 The contents of ${Keyname}.pub should be added to .ssh/authorized_keys for remote server's user '${User}' before it can be used.

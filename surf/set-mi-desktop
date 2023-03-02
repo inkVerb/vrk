@@ -394,7 +394,7 @@ sed -i "s/favorites-in-recent=.*/favorites-in-recent=false/g" ~/.config/xfce4/pa
 
 ## Terminal color scheme
 ### Check if done
-if [ ! -f "~/.vrk/configs/.xt-xfce" ]; then
+if [ ! -f ~/.vrk/configs/.xt-xfce ]; then
 ### Add the theme
 ~/.vrk/donjon/xt-xfce
 ### Make the record

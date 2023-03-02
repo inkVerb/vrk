@@ -24,7 +24,7 @@ ssh-killssh johnserver
 exit 22
 fi
 
-if [ ! -f "~/.vrk/malibu/${surfername}.malibu" ]; then
+if [ ! -f ~/.vrk/malibu/${surfername}.malibu ]; then
 echo "The surfer config filed does not exist! Nothing to do."
 exit 22
 fi

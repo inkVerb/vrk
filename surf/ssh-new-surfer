@@ -41,7 +41,7 @@ malibuKEY=\"${Key}\"
 " > ~/.vrk/malibu/${surfername}.malibu
 
 # Finish
-if [ -f "~/.vrk/malibu/${surfername}.malibu" ]; then
+if [ -f ~/.vrk/malibu/${surfername}.malibu ]; then
 echo "${surfername} added"
 else
 echo "Failed to add .malibu file, something is wrong"
