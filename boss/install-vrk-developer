@@ -133,8 +133,25 @@ sleep 1
 #/usr/bin/pacman -S --noconfirm --needed gitlab
 touch $chkfile; fi
 
+# BlackArch Repos
+chkfile=/opt/vrk/.inst-dev-5
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+BlackArch Repos
+#######
+"
+sleep 1
+curl -O https://blackarch.org/strap.sh
+echo 5ea40d49ecd14c2e024deecf90605426db97ea0c strap.sh | sha1sum -c
+/usr/bin/chmod +x strap.sh
+/usr/bin/./strap.sh
+/usr/bin/pacman -Syu
+/usr/bin/rm -f ./strap.sh
+touch $chkfile; fi
+
 # # Slack, Obsidian & Gitter
-# chkfile=/opt/vrk/.inst-dev-5
+# chkfile=/opt/vrk/.inst-dev-6
 # if [ ! -f "$chkfile" ]; then
 # echo "
 # #######
@@ -148,7 +165,7 @@ touch $chkfile; fi
 # touch $chkfile; fi
 
 # # Figma
-# chkfile=/opt/vrk/.inst-dev-6
+# chkfile=/opt/vrk/.inst-dev-7
 # if [ ! -f "$chkfile" ]; then
 # echo "
 # #######
@@ -160,7 +177,7 @@ touch $chkfile; fi
 # touch $chkfile; fi
 
 # # Swagger
-# chkfile=/opt/vrk/.inst-dev-7
+# chkfile=/opt/vrk/.inst-dev-8
 # if [ ! -f "$chkfile" ]; then
 # echo "
 # #######
@@ -172,7 +189,7 @@ touch $chkfile; fi
 # touch $chkfile; fi
 
 # # Draw.io
-# chkfile=/opt/vrk/.inst-dev-8
+# chkfile=/opt/vrk/.inst-dev-9
 # if [ ! -f "$chkfile" ]; then
 # echo "
 # #######

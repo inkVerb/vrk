@@ -76,16 +76,8 @@ sed -i "s:\\\W:\\\[\\\033[01;34m\\\]\\\w:g" ~/.bashrc
 ## Templates
 ~/.vrk/boards/do-vrktemplates
 
-## Spotify bugs
-dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
-dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop
-dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
-dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
-
 ## Gedit (may be redundant in per-environments below, but just be safe)
-gsettings set org.gnome.gedit.preferences.editor wrap-mode none
 gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
-gsettings set org.gnome.gedit.preferences.editor display-overview-map true
 gsettings set org.gnome.gedit.preferences.editor highlight-current-line true
 gsettings set org.gnome.gedit.preferences.editor bracket-matching true
 gsettings set org.gnome.gedit.preferences.editor scheme 'solarized-dark'
@@ -213,10 +205,15 @@ gsettings set org.gnome.shell.extensions.dash-to-panel dot-style-focused 'CILIOR
 gsettings set org.gnome.shell.extensions.dash-to-panel dot-style-unfocused 'CILIORA'
 gsettings set org.gnome.shell.extensions.arcmenu gnome-dash-show-applications false
 
+## Spotify bugs (GNOME only)
+dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop
+dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+
 # Gedit settings
+gsettings set org.gnome.gedit.preferences.editor display-overview-map true
 gsettings set org.gnome.gedit.preferences.editor wrap-mode none
-gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
-gsettings set org.gnome.gedit.preferences.editor scheme 'solarized-dark'
 
 # GNOME Text Editor
 echo 'alias vedit=gnome-text-editor' >> ~/.bashrc
@@ -360,9 +357,8 @@ cp -rf ~/.vrk/donjon/xfce/config/autostart ~/.config/
 ## Mouse cursor theme
 gsettings set org.gnome.desktop.interface cursor-theme "DMZ-Black"
 
-## Gedit
-gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
-gsettings set org.gnome.gedit.preferences.editor scheme 'atom-one'
+## Desktop prefer dark
+gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
 
 ## Compose Key: CapLock key
 xfconf-query -n -c keyboard-layout -p /Default/XkbOptions/Compose -t string -s "compose:caps"
@@ -372,16 +368,12 @@ xfconf-query -n -c keyboard-layout -p /Default/XkbOptions/Compose -t string -s "
 ### Window Theme
 xfconf-query -c xfwm4 -p /general/theme -s "Numix"
 ### Color Theme
-xfconf-query -c xsettings -p /Net/ThemeName -s "Adapta-Nokto"
-### Per distro ;-)
-if [ "${LINUX_DESKTOP}" = "ubuntustudio" ]; then
-xfconf-query -c xsettings -p /Net/IconThemeName -s "Surfn-Arch-Blue"; fi
-if [ "${LINUX_DESKTOP}" = "xubuntu" ]; then
-xfconf-query -c xsettings -p /Net/IconThemeName -s "Surfn-Numix-Misty"; fi
+xfconf-query -c xsettings -p /Net/ThemeName -s "Matcha-dark-azul"
 
 ## Pause to avoid trouble
 sleep 1
 
+#DEV This has a problem
 ## Whisker menu
 ### Icon
 if [ "${LINUX_DESKTOP}" = "xfce" ]; then
@@ -420,7 +412,7 @@ sleep 1
 ## Hot keys
 ### F12 / Scroll Lock for Xterminal Drop-down
 xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/F12" -t string -s 'xfce4-terminal --drop-down'
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/ScrLk" -t string -s 'xfce4-terminal --drop-down'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Scroll_Lock" -t string -s 'xfce4-terminal --drop-down'
 ### Whisker menu
 xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_L" -t string -s 'xfce4-popup-whiskermenu'
 xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_R" -t string -s 'xfce4-popup-whiskermenu'
@@ -472,11 +464,6 @@ xfconf-query -n -t string -c xfdashboard -p /plugins/hot-corner/activation-radiu
 ### xfconf-query -n -c xfdashboard -p /favourites -t string -s "exo-file-manager.desktop" -t string -s "exo-web-browser.desktop" -t string -s "exo-mail-reader.desktop" -t string -s "gedit.desktop" -t string -s "libreoffice-writer.desktop" -t string -s "gnome-calculator.desktop" -t string -s "xfce4-settings-manager.desktop"
 ### xfconf-query -n -c xfdashboard -p /favourites -t string -s "exo-file-manager.desktop" -t string -s "chromium-browser.desktop" -t string -s "firefox.desktop" -t string -s "thunderbird.desktop" -t string -s "gedit.desktop" -t string -s "libreoffice-writer.desktop" -t string -s "gnome-calculator.desktop" -t string -s "xfce4-settings-manager.desktop"
 ~/.vrk/donjon/xfdashboard-zilla
-
-## App Theming (specifically for Xfce since some GTK themes ignore some apps)
-### Rhythmbox
-cp -f /usr/share/applications/rhythmbox.desktop ~/.local/share/applications/rhythmbox.desktop
-sed -i "s/Exec=.*/Exec=env GTK_THEME=Vertex-Dark rhythmbox %U/g" ~/.local/share/applications/rhythmbox.desktop
 
 ## Message
 echo "
