@@ -419,10 +419,14 @@ xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_R" -t str
 #can't use <Super> given the above Super_L and Super_R declarations :-(
 #xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>z" -t string -s 'xfce4-popup-whiskermenu'
 #xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>space" -t string -s 'xfce4-popup-whiskermenu'
+#DEV xfdashboard doesn't work
 ### Xfdashboard
 #### set for both orders since order matters
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Ctrl><Alt>Super_L" -t string -s 'xfdashboard'
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Ctrl><Alt>Super_R" -t string -s 'xfdashboard'
+# xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Ctrl><Alt>Super_L" -t string -s 'xfdashboard'
+# xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Ctrl><Alt>Super_R" -t string -s 'xfdashboard'
+### Numlock on by default
+xfconf-query -c keyboards -p /Default/RestoreNumlock -n -t bool -s true
+xfconf-query -c keyboards -p /Default/Numlock -n -t bool -s true
 ### Window tiling
 xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Up" -t string -s 'tile_up_key'
 xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Down" -t string -s 'tile_down_key'
