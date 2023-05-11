@@ -158,6 +158,7 @@ sleep 1
 /usr/bin/pacman -S --noconfirm chromium firefox thunderbird
 /usr/bin/pacman -S --noconfirm vivaldi vivaldi-ffmpeg-codecs
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed google-chrome'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed microsoft-edge-stable-bin'
 touch $chkfile; fi
 
 # Desktop Gestures
