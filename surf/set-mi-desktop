@@ -354,6 +354,11 @@ cp -f ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
 ## Autostart special
 cp -rf ~/.vrk/donjon/xfce/config/autostart ~/.config/
 
+## Disable lock screen
+gsettings set apps.light-locker late-locking false
+gsettings set apps.light-locker lock-after-screensaver 0
+gsettings set apps.light-locker lock-on-suspend true
+
 ## Mouse cursor theme
 gsettings set org.gnome.desktop.interface cursor-theme "DMZ-Black"
 
@@ -376,7 +381,6 @@ sleep 1
 #DEV This has a problem
 ## Whisker menu
 ### Icon
-if [ "${LINUX_DESKTOP}" = "xfce" ]; then
 sed -i "s/button-icon=.*/button-icon=\/var\/local\/vall\/rooms\/mi\/icons\/inkVerb-disk-white\.svg/g" ~/.config/xfce4/panel/whiskermenu-1.rc; fi
 #### Show it
 sed -i "s/show-button-icon=.*/show-button-icon=true/g" ~/.config/xfce4/panel/whiskermenu-1.rc
