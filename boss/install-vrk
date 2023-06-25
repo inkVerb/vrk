@@ -150,9 +150,13 @@ else
 sudo -u ${VRK_USER} sed -i "s/USER_BOSSYN=.*/USER_BOSSYN=\"NOT_BOSS\"/g" /home/${VRK_USER}/.vrk/configs/stationinfo
 fi
 
+# Turn off Wayland so OBS and other apps don't break
+sed -i 's/#WaylandEnable=false/WaylandEnable=false' /etc/gdm/custom.conf
+
 # Other Jobs
 ## Locale (if after Lang Dirs change, it creates a dialogue at the next login. DO THIS FIRST!)
-/opt/vrk/boss/vrklocale
+#/opt/vrk/boss/vrklocale
+# Locale messed up everything, let's try not using it
 
 ## Mouse cursor theme for Xfce
 if [ "${LINUX_DESKTOP}" = "xfce" ] ; then
@@ -164,9 +168,6 @@ fi
 # Text editor themes for Gedit
 mkdir -p /usr/share/gtksourceview-4/styles/
 cp -f /opt/vrk/donjon/gedit/*.xml /usr/share/gtksourceview-4/styles/
-
-# Turn off Wayland so OBS and other apps don't break
-sed -i 's/#WaylandEnable=false/WaylandEnable=false' /etc/gdm/custom.conf
 
 # Vrk avatar icon
 echo "Vrk avatar icons..."
