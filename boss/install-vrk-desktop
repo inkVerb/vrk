@@ -279,5 +279,8 @@ touch /opt/vrk/.vrk-desktop-installed
 /usr/bin/pacman -Scc --noconfirm
 /usr/bin/su worker -c '/usr/bin/yay -Scc --noconfirm'
 
+# Path
+export PATH=$PATH:/opt/vrk/surf:/opt/vrk/droids/ALL:/opt/vrk/droids/$USER
+
 # Finish
 echo "Vrk Desktop is all set."

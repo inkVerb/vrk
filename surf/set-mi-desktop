@@ -335,6 +335,7 @@ DropdownKeepOpenDefault=TRUE
 DropdownToggleFocus=TRUE
 DropdownPositionVertical=4
 DropdownMoveToActive=FALSE
+DropdownKeepAbove=TRUE
 " > ~/.config/xfce4/terminal/terminalrc
 wait
 
@@ -381,7 +382,7 @@ sleep 1
 #DEV This has a problem
 ## Whisker menu
 ### Icon
-sed -i "s/button-icon=.*/button-icon=\/var\/local\/vall\/rooms\/mi\/icons\/inkVerb-disk-white\.svg/g" ~/.config/xfce4/panel/whiskermenu-1.rc; fi
+sed -i "s/button-icon=.*/button-icon=\/var\/local\/vall\/rooms\/mi\/icons\/inkVerb-disk-white\.svg/g" ~/.config/xfce4/panel/whiskermenu-1.rc
 #### Show it
 sed -i "s/show-button-icon=.*/show-button-icon=true/g" ~/.config/xfce4/panel/whiskermenu-1.rc
 ### Favorites
@@ -390,7 +391,7 @@ sed -i "s/favorites-in-recent=.*/favorites-in-recent=false/g" ~/.config/xfce4/pa
 
 ## Terminal color scheme
 ### Check if done
-if [ ! -f ~/.vrk/configs/.xt-xfce ]; then
+if [ ! -f "~/.vrk/configs/.xt-xfce" ]; then
 ### Add the theme
 ~/.vrk/donjon/xt-xfce
 ### Make the record
