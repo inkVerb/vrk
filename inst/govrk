@@ -1,6 +1,6 @@
 #!/bin/sh
 #inkVerbMaker! verb.ink
-set -e
+#set -e
 
 # This installs Vrk™ on your local system
 ## This needs some root permissions

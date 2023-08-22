@@ -110,6 +110,7 @@ else
   ### Let's use sudo
   /usr/bin/groupadd sudo
   /usr/bin/sed -i "s?# %sudo\tALL=(ALL) ALL?%sudo\tALL=(ALL) ALL?" /etc/sudoers
+
 fi
 ## yay AUR manager
 if which yay > /dev/null 2>&1; then
@@ -123,6 +124,8 @@ else
   cd .. || exit 0
   /usr/bin/rm -rf yay
 fi
+## Let's use the yeo helper
+/usr/bin/ln -sfn /opt/vrk/donjon/yeo.sh /usr/local/bin/yeo
 
 ## Update yay
 /usr/bin/su worker -c '/usr/bin/yay -Syyu --noconfirm'
