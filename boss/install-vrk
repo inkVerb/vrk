@@ -151,7 +151,7 @@ sudo -u ${VRK_USER} sed -i "s/USER_BOSSYN=.*/USER_BOSSYN=\"NOT_BOSS\"/g" /home/$
 fi
 
 # Turn off Wayland so OBS and other apps don't break
-sed -i 's/#WaylandEnable=false/WaylandEnable=false' /etc/gdm/custom.conf
+sed -i 's/#WaylandEnable=false/WaylandEnable=false/' /etc/gdm/custom.conf
 
 # Other Jobs
 ## Locale (if after Lang Dirs change, it creates a dialogue at the next login. DO THIS FIRST!)
