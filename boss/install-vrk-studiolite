@@ -126,7 +126,13 @@ Video Making
 #######
 "
 sleep 1
-/usr/bin/pacman -S --noconfirm --needed obs-studio
+## AMD or Nvidia?
+### Test if AMD shows up in the graphics info
+if /usr/bin/lspci | /usr/bin/grep -i --color 'vga\|3d\|2d' | /usr/bin/grep -q AMD; then
+  /usr/bin/su worker -c '/usr/bin/yay -S obs-studio-amf --noconfirm'
+else
+  /usr/bin/pacman -S --noconfirm --needed obs-studio
+fi
 /usr/bin/pacman -S --noconfirm --needed shotcut
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed key-mon'
 touch $chkfile; fi

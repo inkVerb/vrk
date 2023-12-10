@@ -141,12 +141,20 @@ Fonts
 #######
 "
 sleep 1
-/usr/bin/pacman -S --noconfirm tex-gyre-fonts ttf-ubuntu-font-family noto-fonts ttf-ibm-plex ttf-liberation ttf-dejavu ttf-junicode gnu-free-fonts ttf-droid ttf-linux-libertine gentium-plus-font ttf-cascadia-code ttf-anonymous-pro ttf-jetbrains-mono adobe-source-sans-pro-fonts
-/usr/bin/pacman -S --noconfirm adobe-source-han-sans-otc-fonts adobe-source-han-serif-otc-fonts
+/usr/bin/pacman -S --noconfirm tex-gyre-fonts
+/usr/bin/pacman -S --noconfirm ttf-cascadia-code ttf-anonymous-pro ttf-jetbrains-mono
+/usr/bin/pacman -S --noconfirm ttf-ubuntu-font-family ttf-ibm-plex ttf-linux-libertine ttf-liberation gnu-free-fonts
+/usr/bin/pacman -S --noconfirm gentium-plus-font ttf-dejavu ttf-junicode ttf-droid noto-fonts
+/usr/bin/pacman -S --noconfirm adobe-source-han-sans-otc-fonts adobe-source-han-serif-otc-fonts adobe-source-sans-pro-fonts
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed ttf-mgopen culmus'
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed font-bh-ttf'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed ttf-ms-fonts ttf-vista-fonts'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed ebgaramond-otf otf-bodoni ttf-courier-prime ttf-google-fonts-git otf-jost ttf-tahoma'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed ttf-courier-prime'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed ttf-ms-fonts'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed ttf-vista-fonts'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed ttf-google-fonts-git'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed ebgaramond-otf otf-bodoni '
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed otf-jost'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed ttf-tahoma'
 touch $chkfile; fi
 
 # Browsers, Thunderbird
