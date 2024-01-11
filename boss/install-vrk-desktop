@@ -89,7 +89,7 @@ cp /root/.bashrc /root/.bashrc-vrkbak
 sed -i "s:\\\W:\\\[\\\033[01;34m\\\]\\\w:g" /etc/skel/.bashrc
 sed -i "s:\\\W:\\\[\\\033[01;34m\\\]\\\w:g" /root/.bashrc
 ## Dependencies
-/usr/bin/pacman -S --noconfirm base-devel git which pwgen
+/usr/bin/pacman -S --noconfirm --needed base-devel git which pwgen
 
 
 
@@ -141,20 +141,20 @@ Fonts
 #######
 "
 sleep 1
-/usr/bin/pacman -S --noconfirm tex-gyre-fonts
-/usr/bin/pacman -S --noconfirm ttf-cascadia-code ttf-anonymous-pro ttf-jetbrains-mono
-/usr/bin/pacman -S --noconfirm ttf-ubuntu-font-family ttf-ibm-plex ttf-linux-libertine ttf-liberation gnu-free-fonts
-/usr/bin/pacman -S --noconfirm gentium-plus-font ttf-dejavu ttf-junicode ttf-droid noto-fonts
-/usr/bin/pacman -S --noconfirm adobe-source-han-sans-otc-fonts adobe-source-han-serif-otc-fonts adobe-source-sans-pro-fonts
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed ttf-mgopen culmus'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed font-bh-ttf'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed ttf-courier-prime'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed ttf-ms-fonts'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed ttf-vista-fonts'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed ttf-google-fonts-git'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed ebgaramond-otf otf-bodoni '
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed otf-jost'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed ttf-tahoma'
+/usr/bin/pacman -S --noconfirm --needed tex-gyre-fonts
+/usr/bin/pacman -S --noconfirm --needed ttf-cascadia-code ttf-anonymous-pro ttf-jetbrains-mono
+/usr/bin/pacman -S --noconfirm --needed ttf-ubuntu-font-family ttf-ibm-plex ttf-linux-libertine ttf-liberation gnu-free-fonts
+/usr/bin/pacman -S --noconfirm --needed gentium-plus-font ttf-dejavu ttf-junicode ttf-droid noto-fonts
+/usr/bin/pacman -S --noconfirm --needed adobe-source-han-sans-otc-fonts adobe-source-han-serif-otc-fonts adobe-source-sans-pro-fonts
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm ttf-mgopen culmus'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm font-bh-ttf'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm ttf-courier-prime'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm ttf-ms-fonts'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm ttf-vista-fonts'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm ttf-google-fonts-git'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm ebgaramond-otf otf-bodoni '
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm otf-jost'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm ttf-tahoma'
 touch $chkfile; fi
 
 # Browsers, Thunderbird
@@ -166,10 +166,10 @@ Browsers & Email
 #######
 "
 sleep 1
-/usr/bin/pacman -S --noconfirm chromium firefox thunderbird
-/usr/bin/pacman -S --noconfirm vivaldi vivaldi-ffmpeg-codecs
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed google-chrome'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed microsoft-edge-stable-bin'
+/usr/bin/pacman -S --noconfirm --needed chromium firefox thunderbird
+/usr/bin/pacman -S --noconfirm --needed vivaldi vivaldi-ffmpeg-codecs
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm google-chrome'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm microsoft-edge-stable-bin'
 touch $chkfile; fi
 
 # Desktop Gestures
@@ -181,7 +181,7 @@ Wallpaper
 #######
 "
 sleep 1
-/usr/bin/pacman -S --noconfirm touchegg
+/usr/bin/pacman -S --noconfirm --needed touchegg
 /usr/bin/systemctl enable touchegg.service
 touch $chkfile; fi
 
@@ -194,8 +194,8 @@ Office
 #######
 "
 sleep 1
-/usr/bin/pacman -S --noconfirm libreoffice
-/usr/bin/pacman -S --noconfirm onlyoffice
+/usr/bin/pacman -S --noconfirm --needed libreoffice
+/usr/bin/pacman -S --noconfirm --needed onlyoffice
 touch $chkfile; fi
 
 # Terminal & text tools
@@ -207,14 +207,16 @@ Terminal & Text
 #######
 "
 sleep 1
-/usr/bin/pacman -S --noconfirm htop ntp gedit gnome-text-editor vim nano
-/usr/bin/pacman -S --noconfirm zip unzip curl wget
-/usr/bin/pacman -S --noconfirm make gcc
-/usr/bin/pacman -S --noconfirm autoconf net-tools inetutils man
-/usr/bin/pacman -S --noconfirm cronie
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed xfce4-terminal'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed adduser'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed gnome-shell-extension-installer'
+/usr/bin/pacman -S --noconfirm --needed htop ntp gedit gnome-text-editor vim nano
+/usr/bin/pacman -S --noconfirm --needed zip unzip curl wget
+/usr/bin/pacman -S --noconfirm --needed make gcc
+/usr/bin/pacman -S --noconfirm --needed autoconf net-tools inetutils man
+/usr/bin/pacman -S --noconfirm --needed cronie
+/usr/bin/pacman -S --noconfirm --needed openssh
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm xfce4-terminal'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm adduser'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm gnome-shell-extension-installer'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm vscodium-bin'
 touch $chkfile; fi
 
 # Cloud
@@ -226,9 +228,10 @@ Cloud
 #######
 "
 sleep 1
-/usr/bin/pacman -S --noconfirm openvpn
-/usr/bin/pacman -S --noconfirm nextcloud-client
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed dropbox'
+/usr/bin/pacman -S --noconfirm --needed openvpn
+/usr/bin/pacman -S --noconfirm --needed filezilla
+/usr/bin/pacman -S --noconfirm --needed nextcloud-client
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm dropbox'
 touch $chkfile; fi
 
 # Comm & VOIP
@@ -240,10 +243,10 @@ Comm & VOIP
 #######
 "
 sleep 1
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed discord'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed skypeforlinux-stable-bin'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed twinkle'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed zoom'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm discord'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm skypeforlinux-stable-bin'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm twinkle'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm zoom'
 touch $chkfile; fi
 
 # Media
@@ -255,10 +258,10 @@ Media
 #######
 "
 sleep 1
-/usr/bin/pacman -S --noconfirm rhythmbox
-/usr/bin/pacman -S --noconfirm kid3
-/usr/bin/pacman -S --noconfirm vlc
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed spotify'
+/usr/bin/pacman -S --noconfirm --needed rhythmbox
+/usr/bin/pacman -S --noconfirm --needed kid3
+/usr/bin/pacman -S --noconfirm --needed vlc
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm spotify'
 ## Fix Spotify bugs:
 pamac -S --noconfirm xd -desktop-portal-gtk
 touch $chkfile; fi
@@ -272,7 +275,7 @@ Disk Tools
 #######
 "
 sleep 1
-/usr/bin/pacman -S --noconfirm gparted
+/usr/bin/pacman -S --noconfirm --needed gparted
 touch $chkfile; fi
 
 # Remove every $chkfile

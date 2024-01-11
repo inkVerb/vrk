@@ -23,24 +23,24 @@ VALL_LOCKSRN="Vrk-Mesh-Disk.png"
 
 # Check to make sure this not run as sudo or root
 if [ "$(id -u)" = "0" ]; then
-echo "Do not run as root or sudo."; exit 22
+/usr/bin/echo "Do not run as root or sudo."; exit 22
 fi
 
 # Check if Vrk installed on this machine
 if [ ! -f /opt/vrk/machineinfo ]; then
-echo "Install Vrk first. See README.md"
+/usr/bin/echo "Install Vrk first. See README.md"
 exit 22
 fi
 
 # Check if Vrk installed to user
 if [ ! -f ~/.vrk/configs/stationinfo ]; then
-echo "First, run install-vrk for this user. See README.md"; exit 22
+/usr/bin/echo "First, run install-vrk for this user. See README.md"; exit 22
 fi
 
 # Check if Vrk Desktop is already set for this user
 . ~/.vrk/configs/stationinfo
 if [ "${VRK_DESKTOP_SET}" = "YES" ]; then
-echo "Vrk Desktop already set for this user.
+/usr/bin/echo "Vrk Desktop already set for this user.
 
 Type \"yes\" to run it again, anything else to quit...
 "
@@ -68,22 +68,28 @@ DESKTOP_GLOBE="EXCEPTION"; fi
 # Global
 
 ## Terminal
-chsh -s /bin/bash
-cp ~/.bashrc ~/.bashrc-vrkbak
+/usr/bin/chsh -s /bin/bash
+/usr/bin/cp ~/.bashrc ~/.bashrc-vrkbak
 ## Make the prompt setting like this: # PS1='\[\033[01;32m\][\u@\h\[\033[01;37m\] \[\033[01;34m\]\w\[\033[01;32m\]]\$\[\033[00m\] '
-sed -i "s:\\\W:\\\[\\\033[01;34m\\\]\\\w:g" ~/.bashrc
+/usr/bin/sed -i "s:\\\W:\\\[\\\033[01;34m\\\]\\\w:g" ~/.bashrc
+/usr/bin/echo "
+# Gnome Text Editor shortcut
+alias vedit=gnome-text-editor
+export EDITOR='vim'
+export VISUAL='gnome-text-editor'
+" >> ~/.bashrc
 
 ## Templates
 ~/.vrk/boards/do-vrktemplates
 
 ## Gedit (may be redundant in per-environments below, but just be safe)
-gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
-gsettings set org.gnome.gedit.preferences.editor highlight-current-line true
-gsettings set org.gnome.gedit.preferences.editor bracket-matching true
-gsettings set org.gnome.gedit.preferences.editor scheme 'solarized-dark'
+/usr/bin/gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
+/usr/bin/gsettings set org.gnome.gedit.preferences.editor highlight-current-line true
+/usr/bin/gsettings set org.gnome.gedit.preferences.editor bracket-matching true
+/usr/bin/gsettings set org.gnome.gedit.preferences.editor scheme 'solarized-dark'
 
 # Setup Vim for copy to clipboard
-echo 'nnoremap <C-c> "+y
+/usr/bin/echo 'nnoremap <C-c> "+y
 vnoremap <C-c> "+y
 nnoremap <C-p> "+p
 vnoremap <C-p> "+p
@@ -91,7 +97,7 @@ syntax on
 set number' > ~/.vimrc
 
 ## Pause to avoid trouble
-sleep 1
+/usr/bin/sleep 1
 
 # Global #
 
@@ -107,164 +113,164 @@ if [ "$LINUX_DESKTOP" = "gnome" ]; then
 # - Minimize: middle click on title bar
 # - Move window: Alt + click anywhere
 # - Scale window: Alt + right click near edge or corner
-gsettings set org.gnome.desktop.input-sources xkb-options "['compose:caps']"
-gsettings set org.gnome.desktop.wm.keybindings close "['<Alt>F4']"
-gsettings set org.gnome.desktop.wm.preferences resize-with-right-button true
-gsettings set org.gnome.desktop.wm.preferences mouse-button-modifier '<Alt>'
-gsettings set org.gnome.desktop.wm.preferences action-middle-click-titlebar 'minimize'
-gsettings set org.gnome.desktop.wm.preferences button-layout ':minimize,close'
-gsettings set org.gnome.desktop.screensaver lock-enabled false
-gsettings set org.gnome.desktop.wm.preferences focus-new-windows 'smart'
-gsettings set org.gnome.desktop.interface clock-show-weekday true
-gsettings set org.gnome.desktop.interface clock-show-date true
-gsettings set org.gnome.desktop.interface toolbar-detachable false
-gsettings set org.gnome.desktop.notifications show-banners false
-gsettings set org.gnome.desktop.notifications show-in-lock-screen false
-gsettings set org.gnome.mutter workspaces-only-on-primary false
-gsettings set org.gnome.desktop.interface enable-hot-corners true
-gsettings set org.gnome.shell.app-switcher current-workspace-only true
-gsettings set org.gnome.settings-daemon.plugins.power power-button-action 'interactive'
-gsettings set org.gnome.shell.keybindings toggle-application-view "['<Ctrl>Super_L']"
-gsettings set org.gnome.shell.keybindings toggle-overview "['<Super>']"
-gsettings set org.gnome.desktop.background show-desktop-icons true
+/usr/bin/gsettings set org.gnome.desktop.input-sources xkb-options "['compose:caps']"
+/usr/bin/gsettings set org.gnome.desktop.wm.keybindings close "['<Alt>F4']"
+/usr/bin/gsettings set org.gnome.desktop.wm.preferences resize-with-right-button true
+/usr/bin/gsettings set org.gnome.desktop.wm.preferences mouse-button-modifier '<Alt>'
+/usr/bin/gsettings set org.gnome.desktop.wm.preferences action-middle-click-titlebar 'minimize'
+/usr/bin/gsettings set org.gnome.desktop.wm.preferences button-layout ':minimize,close'
+/usr/bin/gsettings set org.gnome.desktop.screensaver lock-enabled false
+/usr/bin/gsettings set org.gnome.desktop.wm.preferences focus-new-windows 'smart'
+/usr/bin/gsettings set org.gnome.desktop.interface clock-show-weekday true
+/usr/bin/gsettings set org.gnome.desktop.interface clock-show-date true
+/usr/bin/gsettings set org.gnome.desktop.interface toolbar-detachable false
+/usr/bin/gsettings set org.gnome.desktop.notifications show-banners false
+/usr/bin/gsettings set org.gnome.desktop.notifications show-in-lock-screen false
+/usr/bin/gsettings set org.gnome.mutter workspaces-only-on-primary false
+/usr/bin/gsettings set org.gnome.desktop.interface enable-hot-corners true
+/usr/bin/gsettings set org.gnome.shell.app-switcher current-workspace-only true
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.power power-button-action 'interactive'
+/usr/bin/gsettings set org.gnome.shell.keybindings toggle-application-view "['<Ctrl>Super_L']"
+/usr/bin/gsettings set org.gnome.shell.keybindings toggle-overview "['<Super>']"
+/usr/bin/gsettings set org.gnome.desktop.background show-desktop-icons true
 
 # Workspace switching (defaults)
-gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-left "['<Control><Alt>Left']"
-gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-right "['<Control><Alt>Right']"
+/usr/bin/gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-left "['<Control><Alt>Left']"
+/usr/bin/gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-right "['<Control><Alt>Right']"
 
 # Password anytime screen turns back on (from lock or suspend)
-gsettings set org.gnome.desktop.screensaver lock-enabled true
+/usr/bin/gsettings set org.gnome.desktop.screensaver lock-enabled true
 
 # Set Lockscreen to "never" (uint32 0)
-gsettings set org.gnome.desktop.session idle-delay "uint32 0"
+/usr/bin/gsettings set org.gnome.desktop.session idle-delay "uint32 0"
 #gsettings set org.gnome.desktop.session idle-delay "uint32 900" # 15 minutes
 #gsettings set org.gnome.desktop.session idle-delay "uint32 600" # 5 minutes
 
 # Screensaver settings
-xscreensaver-settings
-killall xscreensaver-settings
-killall xscreensaver > /dev/null 2>&1
-sed -i "s/^unfade:.*/unfade:         False/" ~/.xscreensaver
-sed -i "s/^fade:.*/fade:         False/" ~/.xscreensaver
-sed -i "s/^mode:.*/mode:           one/" ~/.xscreensaver
-sed -i "s/^selected:.*/selected:       $(grep -wn helios ~/.xscreensaver | cut -d: -f1)/" ~/.xscreensaver
+/usr/bin/xscreensaver-settings
+/usr/bin/killall xscreensaver-settings
+/usr/bin/killall xscreensaver > /dev/null 2>&1
+/usr/bin/sed -i "s/^unfade:.*/unfade:         False/" ~/.xscreensaver
+/usr/bin/sed -i "s/^fade:.*/fade:         False/" ~/.xscreensaver
+/usr/bin/sed -i "s/^mode:.*/mode:           one/" ~/.xscreensaver
+/usr/bin/sed -i "s/^selected:.*/selected:       $(grep -wn helios ~/.xscreensaver | cut -d: -f1)/" ~/.xscreensaver
 
 # ArcMenu
-gnome-extensions enable arcmenu@arcmenu.com
-gsettings set org.gnome.shell.extensions.arcmenu menu-button-icon 'Distro_Icon'
+/usr/bin/gnome-extensions enable arcmenu@arcmenu.com
+/usr/bin/gsettings set org.gnome.shell.extensions.arcmenu menu-button-icon 'Distro_Icon'
 #gsettings set org.gnome.shell.extensions.arcmenu menu-button-icon 'Arc_Menu_Icon'
-gsettings set org.gnome.shell.extensions.arcmenu multi-monitor true
-gsettings set org.gnome.shell.extensions.arcmenu enable-menu-hotkey false
+/usr/bin/gsettings set org.gnome.shell.extensions.arcmenu multi-monitor true
+/usr/bin/gsettings set org.gnome.shell.extensions.arcmenu enable-menu-hotkey false
 
 # Set theme & icons
 # Desktop theme for legacy applications
-gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
-gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Adapta-Nokto-Maia'
-gsettings set org.gnome.shell.extensions.user-theme name 'Adwaita-dark'
+/usr/bin/gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
+/usr/bin/gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Adapta-Nokto-Maia'
+/usr/bin/gsettings set org.gnome.shell.extensions.user-theme name 'Adwaita-dark'
 
 # OnlyOffice to dark theme
-sed -i "s/UITheme=theme-.*/UITheme=theme-dark/" ~/.config/onlyoffice/DesktopEditors.conf
+/usr/bin/sed -i "s/UITheme=theme-.*/UITheme=theme-dark/" ~/.config/onlyoffice/DesktopEditors.conf
 
 # Inkscape to dark theme
 /usr/bin/killall inkscape
-sed -i 's/gtkTheme=.*/gtkTheme="Adwaita-maia-dark"/' ~/.config/inkscape/preferences.xml
-grep -qF 'gtkTheme="Adwaita-maia-dark"' ~/.config/inkscape/preferences.xml || sed -i 's/gtkTheme=.*/gtkTheme="Adwaita-dark"/' ~/.config/inkscape/preferences.xml
+/usr/bin/sed -i 's/gtkTheme=.*/gtkTheme="Adwaita-maia-dark"/' ~/.config/inkscape/preferences.xml
+/usr/bin/grep -qF 'gtkTheme="Adwaita-maia-dark"' ~/.config/inkscape/preferences.xml || /usr/bin/sed -i 's/gtkTheme=.*/gtkTheme="Adwaita-dark"/' ~/.config/inkscape/preferences.xml
 
 # Dash to Panel (replaces Dash to Dock)
-gnome-extensions disable dash-to-dock@micxgx.gmail.com
-gnome-extensions enable dash-to-panel@jderose9.github.com
-gsettings set org.gnome.shell.extensions.dash-to-panel isolate-monitors false
-gsettings set org.gnome.shell.extensions.dash-to-panel hide-overview-on-startup true
-gsettings set org.gnome.shell.extensions.dash-to-panel multi-monitors true
-gsettings set org.gnome.shell.extensions.dash-to-panel panel-element-positions-monitors-sync true
-gsettings set org.gnome.shell.extensions.dash-to-panel primary-monitor 0
-gsettings set org.gnome.shell.extensions.dash-to-panel intellihide true
-gsettings set org.gnome.shell.extensions.dash-to-panel intellihide-use-pressure false
-gsettings set org.gnome.shell.extensions.dash-to-panel intellihide-show-in-fullscreen false
-gsettings set org.gnome.shell.extensions.dash-to-panel intellihide-only-secondary true
-gsettings set org.gnome.shell.extensions.dash-to-panel panel-size 32
+/usr/bin/gnome-extensions disable dash-to-dock@micxgx.gmail.com
+/usr/bin/gnome-extensions enable dash-to-panel@jderose9.github.com
+/usr/bin/gsettings set org.gnome.shell.extensions.dash-to-panel isolate-monitors false
+/usr/bin/gsettings set org.gnome.shell.extensions.dash-to-panel hide-overview-on-startup true
+/usr/bin/gsettings set org.gnome.shell.extensions.dash-to-panel multi-monitors true
+/usr/bin/gsettings set org.gnome.shell.extensions.dash-to-panel panel-element-positions-monitors-sync true
+/usr/bin/gsettings set org.gnome.shell.extensions.dash-to-panel primary-monitor 0
+/usr/bin/gsettings set org.gnome.shell.extensions.dash-to-panel intellihide true
+/usr/bin/gsettings set org.gnome.shell.extensions.dash-to-panel intellihide-use-pressure false
+/usr/bin/gsettings set org.gnome.shell.extensions.dash-to-panel intellihide-show-in-fullscreen false
+/usr/bin/gsettings set org.gnome.shell.extensions.dash-to-panel intellihide-only-secondary true
+/usr/bin/gsettings set org.gnome.shell.extensions.dash-to-panel panel-size 32
 #gsettings set org.gnome.shell.extensions.dash-to-panel panel-sizes '{"0":32,"1":32,"2":32,"3":32}'
 #gsettings set org.gnome.shell.extensions.dash-to-panel panel-positions '{"0":"TOP","1":"TOP","2":"TOP","3":"TOP"}'
 #gsettings set org.gnome.shell.extensions.dash-to-panel panel-lengths '{"0":100,"1":100,"2":100}'
 #gsettings set org.gnome.shell.extensions.dash-to-panel panel-element-positions '{"0":[{"element":"showAppsButton","visible":false,"position":"stackedTL"},{"element":"activitiesButton","visible":false,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"stackedTL"},{"element":"centerBox","visible":true,"position":"stackedBR"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":true,"position":"stackedBR"}],"1":[{"element":"showAppsButton","visible":false,"position":"stackedTL"},{"element":"activitiesButton","visible":false,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"stackedTL"},{"element":"centerBox","visible":true,"position":"stackedBR"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":true,"position":"stackedBR"}],"2":[{"element":"showAppsButton","visible":false,"position":"stackedTL"},{"element":"activitiesButton","visible":false,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"stackedTL"},{"element":"centerBox","visible":true,"position":"stackedBR"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":true,"position":"stackedBR"}]}'
-gsettings set org.gnome.shell.extensions.dash-to-panel panel-sizes '{"0":32}'
-gsettings set org.gnome.shell.extensions.dash-to-panel panel-positions '{"0":"TOP"}'
-gsettings set org.gnome.shell.extensions.dash-to-panel panel-position 'TOP'
-gsettings set org.gnome.shell.extensions.dash-to-panel panel-lengths '{"0":100}'
-gsettings set org.gnome.shell.extensions.dash-to-panel panel-element-positions '{"0":[{"element":"showAppsButton","visible":false,"position":"stackedTL"},{"element":"activitiesButton","visible":false,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"stackedTL"},{"element":"centerBox","visible":true,"position":"stackedBR"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":true,"position":"stackedBR"}]}'
-gsettings set org.gnome.shell.extensions.dash-to-panel show-appmenu false
-gsettings set org.gnome.shell.extensions.dash-to-panel show-activities-button false
-gsettings set org.gnome.shell.extensions.dash-to-panel show-favorites true
-gsettings set org.gnome.shell.extensions.dash-to-panel show-favorites-all-monitors true
-gsettings set org.gnome.shell.extensions.dash-to-panel isolate-monitors true
-gsettings set org.gnome.shell.extensions.dash-to-panel isolate-workspaces true
-gsettings set org.gnome.shell.extensions.dash-to-panel middle-click-action 'LAUNCH'
-gsettings set org.gnome.shell.extensions.dash-to-panel show-favorites true
-gsettings set org.gnome.shell.extensions.dash-to-panel show-favorites-all-monitors true
-gsettings set org.gnome.shell.extensions.dash-to-panel dot-style-focused 'CILIORA'
-gsettings set org.gnome.shell.extensions.dash-to-panel dot-style-unfocused 'CILIORA'
-gsettings set org.gnome.shell.extensions.arcmenu gnome-dash-show-applications false
+/usr/bin/gsettings set org.gnome.shell.extensions.dash-to-panel panel-sizes '{"0":32}'
+/usr/bin/gsettings set org.gnome.shell.extensions.dash-to-panel panel-positions '{"0":"TOP"}'
+/usr/bin/gsettings set org.gnome.shell.extensions.dash-to-panel panel-position 'TOP'
+/usr/bin/gsettings set org.gnome.shell.extensions.dash-to-panel panel-lengths '{"0":100}'
+/usr/bin/gsettings set org.gnome.shell.extensions.dash-to-panel panel-element-positions '{"0":[{"element":"showAppsButton","visible":false,"position":"stackedTL"},{"element":"activitiesButton","visible":false,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"stackedTL"},{"element":"centerBox","visible":true,"position":"stackedBR"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":true,"position":"stackedBR"}]}'
+/usr/bin/gsettings set org.gnome.shell.extensions.dash-to-panel show-appmenu false
+/usr/bin/gsettings set org.gnome.shell.extensions.dash-to-panel show-activities-button false
+/usr/bin/gsettings set org.gnome.shell.extensions.dash-to-panel show-favorites true
+/usr/bin/gsettings set org.gnome.shell.extensions.dash-to-panel show-favorites-all-monitors true
+/usr/bin/gsettings set org.gnome.shell.extensions.dash-to-panel isolate-monitors true
+/usr/bin/gsettings set org.gnome.shell.extensions.dash-to-panel isolate-workspaces true
+/usr/bin/gsettings set org.gnome.shell.extensions.dash-to-panel middle-click-action 'LAUNCH'
+/usr/bin/gsettings set org.gnome.shell.extensions.dash-to-panel show-favorites true
+/usr/bin/gsettings set org.gnome.shell.extensions.dash-to-panel show-favorites-all-monitors true
+/usr/bin/gsettings set org.gnome.shell.extensions.dash-to-panel dot-style-focused 'CILIORA'
+/usr/bin/gsettings set org.gnome.shell.extensions.dash-to-panel dot-style-unfocused 'CILIORA'
+/usr/bin/gsettings set org.gnome.shell.extensions.arcmenu gnome-dash-show-applications false
 
 ## Spotify bugs (GNOME only)
-dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
-dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop
-dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
-dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+/usr/bin/dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+/usr/bin/dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop
+/usr/bin/dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+/usr/bin/dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
 
 # Gedit settings
-gsettings set org.gnome.gedit.preferences.editor display-overview-map true
-gsettings set org.gnome.gedit.preferences.editor wrap-mode none
+/usr/bin/gsettings set org.gnome.gedit.preferences.editor display-overview-map true
+/usr/bin/gsettings set org.gnome.gedit.preferences.editor wrap-mode none
 
 # GNOME Text Editor
-echo 'alias vedit=gnome-text-editor' >> ~/.bashrc
-gsettings set org.gnome.TextEditor style-variant 'dark'
-gsettings set org.gnome.TextEditor style-scheme 'kate-dark'
+/usr/bin/echo 'alias vedit=gnome-text-editor' >> ~/.bashrc
+/usr/bin/gsettings set org.gnome.TextEditor style-variant 'dark'
+/usr/bin/gsettings set org.gnome.TextEditor style-scheme 'kate-dark'
 #gsettings set org.gnome.TextEditor style-scheme 'Adwaita-dark' # Default
-gsettings set org.gnome.TextEditor highlight-current-line true
-gsettings set org.gnome.TextEditor show-map true
-gsettings set org.gnome.TextEditor show-line-numbers true
-gsettings set org.gnome.TextEditor wrap-text false
-gsettings set org.gnome.TextEditor restore-session false
-gsettings set org.gnome.TextEditor spellcheck false
+/usr/bin/gsettings set org.gnome.TextEditor highlight-current-line true
+/usr/bin/gsettings set org.gnome.TextEditor show-map true
+/usr/bin/gsettings set org.gnome.TextEditor show-line-numbers true
+/usr/bin/gsettings set org.gnome.TextEditor wrap-text false
+/usr/bin/gsettings set org.gnome.TextEditor restore-session false
+/usr/bin/gsettings set org.gnome.TextEditor spellcheck false
 
 # Codium Themes & extensions (if installed)
-if codium -h > /dev/null && 2>&1; then
-    codium --install-extension emroussel.atomize-atom-one-dark-theme
-    codium --install-extension opensumi.opensumi-default-themes
-    codium --install-extension PenumbraTheme.penumbra
-    codium --install-extension timonwong.shellcheck
-    codium --install-extension ms-vscode.go
+if /usr/bin/codium -h > /dev/null && 2>&1; then
+    /usr/bin/codium --install-extension emroussel.atomize-atom-one-dark-theme
+    /usr/bin/codium --install-extension opensumi.opensumi-default-themes
+    /usr/bin/codium --install-extension PenumbraTheme.penumbra
+    /usr/bin/codium --install-extension timonwong.shellcheck
+    /usr/bin/codium --install-extension ms-vscode.go
 fi
 
 # Default text editors
-cat <<EOF >> ~/.bashrc
+/usr/bin/cat <<EOF >> ~/.bashrc
 export EDITOR='vim'
 export VISUAL='gnome-text-editor'
 EOF
 
 # Prepare 6 custom shortcuts
-gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/']"
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/']"
 
 ## GNOME Text Editor
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/ name "'GNOME Text Editor'"
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/ binding "'<Ctrl><Alt>x'"
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/ command "'gnome-text-editor'"
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/ name "'GNOME Text Editor'"
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/ binding "'<Ctrl><Alt>x'"
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/ command "'gnome-text-editor'"
 
 ## Calculator
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/ name "'Calculator'"
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/ binding "'<Ctrl><Alt>q'"
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/ command "'gnome-calculator'"
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/ name "'Calculator'"
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/ binding "'<Ctrl><Alt>q'"
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/ command "'gnome-calculator'"
 
 ## Screenshot: Select area
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/ name "'Screenshot Selection'"
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/ binding "'<Ctrl><Shift>Print_Screen'"
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/ command "'gnome-screenshot -ac'"
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/ name "'Screenshot Selection'"
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/ binding "'<Ctrl><Shift>Print_Screen'"
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/ command "'gnome-screenshot -ac'"
 
 # Volume keys (Ctrl + Page Up/Down, Break)
-gsettings set org.gnome.settings-daemon.plugins.media-keys volume-up "['<Shift>Page_Up']"
-gsettings set org.gnome.settings-daemon.plugins.media-keys volume-down "['<Shift>Page_Down']"
-gsettings set org.gnome.settings-daemon.plugins.media-keys volume-mute "['<Shift>Break']"
-gsettings set org.gnome.settings-daemon.plugins.media-keys volume-step 3
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys volume-up "['<Shift>Page_Up']"
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys volume-down "['<Shift>Page_Down']"
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys volume-mute "['<Shift>Break']"
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys volume-step 3
 #gsettings reset org.gnome.settings-daemon.plugins.media-keys volume-up
 #gsettings reset org.gnome.settings-daemon.plugins.media-keys volume-down
 #gsettings reset org.gnome.settings-daemon.plugins.media-keys volume-mute
@@ -275,23 +281,23 @@ gsettings set org.gnome.settings-daemon.plugins.media-keys volume-step 3
 #gsettings get org.gnome.settings-daemon.plugins.media-keys volume-step
 
 # Terminal keyboard shortcuts
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name "'Dropdown Terminal: ScrLk'"
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding "'Scroll_Lock'"
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command "'xfce4-terminal --drop-down'"
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ name "'Dropdown Terminal: F12'"
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ binding "'f12'"
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ command "'xfce4-terminal --drop-down'"
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ name "'Xfce Terminal'"
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ binding "'<Ctrl><Alt>t'"
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ command "'xfce4-terminal'"
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name "'Dropdown Terminal: ScrLk'"
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding "'Scroll_Lock'"
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command "'xfce4-terminal --drop-down'"
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ name "'Dropdown Terminal: F12'"
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ binding "'f12'"
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ command "'xfce4-terminal --drop-down'"
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ name "'Xfce Terminal'"
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ binding "'<Ctrl><Alt>t'"
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ command "'xfce4-terminal'"
 #gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ name "'Gnome Terminal'"
 #gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ binding "'<Ctrl><Alt>t'"
 #gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ command "'gnome-terminal'"
 
 # X-Terminal Settings
 ## DropdownPositionVertical=0 makes trouble for F11 & F12 in combinations (fullscreen & show/hide)
-mkdir -p ~/.config/xfce4/terminal
-echo "[Configuration]
+/usr/bin/mkdir -p ~/.config/xfce4/terminal
+/usr/bin/echo "[Configuration]
 FontAllowBold=FALSE
 MiscAlwaysShowTabs=FALSE
 MiscBell=TRUE
@@ -350,44 +356,44 @@ fi
 if [ "${LINUX_DESKTOP}" = "xfce" ] ; then
 
 ## App Defaults
-cp -f ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
+/usr/bin/cp -f ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
 
 ## Autostart special
-cp -rf ~/.vrk/donjon/xfce/config/autostart ~/.config/
+/usr/bin/cp -rf ~/.vrk/donjon/xfce/config/autostart ~/.config/
 
 ## Disable lock screen
-gsettings set apps.light-locker late-locking false
-gsettings set apps.light-locker lock-after-screensaver 0
-gsettings set apps.light-locker lock-on-suspend true
+/usr/bin/gsettings set apps.light-locker late-locking false
+/usr/bin/gsettings set apps.light-locker lock-after-screensaver 0
+/usr/bin/gsettings set apps.light-locker lock-on-suspend true
 
 ## Mouse cursor theme
-gsettings set org.gnome.desktop.interface cursor-theme "DMZ-Black"
+/usr/bin/gsettings set org.gnome.desktop.interface cursor-theme "DMZ-Black"
 
 ## Desktop prefer dark
-gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
+/usr/bin/gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
 
 ## Compose Key: CapLock key
-xfconf-query -n -c keyboard-layout -p /Default/XkbOptions/Compose -t string -s "compose:caps"
+/usr/bin/xfconf-query -n -c keyboard-layout -p /Default/XkbOptions/Compose -t string -s "compose:caps"
 #xfconf-query -n -c keyboard-layout -p /Default/XkbOptions/Compose -t string -s "compose:menu"
 
 ## Set theme & icons
 ### Window Theme
-xfconf-query -c xfwm4 -p /general/theme -s "Numix"
+/usr/bin/xfconf-query -c xfwm4 -p /general/theme -s "Numix"
 ### Color Theme
-xfconf-query -c xsettings -p /Net/ThemeName -s "Matcha-dark-azul"
+/usr/bin/xfconf-query -c xsettings -p /Net/ThemeName -s "Matcha-dark-azul"
 
 ## Pause to avoid trouble
-sleep 1
+/usr/bin/sleep 1
 
 #DEV This has a problem
 ## Whisker menu
 ### Icon
-sed -i "s/button-icon=.*/button-icon=\/var\/local\/vall\/rooms\/mi\/icons\/inkVerb-disk-white\.svg/g" ~/.config/xfce4/panel/whiskermenu-1.rc
+/usr/bin/sed -i "s/button-icon=.*/button-icon=\/var\/local\/vall\/rooms\/mi\/icons\/inkVerb-disk-white\.svg/g" ~/.config/xfce4/panel/whiskermenu-1.rc
 #### Show it
-sed -i "s/show-button-icon=.*/show-button-icon=true/g" ~/.config/xfce4/panel/whiskermenu-1.rc
+/usr/bin/sed -i "s/show-button-icon=.*/show-button-icon=true/g" ~/.config/xfce4/panel/whiskermenu-1.rc
 ### Favorites
-sed -i "s/favorites=.*/favorites=exo-file-manager\.desktop,vivaldi-stable\.desktop,google-chrome\.desktop,chromium-browser\.desktop,firefox\.desktop,gedit\.desktop,libreoffice-writer\.desktop,thunderbird\.desktop,rhythmbox\.desktop,org\.gnome\.Software\.desktop,gnome-calculator\.desktop/g" ~/.config/xfce4/panel/whiskermenu-1.rc
-sed -i "s/favorites-in-recent=.*/favorites-in-recent=false/g" ~/.config/xfce4/panel/whiskermenu-1.rc
+/usr/bin/sed -i "s/favorites=.*/favorites=exo-file-manager\.desktop,vivaldi-stable\.desktop,google-chrome\.desktop,chromium-browser\.desktop,firefox\.desktop,gedit\.desktop,libreoffice-writer\.desktop,thunderbird\.desktop,rhythmbox\.desktop,org\.gnome\.Software\.desktop,gnome-calculator\.desktop/g" ~/.config/xfce4/panel/whiskermenu-1.rc
+/usr/bin/sed -i "s/favorites-in-recent=.*/favorites-in-recent=false/g" ~/.config/xfce4/panel/whiskermenu-1.rc
 
 ## Terminal color scheme
 ### Check if done
@@ -395,32 +401,32 @@ if [ ! -f "~/.vrk/configs/.xt-xfce" ]; then
 ### Add the theme
 ~/.vrk/donjon/xt-xfce
 ### Make the record
-touch ~/.vrk/configs/.xt-xfce
+/usr/bin/touch ~/.vrk/configs/.xt-xfce
 fi
 
 ## Workspaces & windows
-xfconf-query -c xfwm4 -p /general/workspace_count -s 3
-xfconf-query -c xfwm4 -p /general/scroll_workspaces -s true
-xfconf-query -c xfwm4 -p /general/mousewheel_rollup -s true
-xfconf-query -c xfwm4 -p /general/tile_on_move -s true
+/usr/bin/xfconf-query -c xfwm4 -p /general/workspace_count -s 3
+/usr/bin/xfconf-query -c xfwm4 -p /general/scroll_workspaces -s true
+/usr/bin/xfconf-query -c xfwm4 -p /general/mousewheel_rollup -s true
+/usr/bin/xfconf-query -c xfwm4 -p /general/tile_on_move -s true
 
 ## Wallpaper
 #first one already set by set-vall, but let's spice up the rest, shall we...
 #xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s /usr/share/xfce4/backdrops/inkPage.png
-xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor1/workspace0/last-image -s /usr/share/xfce4/backdrops/Pen-Black.png
-xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor2/workspace0/last-image -s /usr/share/xfce4/backdrops/Whitetype-Ink-Gray.png
-xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor3/workspace0/last-image -s /usr/share/xfce4/backdrops/inkCorner.png
+/usr/bin/xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor1/workspace0/last-image -s /usr/share/xfce4/backdrops/Pen-Black.png
+/usr/bin/xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor2/workspace0/last-image -s /usr/share/xfce4/backdrops/Whitetype-Ink-Gray.png
+/usr/bin/xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor3/workspace0/last-image -s /usr/share/xfce4/backdrops/inkCorner.png
 
 ## Pause to avoid trouble
-sleep 1
+/usr/bin/sleep 1
 
 ## Hot keys
 ### F12 / Scroll Lock for Xterminal Drop-down
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/F12" -t string -s 'xfce4-terminal --drop-down'
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Scroll_Lock" -t string -s 'xfce4-terminal --drop-down'
+/usr/bin/xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/F12" -t string -s 'xfce4-terminal --drop-down'
+/usr/bin/xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Scroll_Lock" -t string -s 'xfce4-terminal --drop-down'
 ### Whisker menu
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_L" -t string -s 'xfce4-popup-whiskermenu'
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_R" -t string -s 'xfce4-popup-whiskermenu'
+/usr/bin/xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_L" -t string -s 'xfce4-popup-whiskermenu'
+/usr/bin/xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_R" -t string -s 'xfce4-popup-whiskermenu'
 #can't use <Super> given the above Super_L and Super_R declarations :-(
 #xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>z" -t string -s 'xfce4-popup-whiskermenu'
 #xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>space" -t string -s 'xfce4-popup-whiskermenu'
@@ -430,42 +436,42 @@ xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_R" -t str
 # xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Ctrl><Alt>Super_L" -t string -s 'xfdashboard'
 # xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Ctrl><Alt>Super_R" -t string -s 'xfdashboard'
 ### Numlock on by default
-xfconf-query -c keyboards -p /Default/RestoreNumlock -n -t bool -s true
-xfconf-query -c keyboards -p /Default/Numlock -n -t bool -s true
+/usr/bin/xfconf-query -c keyboards -p /Default/RestoreNumlock -n -t bool -s true
+/usr/bin/xfconf-query -c keyboards -p /Default/Numlock -n -t bool -s true
 ### Window tiling
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Up" -t string -s 'tile_up_key'
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Down" -t string -s 'tile_down_key'
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Left" -t string -s 'tile_left_key'
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Right" -t string -s 'tile_right_key'
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Shift><Super>Left" -t string -s 'tile_up_left_key'
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Shift><Super>Right" -t string -s 'tile_up_right_key'
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Alt><Super>Left" -t string -s 'tile_down_left_key'
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Alt><Super>Right" -t string -s 'tile_down_right_key'
+/usr/bin/xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Up" -t string -s 'tile_up_key'
+/usr/bin/xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Down" -t string -s 'tile_down_key'
+/usr/bin/xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Left" -t string -s 'tile_left_key'
+/usr/bin/xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Right" -t string -s 'tile_right_key'
+/usr/bin/xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Shift><Super>Left" -t string -s 'tile_up_left_key'
+/usr/bin/xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Shift><Super>Right" -t string -s 'tile_up_right_key'
+/usr/bin/xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Alt><Super>Left" -t string -s 'tile_down_left_key'
+/usr/bin/xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Alt><Super>Right" -t string -s 'tile_down_right_key'
 ### Desktop apps
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>d" -t string -s 'gedit'
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>e" -t string -s 'thunar'
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>q" -t string -s 'gnome-calculator'
+/usr/bin/xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>d" -t string -s 'gedit'
+/usr/bin/xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>e" -t string -s 'thunar'
+/usr/bin/xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>q" -t string -s 'gnome-calculator'
 
 ## Pause to avoid trouble
-sleep 1
+/usr/bin/sleep 1
 
 ## Xfdashboard
 ###DEV see available options: xfconf-query -c xfdashboard -lv
 #http://xfdashboard.froevel.de/settings.html
 #https://github.com/gmc-holle/xfdashboard/issues/122
 ## Dashboard settings
-xfconf-query -n -t bool -c xfdashboard -p /always-launch-new-instance -s false
-xfconf-query -n -t bool -c xfdashboard -p /components/applications-view/show-all-apps -s true
-xfconf-query -n -t bool -c xfdashboard -p /components/windows-view/scroll-event-changes-workspace -s true
-xfconf-query -n -t string -c xfdashboard -p /theme -s xfdashboard-dark
+/usr/bin/xfconf-query -n -t bool -c xfdashboard -p /always-launch-new-instance -s false
+/usr/bin/xfconf-query -n -t bool -c xfdashboard -p /components/applications-view/show-all-apps -s true
+/usr/bin/xfconf-query -n -t bool -c xfdashboard -p /components/windows-view/scroll-event-changes-workspace -s true
+/usr/bin/xfconf-query -n -t string -c xfdashboard -p /theme -s xfdashboard-dark
 ## Enable the hot-corner plugin by adding the hot-corner value to enabled-plugins as a new property
-xfconf-query -n -c xfdashboard -p /enabled-plugins -a -t string -s hot-corner
+/usr/bin/xfconf-query -n -c xfdashboard -p /enabled-plugins -a -t string -s hot-corner
 ## Enable gnome shell search provider also (this resets all plugins every time)
 #xfconf-query -n -c xfdashboard -p /enabled-plugins -a -t string -s hot-corner -t string -s gnome-shell-search-provider
 ## Settings for hotcorner
-xfconf-query -n -t string -c xfdashboard -p /plugins/hot-corner/activation-corner -s XFDASHBOARD_HOT_CORNER_SETTINGS_ACTIVATION_CORNER_TOP_LEFT
-xfconf-query -n -t string -c xfdashboard -p /plugins/hot-corner/activation-duration -s 27
-xfconf-query -n -t string -c xfdashboard -p /plugins/hot-corner/activation-radius -s 1
+/usr/bin/xfconf-query -n -t string -c xfdashboard -p /plugins/hot-corner/activation-corner -s XFDASHBOARD_HOT_CORNER_SETTINGS_ACTIVATION_CORNER_TOP_LEFT
+/usr/bin/xfconf-query -n -t string -c xfdashboard -p /plugins/hot-corner/activation-duration -s 27
+/usr/bin/xfconf-query -n -t string -c xfdashboard -p /plugins/hot-corner/activation-radius -s 1
 ## Favorites (spelled British in settings!)
 ### Defaults:
 ### xfconf-query -n -t string -c xfdashboard -p /favourites -t string -s "exo-web-browser.desktop" -t string -s "exo-mail-reader.desktop" -t string -s "exo-file-manager.desktop" -t string -s "exo-terminal-emulator.desktop"
@@ -475,7 +481,7 @@ xfconf-query -n -t string -c xfdashboard -p /plugins/hot-corner/activation-radiu
 ~/.vrk/donjon/xfdashboard-zilla
 
 ## Message
-echo "
+/usr/bin/echo "
 Ctrl + Win + Up/Down/Right/Left tiles your window in 1/2 screen.
 Shft + Win + Up/Down/Right/Left tiles your window in 1/4 screen on the top.
 Alt  + Win + Up/Down/Right/Left tiles your window in 1/4 screen on the bottom.
@@ -488,9 +494,9 @@ fi
 
 
 # Vrk configs
-sed -i "s/VRK_DESKTOP_SET=.*/VRK_DESKTOP_SET=\"YES\"/g" ~/.vrk/configs/stationinfo
+/usr/bin/sed -i "s/VRK_DESKTOP_SET=.*/VRK_DESKTOP_SET=\"YES\"/g" ~/.vrk/configs/stationinfo
 
 # Finish
-echo "Enjoy Vrk Desktop settings. Login again to see them all. :-)
+/usr/bin/echo "Enjoy Vrk Desktop settings. Login again to see them all. :-)
 "
-sleep 2
+/usr/bin/sleep 2

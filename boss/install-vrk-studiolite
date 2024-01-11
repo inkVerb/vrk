@@ -112,7 +112,7 @@ sleep 1
 /usr/bin/pacman -S --noconfirm --needed gimp
 /usr/bin/pacman -S --noconfirm --needed inkscape
 /usr/bin/pacman -S --noconfirm --needed mypaint
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed gimp-plugin-registry'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm gimp-plugin-registry'
 ## CMYK for inkscape
 /opt/vrk/boss/install-pdfcmyk
 touch $chkfile; fi
@@ -134,7 +134,7 @@ else
   /usr/bin/pacman -S --noconfirm --needed obs-studio
 fi
 /usr/bin/pacman -S --noconfirm --needed shotcut
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed key-mon'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm key-mon'
 touch $chkfile; fi
 
 # Audacity
@@ -159,8 +159,8 @@ Earth & Star Charts
 "
 sleep 1
 ##Dev stellarium retrieves dependencies directly while stellarium-bin bases everything on the AppImage from the vendor
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed stellarium-bin'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed google-earth-pro'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm stellarium-bin'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm google-earth-pro'
 touch $chkfile; fi
 
 # RSS
@@ -172,7 +172,7 @@ Really Slick Screensavers
 #######
 "
 sleep 1
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed rss-glx'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm rss-glx'
 killall xscreensaver > /dev/null 2>&1
 /usr/bin/rss-glx_install.pl # installs more screensavers, including Helios
 touch $chkfile; fi

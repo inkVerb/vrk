@@ -111,8 +111,8 @@ Heavy Video
 "
 sleep 1
 /usr/bin/pacman -S --noconfirm --needed kdenlive
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed subtitleedit'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed subtitlecomposer'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm subtitleedit'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm subtitlecomposer'
 touch $chkfile; fi
 
 # Heavy Audio
@@ -166,7 +166,7 @@ Playonlinux
 #######
 "
 sleep 1
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm --needed playonlinux'
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm playonlinux'
 touch $chkfile; fi
 
 # Remove every $chkfile
