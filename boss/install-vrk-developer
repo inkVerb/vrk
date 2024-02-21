@@ -78,6 +78,7 @@ echo "No Internet connection. Connect, then try again."; exit 0; fi
 /usr/bin/pacman -Scc --noconfirm
 /usr/bin/su worker -c '/usr/bin/yay -Syy --noconfirm'
 /usr/bin/su worker -c '/usr/bin/yay -Scc --noconfirm'
+/usr/bin/su worker -c '/usr/bin/yay -Yc --noconfirm'
 
 # Message
 echo "
@@ -189,9 +190,10 @@ touch /home/${SUDO_USER}/.vrk/configs/.Developer
 rm -f /opt/vrk/.vrk-developer-*
 
 # Cleanup
-/usr/bin/pacman -Qdt --noconfirm
+/usr/bin/pacman -Rsc --noconfirm
 /usr/bin/pacman -Scc --noconfirm
 /usr/bin/su worker -c '/usr/bin/yay -Scc --noconfirm'
+/usr/bin/su worker -c '/usr/bin/yay -Yc --noconfirm'
 
 # Finish
 echo "

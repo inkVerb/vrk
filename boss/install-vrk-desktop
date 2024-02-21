@@ -105,7 +105,7 @@ else
   /usr/bin/mkdir -p /opt/vrk/worker
   /usr/bin/chown -R worker:worker /opt/vrk/worker
   /usr/bin/usermod -d /opt/vrk/worker worker
-  /bin/echo 'worker ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/worker
+  /usr/bin/echo 'worker ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/worker
 
   ### Let's use sudo
   /usr/bin/groupadd sudo
@@ -130,6 +130,7 @@ fi
 ## Update yay
 /usr/bin/su worker -c '/usr/bin/yay -Syyu --noconfirm'
 /usr/bin/su worker -c '/usr/bin/yay -Scc --noconfirm'
+/usr/bin/su worker -c '/usr/bin/yay -Yc --noconfirm'
 touch $chkfile; fi
 
 # Fonts
@@ -289,9 +290,10 @@ echo "VRK_DESKTOP_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo; fi
 touch /opt/vrk/.vrk-desktop-installed
 
 # Cleanup
-/usr/bin/pacman -Qdt --noconfirm
+/usr/bin/pacman -Rsc --noconfirm
 /usr/bin/pacman -Scc --noconfirm
 /usr/bin/su worker -c '/usr/bin/yay -Scc --noconfirm'
+/usr/bin/su worker -c '/usr/bin/yay -Yc --noconfirm'
 
 # Path
 export PATH=$PATH:/opt/vrk/surf:/opt/vrk/droids/ALL:/opt/vrk/droids/$USER
