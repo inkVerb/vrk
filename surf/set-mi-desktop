@@ -160,7 +160,7 @@ if [ "$LINUX_DESKTOP" = "gnome" ]; then
 /usr/bin/gsettings set org.gnome.shell.extensions.arcmenu menu-button-icon 'Distro_Icon'
 #gsettings set org.gnome.shell.extensions.arcmenu menu-button-icon 'Arc_Menu_Icon'
 /usr/bin/gsettings set org.gnome.shell.extensions.arcmenu multi-monitor true
-/usr/bin/gsettings set org.gnome.shell.extensions.arcmenu enable-menu-hotkey false
+/usr/bin/gsettings set org.gnome.shell.extensions.arcmenu arcmenu-hotkey 'Super_R'
 
 # Set theme & icons
 # Desktop theme for legacy applications
@@ -362,9 +362,21 @@ if [ "${LINUX_DESKTOP}" = "xfce" ] ; then
 /usr/bin/cp -rf ~/.vrk/donjon/xfce/config/autostart ~/.config/
 
 ## Disable lock screen
-/usr/bin/gsettings set apps.light-locker late-locking false
-/usr/bin/gsettings set apps.light-locker lock-after-screensaver 0
-/usr/bin/gsettings set apps.light-locker lock-on-suspend true
+##DEV may be broken, use xfconf-query
+# /usr/bin/gsettings set apps.light-locker late-locking false
+# /usr/bin/gsettings set apps.light-locker lock-after-screensaver 0
+# /usr/bin/gsettings set apps.light-locker lock-on-suspend true
+/usr/bin/xfconf-query -c xfce4-screensaver -np '/lock/enabled' -s 'false'
+/usr/bin/xfconf-query -c xfce4-screensaver -np '/saver/enabled' -s 'false'
+/usr/bin/xfconf-query -c xfce4-power-manager -np '/xfce4-power-manager/blank-on-ac' -s '0'
+/usr/bin/xfconf-query -c xfce4-power-manager -np '/xfce4-power-manager/blank-on-battery' -s '0'
+/usr/bin/xfconf-query -c xfce4-power-manager -np '/xfce4-power-manager/blank-on-ac' -s '0'
+/usr/bin/xfconf-query -c xfce4-power-manager -np '/xfce4-power-manager/blank-on-battery' -s '0'
+/usr/bin/xfconf-query -c xfce4-power-manager -np '/xfce4-power-manager/dpms-enabled' -s 'false'
+/usr/bin/xfconf-query -c xfce4-power-manager -np '/xfce4-power-manager/dpms-on-ac-sleep' -s '0'
+/usr/bin/xfconf-query -c xfce4-power-manager -np '/xfce4-power-manager/dpms-on-ac-off' -s '0'
+/usr/bin/xfconf-query -c xfce4-power-manager -np '/xfce4-power-manager/dpms-on-battery-sleep' -s '0'
+/usr/bin/xfconf-query -c xfce4-power-manager -np '/xfce4-power-manager/dpms-on-battery-off' -s '0'
 
 ## Mouse cursor theme
 /usr/bin/gsettings set org.gnome.desktop.interface cursor-theme "DMZ-Black"
@@ -451,6 +463,7 @@ fi
 /usr/bin/xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>d" -t string -s 'gedit'
 /usr/bin/xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>e" -t string -s 'thunar'
 /usr/bin/xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>q" -t string -s 'gnome-calculator'
+/usr/bin/xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Ctrl><Alt>t" -t string -s 'xfce4-terminal'
 
 ## Pause to avoid trouble
 /usr/bin/sleep 1
