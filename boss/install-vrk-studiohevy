@@ -100,6 +100,7 @@ sleep 1
 /usr/bin/pacman -S --noconfirm --needed blender
 /usr/bin/pacman -S --noconfirm --needed scribus
 /usr/bin/pacman -S --noconfirm --needed synfigstudio
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm pureref'
 touch $chkfile; fi
 
 # Heavy Video
