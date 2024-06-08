@@ -91,8 +91,6 @@ sed -i "s:\\\W:\\\[\\\033[01;34m\\\]\\\w:g" /root/.bashrc
 ## Dependencies
 /usr/bin/pacman -S --noconfirm --needed base-devel git which pwgen
 
-
-
 # AUR manager
 ## worker user
 if /usr/bin/su worker -c 'echo hello' > /dev/null 2>&1 && /usr/bin/ls /opt/vrk/worker > /dev/null 2>&1; then
@@ -101,7 +99,7 @@ else
   ### Create worker user
   /usr/bin/groupadd worker
   /usr/bin/useradd -g worker worker
-  /usr/bin/usermod -a -G wheel worker
+  #/usr/bin/usermod -a -G wheel worker # Should not be necessary with the sudoers.d/ entry
   /usr/bin/mkdir -p /opt/vrk/worker
   /usr/bin/chown -R worker:worker /opt/vrk/worker
   /usr/bin/usermod -d /opt/vrk/worker worker
