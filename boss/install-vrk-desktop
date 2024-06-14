@@ -214,6 +214,7 @@ sleep 1
 /usr/bin/pacman -S --noconfirm --needed autoconf net-tools inetutils man
 /usr/bin/pacman -S --noconfirm --needed cronie
 /usr/bin/pacman -S --noconfirm --needed openssh
+/usr/bin/pacman -S --noconfirm --needed guake
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm xfce4-terminal'
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm adduser'
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm gnome-shell-extension-installer'
