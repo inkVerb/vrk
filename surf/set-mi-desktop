@@ -357,6 +357,41 @@ DropdownMoveToActive=TRUE
 DropdownKeepAbove=TRUE
 " > ~/.config/xfce4/terminal/terminalrc
 wait
+cat <<EOF > ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-terminal.xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<channel name="xfce4-terminal" version="1.0">
+  <property name="background-mode" type="string" value="TERMINAL_BACKGROUND_TRANSPARENT"/>
+  <property name="background-darkness" type="double" value="0.73999999999999999"/>
+  <property name="misc-borders-default" type="bool" value="false"/>
+  <property name="misc-show-unsafe-paste-dialog" type="bool" value="false"/>
+  <property name="misc-middle-click-opens-uri" type="bool" value="true"/>
+  <property name="dropdown-width" type="uint" value="100"/>
+  <property name="dropdown-keep-open-default" type="bool" value="true"/>
+  <property name="dropdown-toggle-focus" type="bool" value="true"/>
+  <property name="dropdown-keep-above" type="bool" value="true"/>
+  <property name="dropdown-status-icon" type="bool" value="false"/>
+  <property name="color-foreground" type="string" value="#ffffff"/>
+  <property name="color-background" type="string" value="#000000"/>
+  <property name="color-background-vary" type="bool" value="false"/>
+  <property name="color-cursor-foreground" type="string" value=""/>
+  <property name="color-cursor" type="string" value=""/>
+  <property name="color-cursor-use-default" type="bool" value="true"/>
+  <property name="color-selection" type="string" value=""/>
+  <property name="color-selection-background" type="string" value=""/>
+  <property name="color-selection-use-default" type="bool" value="true"/>
+  <property name="color-bold" type="string" value=""/>
+  <property name="color-bold-use-default" type="bool" value="true"/>
+  <property name="color-palette" type="string" value="#000000;#cc0000;#4e9a06;#c4a000;#3465a4;#75507b;#06989a;#d3d7cf;#555753;#ef2929;#8ae234;#fce94f;#739fcf;#ad7fa8;#34e2e2;#eeeeec"/>
+  <property name="color-bold-is-bright" type="bool" value="true"/>
+  <property name="color-use-theme" type="bool" value="false"/>
+  <property name="tab-activity-color" type="string" value="#aa0000"/>
+  <property name="dropdown-height" type="uint" value="33"/>
+  <property name="dropdown-move-to-active" type="bool" value="false"/>
+  <property name="dropdown-position-vertical" type="uint" value="4"/>
+</channel>
+EOF
+wait
 
 fi
 
@@ -446,8 +481,8 @@ fi
 /usr/bin/sleep 1
 
 ## Hot keys
-### F12 / Scroll Lock for Xterminal Drop-down
-/usr/bin/xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/F12" -t string -s 'xfce4-terminal --drop-down'
+### Ctrl+F12 / Scroll Lock for Xterminal Drop-down
+/usr/bin/xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Ctrl>F12" -t string -s 'xfce4-terminal --drop-down'
 /usr/bin/xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Scroll_Lock" -t string -s 'xfce4-terminal --drop-down'
 ### Whisker menu
 /usr/bin/xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_L" -t string -s 'xfce4-popup-whiskermenu'
@@ -514,6 +549,103 @@ Alt  + Win + Up/Down/Right/Left tiles your window in 1/4 screen on the bottom.
 Ctrl + Win + Alt shows your window spread & dashboard.
 Scroll on the desktop to switch workspaces.
 "
+
+# Guake
+dconf write /org/guake/keybindings/global/show-hide "'F12'"
+dconf write /org/guake/general/window-vertical-displacement 40
+dconf write /org/guake/general/use-trayicon false
+dconf write /org/guake/general/start-at-login true
+dconf write /org/guake/general/prompt-on-quit false
+dconf write /org/guake/general/window-height 25
+dconf write /org/guake/general/use-popup false
+dconf write /org/guake/general/gtk-use-system-default-theme true
+dconf write /org/guake/style/font/palette-name "'One Dark'"
+
+# X-Terminal Settings
+## DropdownPositionVertical=0 makes trouble for F11 & F12 in combinations (fullscreen & show/hide)
+/usr/bin/mkdir -p ~/.config/xfce4/terminal
+/usr/bin/echo "[Configuration]
+FontAllowBold=FALSE
+MiscAlwaysShowTabs=FALSE
+MiscBell=TRUE
+MiscBellUrgent=FALSE
+MiscBordersDefault=FALSE
+MiscCursorBlinks=FALSE
+MiscCursorShape=TERMINAL_CURSOR_SHAPE_BLOCK
+MiscDefaultGeometry=80x23
+MiscInheritGeometry=FALSE
+MiscMenubarDefault=FALSE
+MiscMouseAutohide=FALSE
+MiscMouseWheelZoom=TRUE
+MiscToolbarDefault=FALSE
+MiscConfirmClose=TRUE
+MiscCycleTabs=TRUE
+MiscTabCloseButtons=TRUE
+MiscTabCloseMiddleClick=TRUE
+MiscTabPosition=GTK_POS_TOP
+MiscHighlightUrls=TRUE
+MiscMiddleClickOpensUri=TRUE
+MiscCopyOnSelect=FALSE
+MiscShowRelaunchDialog=TRUE
+MiscRewrapOnResize=TRUE
+MiscUseShiftArrowsToScroll=FALSE
+MiscSlimTabs=TRUE
+MiscNewTabAdjacent=FALSE
+MiscSearchDialogOpacity=100
+MiscShowUnsafePasteDialog=FALSE
+MiscRightClickAction=TERMINAL_RIGHT_CLICK_ACTION_CONTEXT_MENU
+BackgroundMode=TERMINAL_BACKGROUND_TRANSPARENT
+BackgroundDarkness=0.780000
+ColorPalette=#0c0d0e;#e31a1c;#31a354;#dca060;#3182bd;#756bb1;#80b1d3;#b7b8b9;#737475;#e31a1c;#31a354;#dca060;#3182bd;#756bb1;#80b1d3;#fcfdfe
+DropdownWidth=100
+DropdownHeight=25
+DropdownStatusIcon=FALSE
+FontName=Monospace 11
+ShortcutsNoMnemonics=TRUE
+ShortcutsNoMenukey=TRUE
+ShortcutsNoHelpkey=TRUE
+DropdownKeepOpenDefault=TRUE
+DropdownToggleFocus=TRUE
+DropdownPositionVertical=4
+DropdownMoveToActive=TRUE
+DropdownKeepAbove=TRUE
+" > ~/.config/xfce4/terminal/terminalrc
+wait
+cat <<EOF > ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-terminal.xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<channel name="xfce4-terminal" version="1.0">
+  <property name="background-mode" type="string" value="TERMINAL_BACKGROUND_TRANSPARENT"/>
+  <property name="background-darkness" type="double" value="0.73999999999999999"/>
+  <property name="misc-borders-default" type="bool" value="false"/>
+  <property name="misc-show-unsafe-paste-dialog" type="bool" value="false"/>
+  <property name="misc-middle-click-opens-uri" type="bool" value="true"/>
+  <property name="dropdown-width" type="uint" value="100"/>
+  <property name="dropdown-keep-open-default" type="bool" value="true"/>
+  <property name="dropdown-toggle-focus" type="bool" value="true"/>
+  <property name="dropdown-keep-above" type="bool" value="true"/>
+  <property name="dropdown-status-icon" type="bool" value="false"/>
+  <property name="color-foreground" type="string" value="#ffffff"/>
+  <property name="color-background" type="string" value="#000000"/>
+  <property name="color-background-vary" type="bool" value="false"/>
+  <property name="color-cursor-foreground" type="string" value=""/>
+  <property name="color-cursor" type="string" value=""/>
+  <property name="color-cursor-use-default" type="bool" value="true"/>
+  <property name="color-selection" type="string" value=""/>
+  <property name="color-selection-background" type="string" value=""/>
+  <property name="color-selection-use-default" type="bool" value="true"/>
+  <property name="color-bold" type="string" value=""/>
+  <property name="color-bold-use-default" type="bool" value="true"/>
+  <property name="color-palette" type="string" value="#000000;#cc0000;#4e9a06;#c4a000;#3465a4;#75507b;#06989a;#d3d7cf;#555753;#ef2929;#8ae234;#fce94f;#739fcf;#ad7fa8;#34e2e2;#eeeeec"/>
+  <property name="color-bold-is-bright" type="bool" value="true"/>
+  <property name="color-use-theme" type="bool" value="false"/>
+  <property name="tab-activity-color" type="string" value="#aa0000"/>
+  <property name="dropdown-height" type="uint" value="33"/>
+  <property name="dropdown-move-to-active" type="bool" value="false"/>
+  <property name="dropdown-position-vertical" type="uint" value="4"/>
+</channel>
+EOF
+wait
 
 fi
 # Xfce #
