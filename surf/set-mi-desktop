@@ -305,6 +305,7 @@ dconf write /org/guake/general/prompt-on-quit false
 dconf write /org/guake/general/window-height 25
 dconf write /org/guake/general/use-popup false
 dconf write /org/guake/general/gtk-use-system-default-theme true
+dconf write /org/guake/style/font/palette-name "'One Dark'"
 
 # X-Terminal Settings
 ## DropdownPositionVertical=0 makes trouble for F11 & F12 in combinations (fullscreen & show/hide)
