@@ -133,6 +133,7 @@ if [ "$LINUX_DESKTOP" = "gnome" ]; then
 /usr/bin/gsettings set org.gnome.shell.keybindings toggle-application-view "['<Ctrl>Super_L']"
 /usr/bin/gsettings set org.gnome.shell.keybindings toggle-overview "['<Super>']"
 /usr/bin/gsettings set org.gnome.desktop.background show-desktop-icons true
+/usr/bin/dconf write /org/gtk/gtk4/settings/file-chooser/sort-directories-first true
 
 # Workspace switching (defaults)
 /usr/bin/gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-left "['<Control><Alt>Left']"
@@ -148,14 +149,14 @@ if [ "$LINUX_DESKTOP" = "gnome" ]; then
 #gsettings set org.gnome.desktop.session idle-delay "uint32 900" # 15 minutes
 #gsettings set org.gnome.desktop.session idle-delay "uint32 600" # 5 minutes
 
-# Screensaver settings
-/usr/bin/xscreensaver-settings
-/usr/bin/killall xscreensaver-settings
-/usr/bin/killall xscreensaver > /dev/null 2>&1
-/usr/bin/sed -i "s/^unfade:.*/unfade:         False/" ~/.xscreensaver
-/usr/bin/sed -i "s/^fade:.*/fade:         False/" ~/.xscreensaver
-/usr/bin/sed -i "s/^mode:.*/mode:           one/" ~/.xscreensaver
-/usr/bin/sed -i "s/^selected:.*/selected:       $(grep -wn helios ~/.xscreensaver | cut -d: -f1)/" ~/.xscreensaver
+# # Screensaver settings
+# /usr/bin/xscreensaver-settings
+# /usr/bin/killall xscreensaver-settings
+# /usr/bin/killall xscreensaver > /dev/null 2>&1
+# /usr/bin/sed -i "s/^unfade:.*/unfade:         False/" ~/.xscreensaver
+# /usr/bin/sed -i "s/^fade:.*/fade:         False/" ~/.xscreensaver
+# /usr/bin/sed -i "s/^mode:.*/mode:           one/" ~/.xscreensaver
+# /usr/bin/sed -i "s/^selected:.*/selected:       $(/usr/bin/grep -wn helios ~/.xscreensaver | /usr/bin/cut -d: -f1)/" ~/.xscreensaver
 
 # ArcMenu
 /usr/bin/gnome-extensions enable arcmenu@arcmenu.com
@@ -283,10 +284,10 @@ EOF
 #gsettings get org.gnome.settings-daemon.plugins.media-keys volume-step
 
 # Terminal keyboard shortcuts
-/usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name "'Dropdown Terminal: ScrLk'"
-/usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding "'Scroll_Lock'"
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name "'Dropdown Terminal: Pause'"
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding "'Pause'"
 /usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command "'xfce4-terminal --drop-down'"
-/usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ name "'Dropdown Terminal: F12'"
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ name "'Dropdown Terminal: Ctrl+F12'"
 /usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ binding "'<Ctrl>f12'"
 /usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ command "'xfce4-terminal --drop-down'"
 /usr/bin/gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ name "'Xfce Terminal'"
@@ -297,15 +298,16 @@ EOF
 #gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ command "'gnome-terminal'"
 
 # Guake
-dconf write /org/guake/keybindings/global/show-hide "'F12'"
-dconf write /org/guake/general/window-vertical-displacement 40
-dconf write /org/guake/general/use-trayicon false
-dconf write /org/guake/general/start-at-login true
-dconf write /org/guake/general/prompt-on-quit false
-dconf write /org/guake/general/window-height 25
-dconf write /org/guake/general/use-popup false
-dconf write /org/guake/general/gtk-use-system-default-theme true
-dconf write /org/guake/style/font/palette-name "'One Dark'"
+/usr/bin/dconf write /org/guake/keybindings/global/show-hide "'Scroll_Lock'"
+/usr/bin/dconf write /org/guake/general/window-refocus true
+/usr/bin/dconf write /org/guake/general/window-vertical-displacement 40
+/usr/bin/dconf write /org/guake/general/use-trayicon false
+/usr/bin/dconf write /org/guake/general/start-at-login true
+/usr/bin/dconf write /org/guake/general/prompt-on-quit false
+/usr/bin/dconf write /org/guake/general/window-height 25
+/usr/bin/dconf write /org/guake/general/use-popup false
+/usr/bin/dconf write /org/guake/general/gtk-use-system-default-theme true
+/usr/bin/dconf write /org/guake/style/font/palette-name "'One Dark'"
 
 # X-Terminal Settings
 ## DropdownPositionVertical=0 makes trouble for F11 & F12 in combinations (fullscreen & show/hide)
@@ -483,7 +485,7 @@ fi
 ## Hot keys
 ### Ctrl+F12 / Scroll Lock for Xterminal Drop-down
 /usr/bin/xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Ctrl>F12" -t string -s 'xfce4-terminal --drop-down'
-/usr/bin/xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Scroll_Lock" -t string -s 'xfce4-terminal --drop-down'
+/usr/bin/xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Pause" -t string -s 'xfce4-terminal --drop-down'
 ### Whisker menu
 /usr/bin/xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_L" -t string -s 'xfce4-popup-whiskermenu'
 /usr/bin/xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_R" -t string -s 'xfce4-popup-whiskermenu'
@@ -551,15 +553,16 @@ Scroll on the desktop to switch workspaces.
 "
 
 # Guake
-dconf write /org/guake/keybindings/global/show-hide "'F12'"
-dconf write /org/guake/general/window-vertical-displacement 40
-dconf write /org/guake/general/use-trayicon false
-dconf write /org/guake/general/start-at-login true
-dconf write /org/guake/general/prompt-on-quit false
-dconf write /org/guake/general/window-height 25
-dconf write /org/guake/general/use-popup false
-dconf write /org/guake/general/gtk-use-system-default-theme true
-dconf write /org/guake/style/font/palette-name "'One Dark'"
+/usr/bin/dconf write /org/guake/keybindings/global/show-hide "'Scroll_Lock'"
+/usr/bin/dconf write /org/guake/general/window-refocus true
+/usr/bin/dconf write /org/guake/general/window-vertical-displacement 40
+/usr/bin/dconf write /org/guake/general/use-trayicon false
+/usr/bin/dconf write /org/guake/general/start-at-login true
+/usr/bin/dconf write /org/guake/general/prompt-on-quit false
+/usr/bin/dconf write /org/guake/general/window-height 25
+/usr/bin/dconf write /org/guake/general/use-popup false
+/usr/bin/dconf write /org/guake/general/gtk-use-system-default-theme true
+/usr/bin/dconf write /org/guake/style/font/palette-name "'Ollie'"
 
 # X-Terminal Settings
 ## DropdownPositionVertical=0 makes trouble for F11 & F12 in combinations (fullscreen & show/hide)

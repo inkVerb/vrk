@@ -29,7 +29,7 @@ exit 22; fi
 
 # Check to make sure this is run as sudo, but not run by root
 ## If root or sudo
-if [ "$(id -u)" = "0" ]; then
+if [ "$(/usr/bin/id -u)" = "0" ]; then
 ## If sudo is NOT present
  if [ -z "${SUDO_COMMAND}" ]; then
 echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
@@ -45,7 +45,7 @@ sudo install-vrk-desktop
 "
 exit 22; fi
 
-# Check if Vrk Desktop installed (again)
+# Check if Vrk Desktop installed
 if [ -f /opt/vrk/.vrk-desktop-installed ]; then
 echo "Vrk Desktop already installed on this machine."
 exit 0; fi
@@ -131,7 +131,7 @@ fi
 /usr/bin/su worker -c '/usr/bin/yay -Syyu --noconfirm'
 /usr/bin/su worker -c '/usr/bin/yay -Scc --noconfirm'
 /usr/bin/su worker -c '/usr/bin/yay -Yc --noconfirm'
-touch $chkfile; fi
+/usr/bin/touch $chkfile; fi
 
 # Fonts
 chkfile=/opt/vrk/.inst-dsktp-1
@@ -156,7 +156,7 @@ sleep 1
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm ebgaramond-otf otf-bodoni '
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm otf-jost'
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm ttf-tahoma'
-touch $chkfile; fi
+/usr/bin/touch $chkfile; fi
 
 # Browsers, Thunderbird
 chkfile=/opt/vrk/.inst-dsktp-2
@@ -171,7 +171,7 @@ sleep 1
 /usr/bin/pacman -S --noconfirm --needed vivaldi vivaldi-ffmpeg-codecs
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm google-chrome'
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm microsoft-edge-stable-bin'
-touch $chkfile; fi
+/usr/bin/touch $chkfile; fi
 
 # Desktop Gestures
 chkfile=/opt/vrk/.inst-dsktp-3
@@ -184,7 +184,7 @@ Wallpaper
 sleep 1
 /usr/bin/pacman -S --noconfirm --needed touchegg
 /usr/bin/systemctl enable touchegg.service
-touch $chkfile; fi
+/usr/bin/touch $chkfile; fi
 
 # LibreOffice & OnlyOffice
 chkfile=/opt/vrk/.inst-dsktp-4
@@ -197,7 +197,7 @@ Office
 sleep 1
 /usr/bin/pacman -S --noconfirm --needed libreoffice
 /usr/bin/pacman -S --noconfirm --needed onlyoffice
-touch $chkfile; fi
+/usr/bin/touch $chkfile; fi
 
 # Terminal & text tools
 chkfile=/opt/vrk/.inst-dsktp-5
@@ -219,7 +219,7 @@ sleep 1
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm adduser'
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm gnome-shell-extension-installer'
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm vscodium-bin'
-touch $chkfile; fi
+/usr/bin/touch $chkfile; fi
 
 # Cloud
 chkfile=/opt/vrk/.inst-dsktp-6
@@ -234,7 +234,7 @@ sleep 1
 /usr/bin/pacman -S --noconfirm --needed filezilla
 /usr/bin/pacman -S --noconfirm --needed nextcloud-client
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm dropbox'
-touch $chkfile; fi
+/usr/bin/touch $chkfile; fi
 
 # Comm & VOIP
 chkfile=/opt/vrk/.inst-dsktp-7
@@ -249,7 +249,7 @@ sleep 1
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm skypeforlinux-stable-bin'
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm twinkle'
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm zoom'
-touch $chkfile; fi
+/usr/bin/touch $chkfile; fi
 
 # Media
 chkfile=/opt/vrk/.inst-dsktp-8
@@ -267,15 +267,17 @@ sleep 1
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm spotify'
 ### Fix Spotify bugs:
 pamac -S --noconfirm xd -desktop-portal-gtk
-## Share virtual screens
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm deskreen-bin'
-### Get old desktop monitor config (enabling mod vkms will re-write this setting, so lets put it back)
-old_monitor_setting="$(/usr/bin/su ${VRK_USER} -c "dconf read /org/gnome/shell/extensions/dash-to-panel/available-monitors")"
-### Enable the virtual monitor kernel mod
-/usr/bin/modprobe vkms
-### Restore the old desktop settings so the virtual monitor is off and the desktop arrangement doesn't change
-/usr/bin/su ${VRK_USER} -c "dconf write /org/gnome/shell/extensions/dash-to-panel/available-monitors '${old_monitor_setting}'"
-touch $chkfile; fi
+
+## Share virtual screens: Deskscreen (works)
+# /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm deskreen-bin'
+# ### Get old desktop monitor config (enabling mod vkms will re-write this setting, so lets put it back)
+# old_monitor_setting="$(/usr/bin/su ${VRK_USER} -c "dconf read /org/gnome/shell/extensions/dash-to-panel/available-monitors")"
+# ### Enable the virtual monitor kernel mod
+# /usr/bin/modprobe vkms
+# ### Restore the old desktop settings so the virtual monitor is off and the desktop arrangement doesn't change
+# #/usr/bin/su ${VRK_USER} -c "dconf write /org/gnome/shell/extensions/dash-to-panel/available-monitors '${old_monitor_setting}'"
+
+/usr/bin/touch $chkfile; fi
 
 # Disk Tools
 chkfile=/opt/vrk/.inst-dsktp-9
@@ -287,7 +289,7 @@ Disk Tools
 "
 sleep 1
 /usr/bin/pacman -S --noconfirm --needed gparted
-touch $chkfile; fi
+/usr/bin/touch $chkfile; fi
 
 # Remove every $chkfile
 rm /opt/vrk/.inst-dsktp-*
@@ -297,7 +299,7 @@ if [ "${VRK_DESKTOP_INSTALLED}" != "YES" ]; then
 sed -i "s/VRK_DESKTOP_INSTALLED=.*/VRK_DESKTOP_INSTALLED=\"YES\"/" /opt/vrk/machineinfo; fi
 if [ -z "${VRK_DESKTOP_INSTALLED}" ]; then
 echo "VRK_DESKTOP_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo; fi
-touch /opt/vrk/.vrk-desktop-installed
+/usr/bin/touch /opt/vrk/.vrk-desktop-installed
 
 # Cleanup
 /usr/bin/pacman -Rsc --noconfirm

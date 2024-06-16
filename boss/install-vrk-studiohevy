@@ -31,7 +31,7 @@ exit 22; fi
 
 # Check to make sure this is run as sudo, but not run by root
 ## If root or sudo
-if [ "$(id -u)" = "0" ]; then
+if [ "$(/usr/bin/id -u)" = "0" ]; then
 ## If sudo is NOT present
  if [ -z "${SUDO_COMMAND}" ]; then
 echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
@@ -47,23 +47,10 @@ sudo install-vrk-studiohevy
 "
 exit 22; fi
 
-# Check to make sure this is run as sudo, but not run by root
-## If root or sudo
-if [ "$(id -u)" = "0" ]; then
-## If sudo is NOT present
- if [ -z "${SUDO_COMMAND}" ]; then
-echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
-like this:
-sudo install-vrk-apps
-"
-exit 22; fi; fi
-## If sudo is NOT present
-if [ -z "${SUDO_COMMAND}" ]; then
-echo "Run this as a sudoer sudo, not merely as a sudoer.
-like this:
-sudo install-vrk-apps
-"
-exit 22; fi
+# Check if Vrk StudioHeavy installed
+if [ -f /opt/vrk/.vrk-studiohevy-installed ]; then
+echo "Vrk StudioHeavy already installed on this machine."
+exit 0; fi
 
 # Check for Internet connection
 /usr/bin/ping -c 1 -q google.com > /dev/null 2>&1
@@ -99,9 +86,10 @@ sleep 1
 /usr/bin/pacman -S --noconfirm --needed darktable
 /usr/bin/pacman -S --noconfirm --needed blender
 /usr/bin/pacman -S --noconfirm --needed scribus
+/usr/bin/pacman -S --noconfirm --needed krita
 /usr/bin/pacman -S --noconfirm --needed synfigstudio
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm pureref'
-touch $chkfile; fi
+/usr/bin/touch $chkfile; fi
 
 # Heavy Video
 chkfile=/opt/vrk/.inst-stuhv-2
@@ -115,7 +103,7 @@ sleep 1
 /usr/bin/pacman -S --noconfirm --needed kdenlive
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm subtitleedit'
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm subtitlecomposer'
-touch $chkfile; fi
+/usr/bin/touch $chkfile; fi
 
 # Heavy Audio
 chkfile=/opt/vrk/.inst-stuhv-3
@@ -132,7 +120,7 @@ sleep 1
 /usr/bin/pacman -S --noconfirm --needed ardour
 /usr/bin/pacman -S --noconfirm --needed mixxx
 /usr/bin/pacman -S --noconfirm --needed muse
-touch $chkfile; fi
+/usr/bin/touch $chkfile; fi
 
 # Disk Tools
 chkfile=/opt/vrk/.inst-stuhv-4
@@ -144,7 +132,7 @@ DVD Tools
 "
 sleep 1
 /usr/bin/pacman -S --noconfirm --needed brasero
-touch $chkfile; fi
+/usr/bin/touch $chkfile; fi
 
 # Wine
 chkfile=/opt/vrk/.inst-stuhv-5
@@ -157,19 +145,19 @@ Wine
 sleep 1
 /usr/bin/pacman -S --noconfirm --needed wine
 /usr/bin/pacman -S --noconfirm --needed winetricks
-touch $chkfile; fi
+/usr/bin/touch $chkfile; fi
 
-# Playonlinux
+# Steam
 chkfile=/opt/vrk/.inst-stuhv-6
 if [ ! -f "$chkfile" ]; then
 echo "
 #######
-Playonlinux
+Steam
 #######
 "
 sleep 1
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm playonlinux'
-touch $chkfile; fi
+/usr/bin/pacman -S --noconfirm --needed steam
+/usr/bin/touch $chkfile; fi
 
 # Remove every $chkfile
 rm /opt/vrk/.inst-stuhv-*
@@ -179,9 +167,7 @@ if [ "${VRK_STUDIOHEVY_INSTALLED}" != "YES" ]; then
 sed -i "s/VRK_STUDIOHEVY_INSTALLED=.*/VRK_STUDIOHEVY_INSTALLED=\"YES\"/" /opt/vrk/machineinfo; fi
 if [ -z "${VRK_STUDIOHEVY_INSTALLED}" ]; then
 echo "VRK_STUDIOHEVY_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo; fi
-touch /home/${SUDO_USER}/.vrk/configs/.studiohevy
-## Remove repo temp progress files
-rm -f /opt/vrk/.vrk-studiohevy-*
+/usr/bin/touch /opt/vrk/.vrk-studiohevy-installed
 
 # Cleanup
 /usr/bin/pacman -Rsc --noconfirm

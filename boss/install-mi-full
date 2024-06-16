@@ -26,7 +26,7 @@ exit 22; fi
 
 # Check to make sure this is run as sudo, but not run by root
 ## If root or sudo
-if [ "$(id -u)" = "0" ]; then
+if [ "$(/usr/bin/id -u)" = "0" ]; then
 ## If sudo is NOT present
  if [ -z "${SUDO_COMMAND}" ]; then
 echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
@@ -53,6 +53,9 @@ exit 22; fi
 
 # Vrk StudioHevy
 /opt/vrk/boss/install-vrk-studiohevy
+
+# Remove install progresses
+/usr/bin/rm -f /opt/vrk/.vrk-*-installed
 
 # Message
 echo "Now you can run set-mi-desktop"

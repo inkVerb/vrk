@@ -6,7 +6,7 @@
 
 # How to use:
 ## sudo install-vrk-developer
-## sudo install-vrk-desktop -r # To re-install without a prompt
+## sudo install-vrk-developer -r # To re-install without a prompt
 
 
 # Set user
@@ -30,7 +30,7 @@ exit 22; fi
 
 # Check to make sure this is run as sudo, but not run by root
 ## If root or sudo
-if [ "$(id -u)" = "0" ]; then
+if [ "$(/usr/bin/id -u)" = "0" ]; then
 ## If sudo is NOT present
  if [ -z "${SUDO_COMMAND}" ]; then
 echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
@@ -46,23 +46,10 @@ sudo install-vrk-developer
 "
 exit 22; fi
 
-# Check to make sure this is run as sudo, but not run by root
-## If root or sudo
-if [ "$(id -u)" = "0" ]; then
-## If sudo is NOT present
- if [ -z "${SUDO_COMMAND}" ]; then
-echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
-like this:
-sudo install-vrk-developer
-"
-exit 22; fi; fi
-## If sudo is NOT present
-if [ -z "${SUDO_COMMAND}" ]; then
-echo "Run this as a sudoer sudo, not merely as a sudoer.
-like this:
-sudo install-vrk-developer
-"
-exit 22; fi
+# Check if Vrk Developer installed
+if [ -f /opt/vrk/.vrk-developer-installed ]; then
+echo "Vrk Developer already installed on this machine."
+exit 0; fi
 
 # Check for Internet connection
 /usr/bin/ping -c 1 -q google.com > /dev/null 2>&1
@@ -96,7 +83,7 @@ Postman
 "
 sleep 1
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm postman-bin'
-touch $chkfile; fi
+/usr/bin/touch $chkfile; fi
 
 # GitLab
 chkfile=/opt/vrk/.inst-dev-2
@@ -108,7 +95,7 @@ Skipping GitLab, you can do that yourself
 "
 sleep 1
 #/usr/bin/pacman -S --noconfirm --needed gitlab
-touch $chkfile; fi
+/usr/bin/touch $chkfile; fi
 
 # BlackArch Repos
 chkfile=/opt/vrk/.inst-dev-3
@@ -125,31 +112,32 @@ echo 5ea40d49ecd14c2e024deecf90605426db97ea0c strap.sh | sha1sum -c
 /usr/bin/./strap.sh
 /usr/bin/pacman -Syu
 /usr/bin/rm -f ./strap.sh
+/usr/bin/touch $chkfile; fi
+
+# Slack
+chkfile=/opt/vrk/.inst-dev-4
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+Chat: Slack, WeeChat, Irssi
+#######
+"
+sleep 1
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm slack-desktop'
+/usr/bin/pacman -S --noconfirm --needed weechat irssi
+#/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm gitter-bin' # broken?
 touch $chkfile; fi
 
-# # Slack, Obsidian & Gitter
-# chkfile=/opt/vrk/.inst-dev-4
-# if [ ! -f "$chkfile" ]; then
-# echo "
-# #######
-# Slack, Obsidian & Gitter
-# #######
-# "
-# sleep 1
-# /usr/bin/pacman -S --noconfirm --needed obsidian
-# /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm slack-desktop'
-# /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm gitter-bin'
-# touch $chkfile; fi
-
-# # Figma
+# # Draw.io & Figma
 # chkfile=/opt/vrk/.inst-dev-5
 # if [ ! -f "$chkfile" ]; then
 # echo "
 # #######
-# Figma
+# Collaborate: Draw.io & Figma
 # #######
 # "
 # sleep 1
+# /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm drawio-desktop-bin'
 # /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm figma-linux-bin'
 # touch $chkfile; fi
 
@@ -158,23 +146,23 @@ touch $chkfile; fi
 # if [ ! -f "$chkfile" ]; then
 # echo "
 # #######
-# Swagger
+# RESTful API: Swagger
 # #######
 # "
 # sleep 1
 # /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm swagger-ui'
 # touch $chkfile; fi
 
-# # Draw.io
+# # Obsidian
 # chkfile=/opt/vrk/.inst-dev-7
 # if [ ! -f "$chkfile" ]; then
 # echo "
 # #######
-# Draw.io
+# Advanced Notes: Obsidian
 # #######
 # "
 # sleep 1
-# /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm drawio-desktop-bin'
+# /usr/bin/pacman -S --noconfirm --needed obsidian
 # touch $chkfile; fi
 
 # Remove every $chkfile
@@ -185,9 +173,7 @@ if [ "${VRK_DEVELOPER_INSTALLED}" != "YES" ]; then
 sed -i "s/VRK_DEVELOPER_INSTALLED=.*/VRK_DEVELOPER_INSTALLED=\"YES\"/" /opt/vrk/machineinfo; fi
 if [ -z "${VRK_DEVELOPER_INSTALLED}" ]; then
 echo "VRK_DEVELOPER_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo; fi
-touch /home/${SUDO_USER}/.vrk/configs/.Developer
-## Remove repo temp progress files
-rm -f /opt/vrk/.vrk-developer-*
+/usr/bin/touch /opt/vrk/.vrk-developer-installed
 
 # Cleanup
 /usr/bin/pacman -Rsc --noconfirm

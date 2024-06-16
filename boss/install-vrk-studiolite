@@ -30,7 +30,7 @@ exit 22; fi
 
 # Check to make sure this is run as sudo, but not run by root
 ## If root or sudo
-if [ "$(id -u)" = "0" ]; then
+if [ "$(/usr/bin/id -u)" = "0" ]; then
 ## If sudo is NOT present
  if [ -z "${SUDO_COMMAND}" ]; then
 echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
@@ -46,23 +46,10 @@ sudo install-vrk-studiolite
 "
 exit 22; fi
 
-# Check to make sure this is run as sudo, but not run by root
-## If root or sudo
-if [ "$(id -u)" = "0" ]; then
-## If sudo is NOT present
- if [ -z "${SUDO_COMMAND}" ]; then
-echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
-like this:
-sudo install-vrk-apps
-"
-exit 22; fi; fi
-## If sudo is NOT present
-if [ -z "${SUDO_COMMAND}" ]; then
-echo "Run this as a sudoer sudo, not merely as a sudoer.
-like this:
-sudo install-vrk-apps
-"
-exit 22; fi
+# Check if Vrk StudioLite installed
+if [ -f /opt/vrk/.vrk-studiolite-installed ]; then
+echo "Vrk StudioLite already installed on this machine."
+exit 0; fi
 
 # Check for Internet connection
 /usr/bin/ping -c 1 -q google.com > /dev/null 2>&1
@@ -99,7 +86,7 @@ sleep 1
 /usr/bin/pacman -S --noconfirm --needed pandoc
 /usr/bin/pacman -S --noconfirm --needed synfig
 /usr/bin/pacman -S --noconfirm --needed ffmpeg
-touch $chkfile; fi
+/usr/bin/touch $chkfile; fi
 
 # Graphic Design
 chkfile=/opt/vrk/.inst-stult-2
@@ -113,10 +100,10 @@ sleep 1
 /usr/bin/pacman -S --noconfirm --needed gimp
 /usr/bin/pacman -S --noconfirm --needed inkscape
 /usr/bin/pacman -S --noconfirm --needed mypaint
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm gimp-plugin-registry'
+#/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm gimp-plugin-registry' # broken
 ## CMYK for inkscape
-/opt/vrk/boss/install-pdfcmyk
-touch $chkfile; fi
+#/opt/vrk/boss/install-pdfcmyk #needs to be installed separately
+/usr/bin/touch $chkfile; fi
 
 # Video Making
 chkfile=/opt/vrk/.inst-stult-3
@@ -136,7 +123,7 @@ else
 fi
 /usr/bin/pacman -S --noconfirm --needed shotcut
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm key-mon'
-touch $chkfile; fi
+/usr/bin/touch $chkfile; fi
 
 # Audacity
 chkfile=/opt/vrk/.inst-stult-4
@@ -148,7 +135,7 @@ Audacity
 "
 sleep 1
 /usr/bin/pacman -S --noconfirm --needed audacity
-touch $chkfile; fi
+/usr/bin/touch $chkfile; fi
 
 # Earth & Star Charts
 chkfile=/opt/vrk/.inst-stult-5
@@ -162,7 +149,7 @@ sleep 1
 ##Dev stellarium retrieves dependencies directly while stellarium-bin bases everything on the AppImage from the vendor
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm stellarium-bin'
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm google-earth-pro'
-touch $chkfile; fi
+/usr/bin/touch $chkfile; fi
 
 # RSS
 chkfile=/opt/vrk/.inst-stult-6
@@ -176,7 +163,7 @@ sleep 1
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm rss-glx'
 killall xscreensaver > /dev/null 2>&1
 /usr/bin/rss-glx_install.pl # installs more screensavers, including Helios
-touch $chkfile; fi
+/usr/bin/touch $chkfile; fi
 
 # Remove every $chkfile
 rm /opt/vrk/.inst-stult-*
@@ -186,9 +173,7 @@ if [ "${VRK_STUDIOLITE_INSTALLED}" != "YES" ]; then
 sed -i "s/VRK_STUDIOLITE_INSTALLED=.*/VRK_STUDIOLITE_INSTALLED=\"YES\"/" /opt/vrk/machineinfo; fi
 if [ -z "${VRK_STUDIOLITE_INSTALLED}" ]; then
 echo "VRK_STUDIOLITE_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo; fi
-touch /home/${SUDO_USER}/.vrk/configs/.studiolite
-## Remove repo temp progress files
-rm -f /opt/vrk/.vrk-studiolite-*
+/usr/bin/touch /opt/vrk/.vrk-studiolite-installed
 
 # Cleanup
 /usr/bin/pacman -Rsc --noconfirm
