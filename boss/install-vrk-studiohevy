@@ -86,7 +86,6 @@ sleep 1
 /usr/bin/pacman -S --noconfirm --needed darktable
 /usr/bin/pacman -S --noconfirm --needed blender
 /usr/bin/pacman -S --noconfirm --needed scribus
-/usr/bin/pacman -S --noconfirm --needed krita
 /usr/bin/pacman -S --noconfirm --needed synfigstudio
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm pureref'
 /usr/bin/touch $chkfile; fi

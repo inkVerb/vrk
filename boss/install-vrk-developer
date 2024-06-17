@@ -126,20 +126,23 @@ sleep 1
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm slack-desktop'
 /usr/bin/pacman -S --noconfirm --needed weechat irssi
 #/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm gitter-bin' # broken?
-touch $chkfile; fi
-
 # # Draw.io & Figma
-# chkfile=/opt/vrk/.inst-dev-5
-# if [ ! -f "$chkfile" ]; then
-# echo "
-# #######
-# Collaborate: Draw.io & Figma
-# #######
-# "
-# sleep 1
 # /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm drawio-desktop-bin'
 # /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm figma-linux-bin'
-# touch $chkfile; fi
+touch $chkfile; fi
+
+# CPU Power GUI & GPU CLI Tools
+chkfile=/opt/vrk/.inst-dev-5
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+CPU Power GUI & GPU CLI Tools
+#######
+"
+sleep 1
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm cpupower-gui-git'
+/usr/bin/pacman -S --noconfirm --needed intel-gpu-tools
+touch $chkfile; fi
 
 # # Swagger
 # chkfile=/opt/vrk/.inst-dev-6

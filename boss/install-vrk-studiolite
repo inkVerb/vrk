@@ -73,12 +73,13 @@ Installing Vrk StudioLite...
 "
 sleep 1
 
-# Terminal Design Tools
+# Graphic Design CLI & CPU "Performance" Scaling Governor
+## We need the CPU working at "Performance" since this is a studio machine
 chkfile=/opt/vrk/.inst-stult-1
 if [ ! -f "$chkfile" ]; then
 echo "
 #######
-Terminal Design Tools
+Graphic Design CLI & CPU \"Performance\" Scaling Governor
 #######
 "
 sleep 1
@@ -86,20 +87,22 @@ sleep 1
 /usr/bin/pacman -S --noconfirm --needed pandoc
 /usr/bin/pacman -S --noconfirm --needed synfig
 /usr/bin/pacman -S --noconfirm --needed ffmpeg
+/usr/bin/cpupower frequency-set -g performance
 /usr/bin/touch $chkfile; fi
 
-# Graphic Design
+# Graphic Design GUI
 chkfile=/opt/vrk/.inst-stult-2
 if [ ! -f "$chkfile" ]; then
 echo "
 #######
-Graphic Design
+Graphic Design GUI
 #######
 "
 sleep 1
 /usr/bin/pacman -S --noconfirm --needed gimp
 /usr/bin/pacman -S --noconfirm --needed inkscape
 /usr/bin/pacman -S --noconfirm --needed mypaint
+/usr/bin/pacman -S --noconfirm --needed krita
 #/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm gimp-plugin-registry' # broken
 ## CMYK for inkscape
 #/opt/vrk/boss/install-pdfcmyk #needs to be installed separately
@@ -125,16 +128,31 @@ fi
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm key-mon'
 /usr/bin/touch $chkfile; fi
 
-# Audacity
+# Audacity + Audio Support: ALSA & RealTime User
 chkfile=/opt/vrk/.inst-stult-4
 if [ ! -f "$chkfile" ]; then
 echo "
 #######
-Audacity
+Audacity + Audio Support: ALSA & RealTime User
 #######
 "
 sleep 1
 /usr/bin/pacman -S --noconfirm --needed audacity
+/usr/bin/pacman -S --noconfirm --needed alsa-lib gcc-libs libx11
+# Realtime privileges
+/usr/bin/pacman -S --noconfirm --needed realtime-privileges
+for vuser in /home/*; do
+  vuser=$(/usr/bin/basename $vuser)
+  /usr/bin/usermod $vuser -a -G realtime
+done
+# Audio security limits (https://wiki.linuxaudio.org/wiki/system_configuration#limitsconfaudioconf)
+if [ ! -f "/etc/security/limits.d/audio.conf" ] || ! grep -qE "^[^#]+(rtprio).*$" /etc/security/limits.conf; then
+  /usr/bin/cat <<EOF > /etc/security/limits.d/audio.conf
+@audio - rtprio 90       # maximum realtime priority
+@audio - memlock unlimited  # maximum locked-in-memory address space (KB)
+EOF
+fi
+
 /usr/bin/touch $chkfile; fi
 
 # Earth & Star Charts
