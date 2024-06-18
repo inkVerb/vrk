@@ -245,8 +245,10 @@ Comm & VOIP
 #######
 "
 sleep 1
+/usr/bin/pacman -S --noconfirm --needed ifuse
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm discord'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm skypeforlinux-stable-bin'
+#/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm skypeforlinux-stable-bin' # broken/depreciated?
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm skypeforlinux-bin'
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm twinkle'
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm zoom'
 /usr/bin/touch $chkfile; fi
@@ -270,12 +272,12 @@ pamac -S --noconfirm xd -desktop-portal-gtk
 
 ## Share virtual screens: Deskscreen (works)
 # /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm deskreen-bin'
-# ### Get old desktop monitor config (enabling mod vkms will re-write this setting, so lets put it back)
-# old_monitor_setting="$(/usr/bin/su ${VRK_USER} -c "dconf read /org/gnome/shell/extensions/dash-to-panel/available-monitors")"
+# ### Get original desktop monitor config (enabling mod vkms will re-write this setting, so lets put it back)
+# orig_monitor_setting="$(/usr/bin/su ${VRK_USER} -c "dconf read /org/gnome/shell/extensions/dash-to-panel/available-monitors")"
 # ### Enable the virtual monitor kernel mod
 # /usr/bin/modprobe vkms
 # ### Restore the old desktop settings so the virtual monitor is off and the desktop arrangement doesn't change
-# #/usr/bin/su ${VRK_USER} -c "dconf write /org/gnome/shell/extensions/dash-to-panel/available-monitors '${old_monitor_setting}'"
+# #/usr/bin/su ${VRK_USER} -c "dconf write /org/gnome/shell/extensions/dash-to-panel/available-monitors '${orig_monitor_setting}'"
 
 /usr/bin/touch $chkfile; fi
 
