@@ -125,6 +125,7 @@ else
   /usr/bin/pacman -S --noconfirm --needed obs-studio
 fi
 /usr/bin/pacman -S --noconfirm --needed shotcut
+/usr/bin/pacman -S --noconfirm --needed openshot
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm key-mon'
 /usr/bin/touch $chkfile; fi
 
