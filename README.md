@@ -39,39 +39,44 @@ Scroll on the desktop to switch workspaces.
 
 ```console
 git clone https://github.com/inkVerb/vrk
-cd /vrk/inst
+cd vrk/inst
 chmod ug+x govrk
 sudo ./govrk $DESKTOP_SESSION
 ```
 
 - Answer the two simple folder questions carefully
-- The machine will reboot if you are installing the first time.
+- The machine will need to reboot if you are installing the first time.
+- Next choose your package kit and run:
+  - `sudo install-mi-dev` - Desktop settings, plus tools for developers
+  - `sudo install-mi-basic` - Desktop settings, plus tools for artists
+  - `sudo install-mi-all` - All of the above
 
 ### Other Users
 For a user that will not have boss/ folder permissions:
 
-`sudo install-vrk user`
+```console
+sudo install-vrk user
+```
 
-For a a user to have boss/ folder permissions:
+For a user to have boss/ folder permissions:
 
-`su SOMEUSER`
-
-`cd /opt/vrk/boss`
-
-`sudo ./install-vrk`
-
-`exit`
+```console
+su SomeUser
+cd /opt/vrk/boss
+sudo ./install-vrk
+exit
+```
 
 ### Updates
 - If already installed, the same install procedure will update instead.
 - Some specific features per user must be updated per user.
 - This will update the core and all users:
 
-`cd /vrk/inst`
-
-`chmod ug+x upvrk`
-
-`sudo ./upvrk $DESKTOP_SESSION`
+```console
+cd /vrk/inst
+chmod ug+x upvrk
+sudo ./upvrk $DESKTOP_SESSION
+```
 
 # Developer info
 
@@ -89,11 +94,6 @@ For a a user to have boss/ folder permissions:
 ## Vrk Cloud
 - This puts Work folder, Documents, Templates (GNOME) in a cloud folder of your choice
 - Install it from `sudo install-vrk-cloud` or `sudo install-vrk-cloud user`
-
-## Different installs
-- `install-mi-dev`: Desktop settings, plus tools for developers
-- `install-mi-basic`: Desktop settings, plus tools for artists
-- `install-mi-all`: All of the above
 
 ## Vrk tools
 - **Surfers**:Manage SSH profiles & FileZilla integration `surf/ssh-*`
