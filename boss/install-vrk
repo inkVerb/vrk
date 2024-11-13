@@ -150,6 +150,9 @@ else
 /usr/bin/sudo -u ${VRK_USER} sed -i "s/USER_BOSSYN=.*/USER_BOSSYN=\"NOT_BOSS\"/g" /home/${VRK_USER}/.vrk/configs/stationinfo
 fi
 
+## Not necessary since we:
+### install pipewire xdg-desktop-portal xdg-desktop-portal-wlr qt5-wayland qt5ct
+### And use pipewire Screen Captures in OBS
 # Turn off Wayland so OBS and other apps don't break
 /usr/bin/sed -i 's/#WaylandEnable=false/WaylandEnable=false/' /etc/gdm/custom.conf
 
@@ -223,6 +226,6 @@ echo "Your work folder is \"${VRK_WORK_DIR}\"."
 fi
 
 # Reboot
-if [ -n "first_install" ] && [ "first_install" = "true" ]; then
+if [ -n "$first_install" ] && [ "$first_install" = "true" ]; then
 echo "Make sure the vrk directory is gone, then reboot."
 fi

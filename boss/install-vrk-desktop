@@ -173,17 +173,20 @@ sleep 1
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm microsoft-edge-stable-bin'
 /usr/bin/touch $chkfile; fi
 
-# Desktop Gestures
+# Desktop Support
 chkfile=/opt/vrk/.inst-dsktp-3
 if [ ! -f "$chkfile" ]; then
 echo "
 #######
-Wallpaper
+Desktop Support
 #######
 "
 sleep 1
+## Touchpad Gestures
 /usr/bin/pacman -S --noconfirm --needed touchegg
 /usr/bin/systemctl enable touchegg.service
+## Make Wayland
+/usr/bin/pacman -S pipewire xdg-desktop-portal xdg-desktop-portal-wlr qt5-wayland qt5ct
 /usr/bin/touch $chkfile; fi
 
 # LibreOffice & OnlyOffice
@@ -209,6 +212,7 @@ Terminal & Text
 "
 sleep 1
 /usr/bin/pacman -S --noconfirm --needed htop ntp gedit gnome-text-editor vim nano
+/usr/bin/pacman -S --noconfirm --needed code
 /usr/bin/pacman -S --noconfirm --needed zip unzip curl wget
 /usr/bin/pacman -S --noconfirm --needed make gcc
 /usr/bin/pacman -S --noconfirm --needed autoconf net-tools inetutils man
@@ -218,7 +222,6 @@ sleep 1
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm xfce4-terminal'
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm adduser'
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm gnome-shell-extension-installer'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm vscodium-bin'
 /usr/bin/touch $chkfile; fi
 
 # Cloud

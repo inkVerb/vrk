@@ -97,22 +97,55 @@ sleep 1
 #/usr/bin/pacman -S --noconfirm --needed gitlab
 /usr/bin/touch $chkfile; fi
 
-# BlackArch Repos
+# ArchStrike Repos
+## From https://archstrike.org/wiki/setup
 chkfile=/opt/vrk/.inst-dev-3
 if [ ! -f "$chkfile" ]; then
 echo "
 #######
-BlackArch Repos
+ArchStrike Repos
 #######
 "
 sleep 1
-curl -O https://blackarch.org/strap.sh
-echo 5ea40d49ecd14c2e024deecf90605426db97ea0c strap.sh | sha1sum -c
-/usr/bin/chmod +x strap.sh
-/usr/bin/./strap.sh
-/usr/bin/pacman -Syu
-/usr/bin/rm -f ./strap.sh
+/usr/bin/cat <<'EOF' >> /etc/pacman.conf
+[archstrike]
+Server = https://mirror.archstrike.org/$arch/$repo
+EOF
+/usr/bin/pacman -Syy
+/usr/bin/pacman-key --init
+/usr/bin/dirmngr < /dev/null
+cd
+/usr/bin/wget https://archstrike.org/keyfile.asc
+if [ "$(/usr/bin/sha512sum keyfile.asc)" = "46997d19790b15f023b5e7c548d35f17f745a879ed035b8d1dbfc970dee502508951cf7ac1cd037921e2c7812c6bbe05f492d5df400882bf6c5ffdf1a10214e4  keyfile.asc" ]; then
+  /usr/bin/pacman-key --add keyfile.asc
+  /usr/bin/pacman-key --lsign-key 9D5F1C051D146843CDA4858BDE64825E7CBC0D51
+  /usr/bin/pacman-S archstrike-keyring
+  /usr/bin/pacman -S archstrike-mirrorlist
+  /usr/bin/sed -i 's?Server = https://mirror.archstrike.org/$arch/$repo?Include = /etc/pacman.d/archstrike-mirrorlist?' /etc/pacman.conf
+else
+  /usr/bin/sed -i '/Server = https:\/\/mirror.archstrike.org\/\$arch\/\$repo/d' pacman.conf
+  /usr/bin/sed -i '/[archstrike]/d' pacman.conf
+fi
+/usr/bin/pacman -Syy
 /usr/bin/touch $chkfile; fi
+
+#DEV replaced with ArchStrike (above)
+# # BlackArch Repos
+# chkfile=/opt/vrk/.inst-dev-3
+# if [ ! -f "$chkfile" ]; then
+# echo "
+# #######
+# BlackArch Repos
+# #######
+# "
+# sleep 1
+# curl -O https://blackarch.org/strap.sh
+# echo 5ea40d49ecd14c2e024deecf90605426db97ea0c strap.sh | sha1sum -c
+# /usr/bin/chmod +x strap.sh
+# /usr/bin/./strap.sh
+# /usr/bin/pacman -Syu
+# /usr/bin/rm -f ./strap.sh
+# /usr/bin/touch $chkfile; fi
 
 # Slack
 chkfile=/opt/vrk/.inst-dev-4
@@ -131,17 +164,30 @@ sleep 1
 # /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm figma-linux-bin'
 touch $chkfile; fi
 
-# CPU Power GUI & GPU CLI Tools
+# CPU, GPU, monitoring & other CLI Tools
 chkfile=/opt/vrk/.inst-dev-5
 if [ ! -f "$chkfile" ]; then
 echo "
 #######
-CPU Power GUI & GPU CLI Tools
+CPU, GPU, monitoring & other CLI Tools
 #######
 "
 sleep 1
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm cpupower-gui-git'
 /usr/bin/pacman -S --noconfirm --needed intel-gpu-tools
+/usr/bin/pacman -S --noconfirm --needed nmon atop bpytop glances bashtop tree
+touch $chkfile; fi
+
+# Code OSS
+chkfile=/opt/vrk/.inst-dev-6
+if [ ! -f "$chkfile" ]; then
+echo "
+#######
+VSCodium (In addition to already having Code OSS)
+#######
+"
+sleep 1
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm vscodium-bin'
 touch $chkfile; fi
 
 # # Swagger
