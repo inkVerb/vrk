@@ -185,8 +185,10 @@ sleep 1
 ## Touchpad Gestures
 /usr/bin/pacman -S --noconfirm --needed touchegg
 /usr/bin/systemctl enable touchegg.service
-## Make Wayland
+## Make Wayland work
 /usr/bin/pacman -S pipewire xdg-desktop-portal xdg-desktop-portal-wlr qt5-wayland qt5ct
+## Pipewire to support Jack as it should; replaces jack2
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm pipewire-jack'
 /usr/bin/touch $chkfile; fi
 
 # LibreOffice & OnlyOffice
