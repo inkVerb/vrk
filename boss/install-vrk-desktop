@@ -186,7 +186,7 @@ sleep 1
 /usr/bin/pacman -S --noconfirm --needed touchegg
 /usr/bin/systemctl enable touchegg.service
 ## Make Wayland work
-/usr/bin/pacman -S pipewire xdg-desktop-portal xdg-desktop-portal-wlr qt5-wayland qt5ct
+/usr/bin/pacman -S --noconfirm --needed pipewire xdg-desktop-portal xdg-desktop-portal-wlr qt5-wayland qt5ct
 ## Pipewire to support Jack as it should; replaces jack2
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm pipewire-jack'
 /usr/bin/touch $chkfile; fi
@@ -273,7 +273,7 @@ sleep 1
 ## Spotify
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm spotify'
 ### Fix Spotify bugs:
-pamac -S --noconfirm xd -desktop-portal-gtk
+/usr/bin/pamac -S --noconfirm --needed xd -desktop-portal-gtk
 
 ## Share virtual screens: Deskscreen (works)
 # /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm deskreen-bin'

@@ -114,13 +114,13 @@ EOF
 /usr/bin/pacman -Syy
 /usr/bin/pacman-key --init
 /usr/bin/dirmngr < /dev/null
-cd
+cd ~/
 /usr/bin/wget https://archstrike.org/keyfile.asc
 if [ "$(/usr/bin/sha512sum keyfile.asc)" = "46997d19790b15f023b5e7c548d35f17f745a879ed035b8d1dbfc970dee502508951cf7ac1cd037921e2c7812c6bbe05f492d5df400882bf6c5ffdf1a10214e4  keyfile.asc" ]; then
   /usr/bin/pacman-key --add keyfile.asc
   /usr/bin/pacman-key --lsign-key 9D5F1C051D146843CDA4858BDE64825E7CBC0D51
-  /usr/bin/pacman-S archstrike-keyring
-  /usr/bin/pacman -S archstrike-mirrorlist
+  /usr/bin/pacman -S --noconfirm --needed archstrike-keyring
+  /usr/bin/pacman -S --noconfirm --needed archstrike-mirrorlist
   /usr/bin/sed -i 's?Server = https://mirror.archstrike.org/$arch/$repo?Include = /etc/pacman.d/archstrike-mirrorlist?' /etc/pacman.conf
 else
   /usr/bin/sed -i '/Server = https:\/\/mirror.archstrike.org\/\$arch\/\$repo/d' pacman.conf
