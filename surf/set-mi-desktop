@@ -147,10 +147,10 @@ if [ "$LINUX_DESKTOP" = "gnome" ]; then
 /usr/bin/dconf write /org/gtk/gtk4/settings/file-chooser/sort-directories-first true
 
 # Workspace switching (defaults)
-/usr/bin/gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-left "['<Control><Alt>Left']"
-/usr/bin/gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-right "['<Control><Alt>Right']"
-/usr/bin/gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-up "['<Control><Alt>Up']"
-/usr/bin/gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-down "['<Control><Alt>Down']"
+/usr/bin/gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-left "['<Control><Alt>Left']"
+/usr/bin/gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-right "['<Control><Alt>Right']"
+/usr/bin/gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-up "['<Control><Alt>Up']"
+/usr/bin/gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-down "['<Control><Alt>Down']"
 
 # Password anytime screen turns back on (from lock or suspend)
 /usr/bin/gsettings set org.gnome.desktop.screensaver lock-enabled true
