@@ -248,7 +248,7 @@ if [ "$LINUX_DESKTOP" = "gnome" ]; then
 /usr/bin/gsettings set org.gnome.TextEditor spellcheck false
 
 # Codium Themes & extensions (if installed)
-if /usr/bin/codium -h > /dev/null && 2>&1; then
+if /usr/bin/codium -h > /dev/null 2>&1; then
     /usr/bin/codium --install-extension emroussel.atomize-atom-one-dark-theme
     /usr/bin/codium --install-extension opensumi.opensumi-default-themes
     /usr/bin/codium --install-extension PenumbraTheme.penumbra
