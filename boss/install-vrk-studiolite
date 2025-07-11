@@ -129,7 +129,7 @@ fi
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm key-mon'
 /usr/bin/touch $chkfile; fi
 
-# Audacity + Audio Support: ALSA & RealTime User
+# Audacity + Audio Mixers & Support
 chkfile=/opt/vrk/.inst-stult-4
 if [ ! -f "$chkfile" ]; then
 echo "
@@ -139,6 +139,9 @@ Audacity + Audio Support: ALSA & RealTime User
 "
 sleep 1
 /usr/bin/pacman -S --noconfirm --needed audacity
+/usr/bin/pacman -S --noconfirm --needed qjackctl
+/usr/bin/pacman -S --noconfirm --needed jack_mixer
+/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm pulsemeeter'
 /usr/bin/pacman -S --noconfirm --needed alsa-lib gcc-libs libx11
 # Realtime privileges
 /usr/bin/pacman -S --noconfirm --needed realtime-privileges
