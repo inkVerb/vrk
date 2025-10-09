@@ -153,8 +153,8 @@ fi
 ## Not necessary since we:
 ### install pipewire xdg-desktop-portal xdg-desktop-portal-wlr qt5-wayland qt5ct
 ### And use pipewire Screen Captures in OBS
-# Turn off Wayland so OBS and other apps don't break
-/usr/bin/sed -i 's/#WaylandEnable=false/WaylandEnable=false/' /etc/gdm/custom.conf
+## Turn off Wayland so OBS and other apps don't break
+#/usr/bin/sed -i 's/#WaylandEnable=false/WaylandEnable=false/' /etc/gdm/custom.conf
 
 # Other Jobs
 ## Locale (if after Lang Dirs change, it creates a dialogue at the next login. DO THIS FIRST!)
