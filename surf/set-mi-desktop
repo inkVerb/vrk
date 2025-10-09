@@ -142,7 +142,7 @@ if [ "$LINUX_DESKTOP" = "gnome" ]; then
 /usr/bin/gsettings set org.gnome.shell.app-switcher current-workspace-only true
 /usr/bin/gsettings set org.gnome.settings-daemon.plugins.power power-button-action 'interactive'
 /usr/bin/gsettings set org.gnome.shell.keybindings toggle-application-view "['<Ctrl>Super_L']"
-/usr/bin/gsettings set org.gnome.shell.keybindings toggle-overview "['<Super>']"
+/usr/bin/gsettings set org.gnome.shell.keybindings toggle-overview "['Super_L']"
 /usr/bin/gsettings set org.gnome.desktop.background show-desktop-icons true
 /usr/bin/dconf write /org/gtk/gtk4/settings/file-chooser/sort-directories-first true
 
@@ -174,7 +174,7 @@ if [ "$LINUX_DESKTOP" = "gnome" ]; then
 /usr/bin/gsettings set org.gnome.shell.extensions.arcmenu menu-button-icon 'Distro_Icon'
 #gsettings set org.gnome.shell.extensions.arcmenu menu-button-icon 'Arc_Menu_Icon'
 /usr/bin/gsettings set org.gnome.shell.extensions.arcmenu multi-monitor true
-/usr/bin/gsettings set org.gnome.shell.extensions.arcmenu arcmenu-hotkey 'Super_R'
+/usr/bin/gsettings set org.gnome.shell.extensions.arcmenu arcmenu-hotkey "['Super_R']"
 
 # Set theme & icons
 # Desktop theme for legacy applications
