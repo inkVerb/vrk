@@ -178,7 +178,7 @@ sleep 1
 /usr/bin/pacman -S --noconfirm --needed nmon atop bpytop glances bashtop tree
 touch $chkfile; fi
 
-# Code OSS
+# VSCodium
 chkfile=/opt/vrk/.inst-dev-6
 if [ ! -f "$chkfile" ]; then
 echo "
