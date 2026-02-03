@@ -169,6 +169,7 @@ Browsers & Email
 sleep 1
 /usr/bin/pacman -S --noconfirm --needed chromium firefox thunderbird
 /usr/bin/pacman -S --noconfirm --needed vivaldi vivaldi-ffmpeg-codecs
+/usr/bin/pacman -S --noconfirm --needed falkon
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm google-chrome'
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm microsoft-edge-stable-bin'
 /usr/bin/touch $chkfile; fi
@@ -270,6 +271,7 @@ sleep 1
 /usr/bin/pacman -S --noconfirm --needed rhythmbox
 /usr/bin/pacman -S --noconfirm --needed kid3
 /usr/bin/pacman -S --noconfirm --needed vlc
+/usr/bin/pacman -S --noconfirm --needed vlc-plugin-ffmpeg # compatibility codexes, ie iPhone videos
 ## Spotify
 /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm spotify'
 ### Fix Spotify bugs:
