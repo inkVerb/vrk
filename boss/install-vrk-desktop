@@ -93,7 +93,7 @@ sed -i "s:\\\W:\\\[\\\033[01;34m\\\]\\\w:g" /root/.bashrc
 
 # AUR manager
 ## worker user
-if /usr/bin/su worker -c 'echo hello' > /dev/null 2>&1 && /usr/bin/ls /opt/vrk/worker > /dev/null 2>&1; then
+if /usr/bin/sudo -u worker /bin/bash -c 'echo hello' > /dev/null 2>&1 && /usr/bin/ls /opt/vrk/worker > /dev/null 2>&1; then
   echo "worker user exists, moving on..."
 else
   ### Create worker user
@@ -118,9 +118,9 @@ if which yay > /dev/null 2>&1; then
 else
   ## Install AUR manager
   cd /opt/vrk/worker || exit 0
-  /usr/bin/su worker -c '/usr/bin/git clone https://aur.archlinux.org/yay.git'
+  /usr/bin/sudo -u worker /bin/bash -c '/usr/bin/git clone https://aur.archlinux.org/yay.git'
   cd yay || exit 0
-  /usr/bin/su worker -c '/usr/bin/makepkg -si --noconfirm'
+  /usr/bin/sudo -u worker /bin/bash -c '/usr/bin/makepkg -si --noconfirm'
   cd .. || exit 0
   /usr/bin/rm -rf yay
 fi
@@ -128,9 +128,9 @@ fi
 /usr/bin/ln -sfn /opt/vrk/donjon/yeo.sh /usr/local/bin/yeo
 
 ## Update yay
-/usr/bin/su worker -c '/usr/bin/yay -Syyu --noconfirm'
-/usr/bin/su worker -c '/usr/bin/yay -Scc --noconfirm'
-/usr/bin/su worker -c '/usr/bin/yay -Yc --noconfirm'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -Syyu --noconfirm'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -Scc --noconfirm'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -Yc --noconfirm'
 /usr/bin/touch $chkfile; fi
 
 # Fonts
@@ -147,15 +147,15 @@ sleep 1
 /usr/bin/pacman -S --noconfirm --needed ttf-ubuntu-font-family ttf-ibm-plex ttf-linux-libertine ttf-liberation gnu-free-fonts
 /usr/bin/pacman -S --noconfirm --needed gentium-plus-font ttf-dejavu ttf-junicode ttf-droid noto-fonts
 /usr/bin/pacman -S --noconfirm --needed adobe-source-han-sans-otc-fonts adobe-source-han-serif-otc-fonts adobe-source-sans-pro-fonts
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm ttf-mgopen culmus'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm font-bh-ttf'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm ttf-courier-prime'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm ttf-ms-fonts'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm ttf-vista-fonts'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm ttf-google-fonts-git'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm ebgaramond-otf otf-bodoni '
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm otf-jost'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm ttf-tahoma'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm ttf-mgopen culmus'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm font-bh-ttf'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm ttf-courier-prime'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm ttf-ms-fonts'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm ttf-vista-fonts'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm ttf-google-fonts-git'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm ebgaramond-otf otf-bodoni '
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm otf-jost'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm ttf-tahoma'
 /usr/bin/touch $chkfile; fi
 
 # Browsers, Thunderbird
@@ -170,8 +170,8 @@ sleep 1
 /usr/bin/pacman -S --noconfirm --needed chromium firefox thunderbird
 /usr/bin/pacman -S --noconfirm --needed vivaldi vivaldi-ffmpeg-codecs
 /usr/bin/pacman -S --noconfirm --needed falkon
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm google-chrome'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm microsoft-edge-stable-bin'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm google-chrome'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm microsoft-edge-stable-bin'
 /usr/bin/touch $chkfile; fi
 
 # Desktop Support
@@ -189,7 +189,7 @@ sleep 1
 ## Make Wayland work
 /usr/bin/pacman -S --noconfirm --needed pipewire xdg-desktop-portal xdg-desktop-portal-wlr qt5-wayland qt5ct
 ## Pipewire to support Jack as it should; replaces jack2
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm pipewire-jack'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm pipewire-jack'
 /usr/bin/touch $chkfile; fi
 
 # LibreOffice & OnlyOffice
@@ -222,9 +222,9 @@ sleep 1
 /usr/bin/pacman -S --noconfirm --needed cronie
 /usr/bin/pacman -S --noconfirm --needed openssh
 /usr/bin/pacman -S --noconfirm --needed guake
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm xfce4-terminal'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm adduser'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm gnome-shell-extension-installer'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm xfce4-terminal'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm adduser'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm gnome-shell-extension-installer'
 /usr/bin/touch $chkfile; fi
 
 # Cloud
@@ -239,7 +239,7 @@ sleep 1
 /usr/bin/pacman -S --noconfirm --needed openvpn
 /usr/bin/pacman -S --noconfirm --needed filezilla
 /usr/bin/pacman -S --noconfirm --needed nextcloud-client
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm dropbox'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm dropbox'
 /usr/bin/touch $chkfile; fi
 
 # Comm & VOIP
@@ -252,11 +252,11 @@ Comm & VOIP
 "
 sleep 1
 /usr/bin/pacman -S --noconfirm --needed ifuse
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm discord'
-#/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm skypeforlinux-stable-bin' # broken/depreciated?
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm skypeforlinux-bin'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm twinkle'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm zoom'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm discord'
+#/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm skypeforlinux-stable-bin' # broken/depreciated?
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm skypeforlinux-bin'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm twinkle'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm zoom'
 /usr/bin/touch $chkfile; fi
 
 # Media
@@ -273,12 +273,12 @@ sleep 1
 /usr/bin/pacman -S --noconfirm --needed vlc
 /usr/bin/pacman -S --noconfirm --needed vlc-plugin-ffmpeg # compatibility codexes, ie iPhone videos
 ## Spotify
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm spotify'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm spotify'
 ### Fix Spotify bugs:
 /usr/bin/pamac -S --noconfirm --needed xd -desktop-portal-gtk
 
 ## Share virtual screens: Deskscreen (works)
-# /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm deskreen-bin'
+# /usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm deskreen-bin'
 # ### Get original desktop monitor config (enabling mod vkms will re-write this setting, so lets put it back)
 # orig_monitor_setting="$(/usr/bin/su ${VRK_USER} -c "dconf read /org/gnome/shell/extensions/dash-to-panel/available-monitors")"
 # ### Enable the virtual monitor kernel mod
@@ -313,8 +313,8 @@ echo "VRK_DESKTOP_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo; fi
 # Cleanup
 /usr/bin/pacman -Rsc --noconfirm
 /usr/bin/pacman -Scc --noconfirm
-/usr/bin/su worker -c '/usr/bin/yay -Scc --noconfirm'
-/usr/bin/su worker -c '/usr/bin/yay -Yc --noconfirm'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -Scc --noconfirm'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -Yc --noconfirm'
 
 # Path
 export PATH=$PATH:/opt/vrk/surf:/opt/vrk/droids/ALL:/opt/vrk/droids/$USER

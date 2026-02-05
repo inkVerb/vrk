@@ -63,9 +63,9 @@ echo "No Internet connection. Connect, then try again."; exit 0; fi
 /usr/bin/pacman -Sy archlinux-keyring --noconfirm
 /usr/bin/pacman -Syy --noconfirm
 /usr/bin/pacman -Scc --noconfirm
-/usr/bin/su worker -c '/usr/bin/yay -Syy --noconfirm'
-/usr/bin/su worker -c '/usr/bin/yay -Scc --noconfirm'
-/usr/bin/su worker -c '/usr/bin/yay -Yc --noconfirm'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -Syy --noconfirm'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -Scc --noconfirm'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -Yc --noconfirm'
 
 # Message
 echo "
@@ -103,7 +103,7 @@ sleep 1
 /usr/bin/pacman -S --noconfirm --needed inkscape
 /usr/bin/pacman -S --noconfirm --needed mypaint
 /usr/bin/pacman -S --noconfirm --needed krita
-#/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm gimp-plugin-registry' # broken
+#/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm gimp-plugin-registry' # broken
 ## CMYK for inkscape
 #/opt/vrk/boss/install-pdfcmyk #needs to be installed separately
 /usr/bin/touch $chkfile; fi
@@ -120,13 +120,13 @@ sleep 1
 ## AMD or Nvidia?
 ### Test if AMD shows up in the graphics info
 if /usr/bin/lspci | /usr/bin/grep -i --color 'vga\|3d\|2d' | /usr/bin/grep -q AMD; then
-  /usr/bin/su worker -c '/usr/bin/yay -S obs-studio-amf --noconfirm'
+  /usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S obs-studio-amf --noconfirm'
 else
   /usr/bin/pacman -S --noconfirm --needed obs-studio
 fi
 /usr/bin/pacman -S --noconfirm --needed shotcut
 /usr/bin/pacman -S --noconfirm --needed openshot
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm key-mon'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm key-mon'
 /usr/bin/touch $chkfile; fi
 
 # Audacity + Audio Mixers & Support
@@ -141,7 +141,7 @@ sleep 1
 /usr/bin/pacman -S --noconfirm --needed audacity
 /usr/bin/pacman -S --noconfirm --needed qjackctl
 /usr/bin/pacman -S --noconfirm --needed jack_mixer
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm pulsemeeter'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm pulsemeeter'
 /usr/bin/pacman -S --noconfirm --needed alsa-lib gcc-libs libx11
 # Realtime privileges
 /usr/bin/pacman -S --noconfirm --needed realtime-privileges
@@ -169,8 +169,8 @@ Earth & Star Charts
 "
 sleep 1
 ##Dev stellarium retrieves dependencies directly while stellarium-bin bases everything on the AppImage from the vendor
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm stellarium-bin'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm google-earth-pro'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm stellarium-bin'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm google-earth-pro'
 /usr/bin/touch $chkfile; fi
 
 # RSS
@@ -182,7 +182,7 @@ Really Slick Screensavers
 #######
 "
 sleep 1
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm rss-glx'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm rss-glx'
 killall xscreensaver > /dev/null 2>&1
 /usr/bin/rss-glx_install.pl # installs more screensavers, including Helios
 /usr/bin/touch $chkfile; fi
@@ -200,8 +200,8 @@ echo "VRK_STUDIOLITE_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo; fi
 # Cleanup
 /usr/bin/pacman -Rsc --noconfirm
 /usr/bin/pacman -Scc --noconfirm
-/usr/bin/su worker -c '/usr/bin/yay -Scc --sudoflags "-A" --noconfirm'
-/usr/bin/su worker -c '/usr/bin/yay -Yc --noconfirm'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -Scc --sudoflags "-A" --noconfirm'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -Yc --noconfirm'
 
 # Finish
 echo "

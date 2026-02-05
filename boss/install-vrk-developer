@@ -63,9 +63,9 @@ echo "No Internet connection. Connect, then try again."; exit 0; fi
 /usr/bin/pacman -Sy archlinux-keyring --noconfirm
 /usr/bin/pacman -Syy --noconfirm
 /usr/bin/pacman -Scc --noconfirm
-/usr/bin/su worker -c '/usr/bin/yay -Syy --noconfirm'
-/usr/bin/su worker -c '/usr/bin/yay -Scc --noconfirm'
-/usr/bin/su worker -c '/usr/bin/yay -Yc --noconfirm'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -Syy --noconfirm'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -Scc --noconfirm'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -Yc --noconfirm'
 
 # Message
 echo "
@@ -82,7 +82,7 @@ Postman
 #######
 "
 sleep 1
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm postman-bin'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm postman-bin'
 /usr/bin/touch $chkfile; fi
 
 # GitLab
@@ -156,12 +156,12 @@ Chat: Slack, WeeChat, Irssi
 #######
 "
 sleep 1
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm slack-desktop'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm slack-desktop'
 /usr/bin/pacman -S --noconfirm --needed weechat irssi
-#/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm gitter-bin' # broken?
+#/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm gitter-bin' # broken?
 # # Draw.io & Figma
-# /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm drawio-desktop-bin'
-# /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm figma-linux-bin'
+# /usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm drawio-desktop-bin'
+# /usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm figma-linux-bin'
 touch $chkfile; fi
 
 # CPU, GPU, monitoring & other CLI Tools
@@ -173,7 +173,7 @@ CPU, GPU, monitoring & other CLI Tools
 #######
 "
 sleep 1
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm cpupower-gui-git'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm cpupower-gui-git'
 /usr/bin/pacman -S --noconfirm --needed intel-gpu-tools
 /usr/bin/pacman -S --noconfirm --needed nmon atop bpytop glances bashtop tree
 touch $chkfile; fi
@@ -187,7 +187,7 @@ VSCodium (In addition to already having Code OSS)
 #######
 "
 sleep 1
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm vscodium-bin'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm vscodium-bin'
 touch $chkfile; fi
 
 # # Swagger
@@ -199,7 +199,7 @@ touch $chkfile; fi
 # #######
 # "
 # sleep 1
-# /usr/bin/su worker -c '/usr/bin/yay -S --noconfirm swagger-ui'
+# /usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm swagger-ui'
 # touch $chkfile; fi
 
 # # Obsidian
@@ -227,8 +227,8 @@ echo "VRK_DEVELOPER_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo; fi
 # Cleanup
 /usr/bin/pacman -Rsc --noconfirm
 /usr/bin/pacman -Scc --noconfirm
-/usr/bin/su worker -c '/usr/bin/yay -Scc --noconfirm'
-/usr/bin/su worker -c '/usr/bin/yay -Yc --noconfirm'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -Scc --noconfirm'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -Yc --noconfirm'
 
 # Finish
 echo "

@@ -64,9 +64,9 @@ echo "No Internet connection. Connect, then try again."; exit 0; fi
 /usr/bin/pacman -Sy archlinux-keyring --noconfirm
 /usr/bin/pacman -Syy --noconfirm
 /usr/bin/pacman -Scc --noconfirm
-/usr/bin/su worker -c '/usr/bin/yay -Syy --noconfirm'
-/usr/bin/su worker -c '/usr/bin/yay -Scc --noconfirm'
-/usr/bin/su worker -c '/usr/bin/yay -Yc --noconfirm'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -Syy --noconfirm'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -Scc --noconfirm'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -Yc --noconfirm'
 
 # Message
 echo "
@@ -87,7 +87,7 @@ sleep 1
 /usr/bin/pacman -S --noconfirm --needed blender
 /usr/bin/pacman -S --noconfirm --needed scribus
 /usr/bin/pacman -S --noconfirm --needed synfigstudio
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm pureref'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm pureref'
 /usr/bin/touch $chkfile; fi
 
 # Heavy Video
@@ -100,8 +100,8 @@ Heavy Video
 "
 sleep 1
 /usr/bin/pacman -S --noconfirm --needed kdenlive
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm subtitleedit'
-/usr/bin/su worker -c '/usr/bin/yay -S --noconfirm subtitlecomposer'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm subtitleedit'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm subtitlecomposer'
 /usr/bin/touch $chkfile; fi
 
 # Heavy Audio
@@ -171,8 +171,8 @@ echo "VRK_STUDIOHEVY_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo; fi
 # Cleanup
 /usr/bin/pacman -Rsc --noconfirm
 /usr/bin/pacman -Scc --noconfirm
-/usr/bin/su worker -c '/usr/bin/yay -Scc --noconfirm'
-/usr/bin/su worker -c '/usr/bin/yay -Yc --noconfirm'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -Scc --noconfirm'
+/usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -Yc --noconfirm'
 
 # Finish
 echo "
