@@ -202,6 +202,7 @@ Office
 "
 sleep 1
 /usr/bin/pacman -S --noconfirm --needed libreoffice
+/usr/bin/pacman -S --noconfirm --needed hunspell hunspell-en_us # spell check packages
 /usr/bin/pacman -S --noconfirm --needed onlyoffice
 /usr/bin/touch $chkfile; fi
 
@@ -222,6 +223,7 @@ sleep 1
 /usr/bin/pacman -S --noconfirm --needed cronie
 /usr/bin/pacman -S --noconfirm --needed openssh
 /usr/bin/pacman -S --noconfirm --needed guake
+/usr/bin/pacman -S --noconfirm --needed gnome-shell-extension-vitals
 /usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm xfce4-terminal'
 /usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm adduser'
 /usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm gnome-shell-extension-installer'

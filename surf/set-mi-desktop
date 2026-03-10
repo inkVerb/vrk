@@ -169,6 +169,9 @@ if [ "$LINUX_DESKTOP" = "gnome" ]; then
 # /usr/bin/sed -i "s/^mode:.*/mode:           one/" ~/.xscreensaver
 # /usr/bin/sed -i "s/^selected:.*/selected:       $(/usr/bin/grep -wn helios ~/.xscreensaver | /usr/bin/cut -d: -f1)/" ~/.xscreensaver
 
+# System Monitor
+/usr/bin/gnome-extensions enable system-monitor@gnome-shell-extensions.gcampax.github.com
+
 # ArcMenu
 /usr/bin/gnome-extensions enable arcmenu@arcmenu.com
 /usr/bin/gsettings set org.gnome.shell.extensions.arcmenu menu-button-icon 'Distro_Icon'
