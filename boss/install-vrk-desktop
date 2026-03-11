@@ -169,7 +169,7 @@ Browsers & Email
 sleep 1
 /usr/bin/pacman -S --noconfirm --needed chromium firefox thunderbird
 /usr/bin/pacman -S --noconfirm --needed vivaldi vivaldi-ffmpeg-codecs
-/usr/bin/pacman -S --noconfirm --needed falkon
+/usr/bin/pacman -S --noconfirm --needed falkon epiphany
 /usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm google-chrome'
 /usr/bin/sudo -u worker /bin/bash -c '/usr/bin/yay -S --noconfirm microsoft-edge-stable-bin'
 /usr/bin/touch $chkfile; fi
