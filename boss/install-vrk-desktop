@@ -124,7 +124,7 @@ else
   cd .. || exit 0
   /usr/bin/rm -rf yay
 fi
-## Let's use the yeo helper
+## Let's use the yeo helper helper
 /usr/bin/ln -sfn /opt/vrk/donjon/yeo.sh /usr/local/bin/yeo
 
 ## Update yay
@@ -186,6 +186,10 @@ sleep 1
 ## Touchpad Gestures
 /usr/bin/pacman -S --noconfirm --needed touchegg
 /usr/bin/systemctl enable touchegg.service
+## Icons
+/usr/bin/pacman -S --noconfirm --needed papirus-icon-theme
+/usr/bin/pacman -S --noconfirm --needed breeze-icons
+/usr/bin/pacman -S --noconfirm --needed tela-circle-icon-theme-all
 ## Make Wayland work
 /usr/bin/pacman -S --noconfirm --needed pipewire xdg-desktop-portal xdg-desktop-portal-wlr qt5-wayland qt5ct
 ## Pipewire to support Jack as it should; replaces jack2
